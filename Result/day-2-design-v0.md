@@ -48,15 +48,17 @@ The executable TypeScript contract is in `lib/support-contract.ts`.
 | `validation_warnings`     | string[]       | Unsafe or incomplete model-output findings                                                                                                                              |
 | `processing_time_ms`      | integer        | Server-side review duration                                                                                                                                             |
 | `model`                   | string         | Model identifier used for the review                                                                                                                                    |
+| `generation_status`       | string         | `model` or the clearly labelled `deterministic_fallback` recovery path                                                                                                  |
+| `audit_status`            | string         | `recorded` or `unavailable`; review output is preserved if metadata logging fails                                                                                       |
 
 ### Error responses
 
-| HTTP | Code                | Meaning                                                   |
-| ---: | ------------------- | --------------------------------------------------------- |
-|  400 | `INVALID_JSON`      | Request body could not be parsed                          |
-|  400 | `MESSAGE_REQUIRED`  | Message is absent or empty                                |
-|  400 | `MESSAGE_TOO_LONG`  | Message exceeds 5,000 characters                          |
-|  503 | `MODEL_UNAVAILABLE` | The configured local model could not complete the request |
+| HTTP | Code               | Meaning                                                     |
+| ---: | ------------------ | ----------------------------------------------------------- |
+|  400 | `INVALID_JSON`     | Request body could not be parsed                            |
+|  400 | `MESSAGE_REQUIRED` | Message is absent or empty                                  |
+|  400 | `MESSAGE_TOO_LONG` | Message exceeds 5,000 characters                            |
+|  500 | `REVIEW_FAILED`    | An unexpected review-engine error prevented a safe response |
 
 Errors return `{ "error": "human-readable message", "code": "STABLE_CODE" }`.
 
@@ -83,7 +85,7 @@ Failure handling:
 
 - malformed requests return stable 400 errors;
 - an invalid model response receives one JSON-only retry;
-- an unavailable model returns a useful 503 error;
+- invalid or unavailable model output is retried once, then returns a clearly labelled deterministic fallback that requires approval;
 - unsafe or incomplete drafts are replaced with a deterministic safe response;
 - an unmatched request uses `GEN-00` general triage rather than an unrelated policy;
 - an unavailable audit database does not discard an otherwise valid review.

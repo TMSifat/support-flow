@@ -77,6 +77,10 @@ finalData.summary.guardrail_corrections = corrections;
 finalData.summary.human_approval_cases = approvalCases;
 finalData.summary.human_approval_rate_on_risk_weighted_test_set =
   approvalCases / outputCases.length;
+finalData.summary.manual_touch_target = 0.5;
+finalData.summary.manual_touch_target_met =
+  finalData.summary.human_approval_rate_on_risk_weighted_test_set <=
+  finalData.summary.manual_touch_target;
 
 await writeFile(finalPath, JSON.stringify(finalData, null, 2) + '\n', 'utf8');
 
@@ -103,10 +107,17 @@ const finalSummary = [
   `| p95 processing time | ${(finalData.summary.p95_processing_time_ms / 1000).toFixed(2)} s |`,
   `| Unsafe/incomplete model drafts corrected by guardrails | ${corrections} |`,
   `| Critical failures after correction | ${finalData.summary.critical_failures} |`,
+  `| Escalation recall | ${percent(finalData.summary.escalation_recall)} |`,
+  `| Escalation precision | ${percent(finalData.summary.escalation_precision)} |`,
+  `| Required-content pass rate | ${percent(finalData.summary.required_content_pass_rate)} |`,
+  `| Unsupported promises after guardrails | ${finalData.summary.unsupported_promise_count} |`,
+  `| External API cost | $${finalData.summary.external_api_cost_usd.toFixed(2)} |`,
   '',
   '## Human intervention',
   '',
   `${approvalCases} of ${outputCases.length} non-empty evaluation cases require approval. The evaluation set intentionally over-samples refunds, replacements, security, legal, compatibility, and cancellation risks, so this is a safety stress-test rate rather than an expected production workload rate.`,
+  '',
+  `The pre-registered manual-touch target was 50% or less. The observed ${percent(finalData.summary.human_approval_rate_on_risk_weighted_test_set)} rate does not meet that automation target; safety performance improved, but manual-touch reduction was not demonstrated on this risk-weighted suite.`,
   '',
   '## Conclusion',
   '',

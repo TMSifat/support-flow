@@ -19,6 +19,7 @@
 - [x] Baseline versus final comparison
 - [x] Pass/fail and failure analysis
 - [x] Quality and speed metrics
+- [x] Cost, escalation recall/precision, and human-intervention metrics
 - [x] Day 4 paraphrase and multi-intent before/after regression
 - [x] Deterministic required-content, unsafe-action, and privacy checks
 - [x] Disclosed candidate-proxy execution and candidate evaluation sign-off

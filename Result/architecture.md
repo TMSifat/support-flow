@@ -14,8 +14,9 @@ Convert one unstructured customer-support message into a policy-grounded, review
 6. The local Ollama model produces a structured classification, rationale, facts, missing information, and reply draft.
 7. The validator checks category, urgency, approval state, and unsupported-action phrases.
 8. Deterministic guardrails override unsafe model decisions and replace an unsafe draft with a safe category template.
-9. The interface shows the policy, confidence, approval boundary, and editable reply.
-10. The operator retains approval and sending authority.
+9. If both model attempts fail, the system returns a clearly labelled deterministic fallback with zero confidence and mandatory operator approval.
+10. The interface shows the policy, confidence, generation source, approval boundary, and editable reply.
+11. The operator retains approval and sending authority.
 
 ## Components
 
@@ -65,8 +66,8 @@ Approval is mandatory for refunds, replacements, delivery promises, order cancel
 ## Fallbacks and failure handling
 
 - Invalid input returns a specific 400 response.
-- Unavailable model returns a specific 503 response.
-- Invalid model JSON triggers one retry.
+- Invalid or unavailable model output triggers one retry.
+- A second model failure returns a deterministic safe reply, zero confidence, a visible warning, and mandatory approval.
 - Unsafe action claims trigger a deterministic safe-draft fallback.
 - Policy and rule decisions remain available independently of model wording.
 

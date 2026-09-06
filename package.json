@@ -12,6 +12,7 @@
     "lint": "oxlint",
     "format": "oxfmt",
     "db:generate": "drizzle-kit generate",
+    "db:local:setup": "wrangler d1 execute site-creator-d1 --local --config wrangler.local.jsonc --file scripts/local-d1-schema.sql --yes",
     "day2:verify": "node scripts/verify-day-2-v0.mjs",
     "day3:verify": "node scripts/verify-day-3-core.mjs",
     "day4:challenge": "node scripts/run-day-4-challenge.mjs",

@@ -529,7 +529,36 @@ export async function reviewSupportTicket(
         timeoutMs,
       );
     } catch {
-      throw firstError;
+      const category = guardrail.category ?? 'other';
+      console.warn(
+        'Model response unavailable after retry; deterministic fallback used:',
+        firstError instanceof Error
+          ? firstError.message
+          : 'unknown model error',
+      );
+
+      return {
+        category,
+        urgency: guardrail.forcedUrgency ?? guardrail.urgency,
+        confidence: 0,
+        facts: [],
+        missing_information: [],
+        policy_matches: [{ id: policy.id, title: policy.title }],
+        recommended_action:
+          'Review the deterministic fallback and verify the matched policy before use.',
+        requires_human_approval: true,
+        approval_reason:
+          [...guardrail.reasons, 'Model fallback requires operator approval']
+            .filter(Boolean)
+            .join('; ') || 'Model fallback requires operator approval',
+        draft_reply: safeReplies[category]!,
+        validation_warnings: [
+          'Model response unavailable after retry; deterministic fallback used.',
+        ],
+        processing_time_ms: Math.round(performance.now() - started),
+        model,
+        generation_status: 'deterministic_fallback',
+      };
     }
   }
 
@@ -589,5 +618,6 @@ export async function reviewSupportTicket(
     validation_warnings: warnings,
     processing_time_ms: Math.round(performance.now() - started),
     model,
+    generation_status: 'model',
   };
 }

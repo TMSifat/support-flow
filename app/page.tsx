@@ -254,6 +254,14 @@ export default function Home() {
                         : 'Unavailable'
                     }
                   />
+                  <ReviewItem
+                    label="Generation"
+                    value={
+                      review.generation_status === 'deterministic_fallback'
+                        ? 'Safe fallback'
+                        : 'Local model'
+                    }
+                  />
                 </dl>
 
                 {review.approval_reason && (

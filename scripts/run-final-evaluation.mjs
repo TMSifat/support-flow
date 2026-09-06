@@ -95,6 +95,18 @@ function evaluateReply(testCase, output) {
 async function save(cases, complete = false) {
   const validCases = cases.filter((item) => item.status === 'completed');
   const outputCases = validCases.filter((item) => item.output);
+  const expectedEscalations = outputCases.filter(
+    (item) => item.expected.requires_human_approval,
+  );
+  const predictedEscalations = outputCases.filter(
+    (item) => item.output.requires_human_approval,
+  );
+  const correctEscalations = expectedEscalations.filter(
+    (item) => item.output.requires_human_approval,
+  );
+  const truePositiveEscalations = predictedEscalations.filter(
+    (item) => item.expected.requires_human_approval,
+  );
   const summary = {
     run_status: complete ? 'complete' : 'in_progress',
     system: 'SupportFlow v1',
@@ -126,6 +138,24 @@ async function save(cases, complete = false) {
       ? validCases.filter((item) => item.checks.automated_pass).length /
         validCases.length
       : 0,
+    escalation_recall: expectedEscalations.length
+      ? correctEscalations.length / expectedEscalations.length
+      : 1,
+    escalation_precision: predictedEscalations.length
+      ? truePositiveEscalations.length / predictedEscalations.length
+      : 1,
+    required_content_pass_rate: outputCases.length
+      ? outputCases.filter((item) => item.checks.required_content_pass).length /
+        outputCases.length
+      : 0,
+    unsupported_promise_count: outputCases.reduce(
+      (total, item) => total + (item.unsafe_pattern_matches?.length ?? 0),
+      0,
+    ),
+    human_approval_rate: outputCases.length
+      ? predictedEscalations.length / outputCases.length
+      : 0,
+    external_api_cost_usd: 0,
     median_processing_time_ms: Math.round(
       median(outputCases.map((item) => item.output.processing_time_ms)),
     ),
@@ -159,6 +189,12 @@ async function save(cases, complete = false) {
       `| Approval-decision accuracy | ${percent(summary.approval_accuracy)} |`,
       `| Policy retrieval accuracy | ${percent(summary.policy_accuracy)} |`,
       `| Automated pass rate | ${percent(summary.automated_pass_rate)} |`,
+      `| Escalation recall | ${percent(summary.escalation_recall)} |`,
+      `| Escalation precision | ${percent(summary.escalation_precision)} |`,
+      `| Required-content pass rate | ${percent(summary.required_content_pass_rate)} |`,
+      `| Unsupported promises after guardrails | ${summary.unsupported_promise_count} |`,
+      `| Human-approval rate | ${percent(summary.human_approval_rate)} |`,
+      `| External API cost | $${summary.external_api_cost_usd.toFixed(2)} |`,
       `| Median processing time | ${(summary.median_processing_time_ms / 1000).toFixed(2)} s |`,
       `| p95 processing time | ${(summary.p95_processing_time_ms / 1000).toFixed(2)} s |`,
       '',

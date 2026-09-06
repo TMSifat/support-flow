@@ -28,7 +28,7 @@ Then open http://localhost:3000.
 
 - Message is required: paste non-empty ticket text.
 - Message too long: reduce it below 5,000 characters.
-- Local model unavailable: start Ollama and confirm llama3.1:8b is installed.
+- Safe fallback shown: the model failed twice. Verify the matched policy and draft carefully; explicit approval is mandatory.
 - Audit history unavailable: the database migration is missing; reviews can still run, but the operator should notify the maintainer.
 
 ## Quality check before sending

@@ -7,7 +7,11 @@ export async function GET(request: Request) {
 
   try {
     const result = await listRecentReviews(limit);
-    return Response.json({ reviews: result.results ?? [] });
+    const reviews = (result.results ?? []).map((review) => ({
+      ...review,
+      requiresApproval: Boolean(review.requiresApproval),
+    }));
+    return Response.json({ reviews });
   } catch {
     return Response.json(
       {

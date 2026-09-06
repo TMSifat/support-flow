@@ -16,9 +16,9 @@ SupportFlow turns an unstructured customer message into a structured support rev
 | Approval accuracy      |                     75% |         **100%** |  +25 pp |
 | Policy retrieval       |           Not available |         **100%** |   Added |
 | Critical failures      |                       3 |            **0** |      −3 |
-| Median processing time |                  1.60 s |           2.38 s | +0.78 s |
+| Median processing time |                  1.60 s |           2.19 s | +0.60 s |
 
-A separate paraphrase and multi-intent challenge suite improved from **2/12 to 12/12** after Day 4 hardening. Four unsafe or incomplete model drafts in the final frozen run were corrected by guardrails before operator review.
+A separate paraphrase and multi-intent challenge suite improved from **2/12 to 12/12** after Day 4 hardening. Three unsafe or incomplete model drafts in the latest frozen run were corrected by guardrails before operator review.
 
 See the [full comparison](Result/comparison.md), [raw final results](Result/final-results.json), and [failure analysis](Result/failure-analysis.md).
 
@@ -85,7 +85,7 @@ powershell -ExecutionPolicy Bypass -File scripts/start-supportflow.ps1
 
 Open [http://localhost:3000](http://localhost:3000), paste a ticket, and select **Review ticket**.
 
-The startup script checks Ollama, verifies the configured model, applies the local D1 migration, and starts SupportFlow. No API key is required.
+The startup script loads the supported `.env` settings, checks Ollama, verifies the configured model, creates the local D1 schema idempotently, and starts SupportFlow. No API key is required.
 
 ## Configuration
 
@@ -144,7 +144,7 @@ Result/              Raw evidence and submission-ready documentation
 ## Reliability and privacy
 
 - Empty or oversized input receives a clear validation error without calling the model.
-- Invalid model JSON is retried once; remaining failures use a safe category-specific fallback.
+- Invalid or unavailable model output is retried once; a second failure returns a clearly labelled category-specific fallback that always requires operator approval.
 - Passwords and full card-number patterns are redacted before inference.
 - Customer-message text is not stored in the audit database.
 - Production dependencies currently report zero known vulnerabilities.

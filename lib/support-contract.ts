@@ -34,6 +34,7 @@ export type SupportReview = {
   validation_warnings: string[];
   processing_time_ms: number;
   model: string;
+  generation_status: 'model' | 'deterministic_fallback';
   audit_status?: 'recorded' | 'unavailable';
 };
 
@@ -41,7 +42,7 @@ export type ReviewErrorCode =
   | 'INVALID_JSON'
   | 'MESSAGE_REQUIRED'
   | 'MESSAGE_TOO_LONG'
-  | 'MODEL_UNAVAILABLE';
+  | 'REVIEW_FAILED';
 
 export type ReviewError = {
   error: string;

@@ -41,13 +41,13 @@ Show:
 
 Explain that the password is redacted before inference and that the system does not claim it locked the account or sent a link.
 
-Optionally stop Ollama briefly or explain the tested 503 response; do not interrupt the live demo if time is limited.
+Show that Copy draft remains blocked until approval. Approve the draft, show Copy draft unlock, then edit one character and show that approval resets. Explain that a separately tested double model failure produces a labelled zero-confidence safe fallback instead of an autonomous answer.
 
 ## 3:30–4:25 — Evaluation
 
 Show comparison.md.
 
-“I froze 12 representative, edge, and failure cases before the final run. The same model was used for baseline and final. Full-rubric pass rate increased from 8% to 100%, critical failures fell from three to zero, and median latency increased from 1.60 to 2.38 seconds. A separate challenge suite improved from 2/12 to 12/12 after hardening.”
+“I froze 12 representative, edge, and failure cases before the final run. The same model was used for baseline and final. Full-rubric pass rate increased from 8% to 100%, critical failures fell from three to zero, and median latency increased from 1.60 to 2.19 seconds. A separate challenge suite improved from 2/12 to 12/12 after hardening.”
 
 ## 4:25–5:00 — Limitation and next step
 

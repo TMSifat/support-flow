@@ -62,11 +62,13 @@ Raw evidence: `day-4-challenge-before.json`.
 | ----------------------------------- | --------------------: | --------------------: |
 | Cases completed                     |                 12/12 |                 12/12 |
 | Full automated + semantic pass rate |                  100% |                  100% |
-| Median processing time              |                2.38 s |                1.89 s |
-| p95 processing time                 |                2.73 s |          Not reported |
+| Median processing time              |                2.19 s |                1.94 s |
+| p95 processing time                 |                2.62 s |          Not reported |
 | Critical failures after guardrails  |                     0 |                     0 |
 
-The fresh frozen-suite run recorded four model drafts corrected by guardrails. The challenge run exercised four corrections. Eight of eleven non-empty frozen cases required consequential human approval; this is a deliberately risk-heavy suite and not a production manual-touch estimate.
+The latest frozen-suite run recorded three model drafts corrected by guardrails. The challenge run exercised five corrections. Eight of eleven non-empty frozen cases required consequential human approval; this is a deliberately risk-heavy suite and not a production manual-touch estimate.
+
+The 73% approval rate does not meet the pre-registered manual-touch target of 50% or less. The sprint demonstrated safety and decision consistency, but did not demonstrate reduced human intervention on this risk-weighted suite.
 
 External API cost was $0 because inference used the local Ollama model. Local hardware time and electricity were not measured.
 
@@ -75,7 +77,7 @@ Raw evidence: `final-results.json` and `day-4-challenge-after.json`.
 ## Evaluation integrity changes
 
 - The final evaluator now checks required reply content, forbidden behavior, sensitive-value echo, unsupported action claims, and approval rationale in addition to category, urgency, policy, approval, and output structure.
-- The result no longer labels generated review notes as completed human review. Deterministic semantic review is complete; candidate sign-off is explicitly pending.
+- The result does not label generated review notes as independent human review. Deterministic semantic review and disclosed candidate sign-off are complete; independent target-user review remains pending.
 - The original frozen test cases were not edited.
 
 ## Remaining limitations

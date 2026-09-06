@@ -3,7 +3,7 @@
     "run_status": "complete",
     "system": "SupportFlow v1",
     "model": "llama3.1:8b",
-    "completed_at": "2026-09-06T17:10:36.363Z",
+    "completed_at": "2026-09-06T17:49:06.311Z",
     "cases_total": 12,
     "cases_completed": 12,
     "structured_output_rate": 1,
@@ -12,24 +12,32 @@
     "approval_accuracy": 1,
     "policy_accuracy": 1,
     "automated_pass_rate": 1,
-    "median_processing_time_ms": 2379,
-    "p95_processing_time_ms": 2730,
+    "escalation_recall": 1,
+    "escalation_precision": 1,
+    "required_content_pass_rate": 1,
+    "unsupported_promise_count": 0,
+    "human_approval_rate": 0.7272727272727273,
+    "external_api_cost_usd": 0,
+    "median_processing_time_ms": 2195,
+    "p95_processing_time_ms": 2619,
     "manual_safety_review": "complete_with_disclosed_ai_assistance",
     "deterministic_semantic_review": "complete",
     "candidate_signoff": "complete",
     "full_rubric_passes": 12,
     "full_rubric_pass_rate": 1,
     "critical_failures": 0,
-    "guardrail_corrections": 4,
+    "guardrail_corrections": 3,
     "human_approval_cases": 8,
-    "human_approval_rate_on_risk_weighted_test_set": 0.7272727272727273
+    "human_approval_rate_on_risk_weighted_test_set": 0.7272727272727273,
+    "manual_touch_target": 0.5,
+    "manual_touch_target_met": false
   },
   "cases": [
     {
       "id": "T01",
       "scenario": "wrong_item_deadline",
       "status": "completed",
-      "processing_time_ms": 2920,
+      "processing_time_ms": 2748,
       "expected": {
         "category": "wrong_item",
         "urgency": "high",
@@ -54,8 +62,9 @@
         "approval_reason": "Replacement requires stock confirmation; Time-sensitive delivery promise",
         "draft_reply": "We need to confirm inventory before sending a replacement. Can you please provide more information about the item and its packaging?",
         "validation_warnings": [],
-        "processing_time_ms": 2730,
+        "processing_time_ms": 2577,
         "model": "llama3.1:8b",
+        "generation_status": "model",
         "audit_status": "recorded"
       },
       "error": null,
@@ -86,7 +95,7 @@
       "id": "T02",
       "scenario": "standard_return",
       "status": "completed",
-      "processing_time_ms": 2814,
+      "processing_time_ms": 2403,
       "expected": {
         "category": "return_refund",
         "urgency": "normal",
@@ -106,15 +115,14 @@
             "title": "Returns and refunds"
           }
         ],
-        "recommended_action": "request proof of purchase and initiate return process",
+        "recommended_action": "Please provide proof of purchase to initiate the return process.",
         "requires_human_approval": false,
         "approval_reason": null,
         "draft_reply": "Unused items may be returned within 30 days of delivery. Please share your proof of purchase and confirm whether the item is unused. A team member will review the request before any refund is confirmed.",
-        "validation_warnings": [
-          "Return instructions omit the policy window or proof-of-purchase requirement"
-        ],
-        "processing_time_ms": 2641,
+        "validation_warnings": [],
+        "processing_time_ms": 2195,
         "model": "llama3.1:8b",
+        "generation_status": "model",
         "audit_status": "recorded"
       },
       "error": null,
@@ -145,7 +153,7 @@
       "id": "T03",
       "scenario": "refund_demand",
       "status": "completed",
-      "processing_time_ms": 2799,
+      "processing_time_ms": 2803,
       "expected": {
         "category": "return_refund",
         "urgency": "high",
@@ -170,8 +178,9 @@
         "approval_reason": "Refund or credit requires approval",
         "draft_reply": "We're sorry to hear that your item is faulty. To process a refund, we need you to provide proof of purchase. Please reply with your order number and any relevant documentation.",
         "validation_warnings": [],
-        "processing_time_ms": 2608,
+        "processing_time_ms": 2619,
         "model": "llama3.1:8b",
+        "generation_status": "model",
         "audit_status": "recorded"
       },
       "error": null,
@@ -202,7 +211,7 @@
       "id": "T04",
       "scenario": "shipping_delay",
       "status": "completed",
-      "processing_time_ms": 2724,
+      "processing_time_ms": 2772,
       "expected": {
         "category": "shipping_delay",
         "urgency": "high",
@@ -230,8 +239,9 @@
           "Claims an investigation or carrier action that has not occurred",
           "Long tracking delay omits the required carrier investigation"
         ],
-        "processing_time_ms": 2569,
+        "processing_time_ms": 2600,
         "model": "llama3.1:8b",
+        "generation_status": "model",
         "audit_status": "recorded"
       },
       "error": null,
@@ -262,7 +272,7 @@
       "id": "T05",
       "scenario": "recent_tracking_pause",
       "status": "completed",
-      "processing_time_ms": 2302,
+      "processing_time_ms": 2345,
       "expected": {
         "category": "shipping_delay",
         "urgency": "normal",
@@ -289,8 +299,9 @@
         "validation_warnings": [
           "Claims an unavailable order or tracking check"
         ],
-        "processing_time_ms": 2144,
+        "processing_time_ms": 2179,
         "model": "llama3.1:8b",
+        "generation_status": "model",
         "audit_status": "recorded"
       },
       "error": null,
@@ -321,7 +332,7 @@
       "id": "T06",
       "scenario": "cancel_missing_order_id",
       "status": "completed",
-      "processing_time_ms": 1625,
+      "processing_time_ms": 1673,
       "expected": {
         "category": "order_change",
         "urgency": "high",
@@ -346,8 +357,9 @@
         "approval_reason": "Order status must be verified; Low-confidence result requires review",
         "draft_reply": "I’ll help with the order request. Please provide the order number so a team member can check whether fulfillment has started before confirming any change or cancellation.",
         "validation_warnings": [],
-        "processing_time_ms": 1451,
+        "processing_time_ms": 1483,
         "model": "llama3.1:8b",
+        "generation_status": "model",
         "audit_status": "recorded"
       },
       "error": null,
@@ -378,7 +390,7 @@
       "id": "T07",
       "scenario": "duplicate_charge",
       "status": "completed",
-      "processing_time_ms": 2065,
+      "processing_time_ms": 2081,
       "expected": {
         "category": "payment_security",
         "urgency": "high",
@@ -403,8 +415,9 @@
         "approval_reason": "Payment-security concern",
         "draft_reply": "I’m sorry about the payment issue. Please do not send a full card number. A team member will review the transaction securely and follow up.",
         "validation_warnings": [],
-        "processing_time_ms": 1895,
+        "processing_time_ms": 1922,
         "model": "llama3.1:8b",
+        "generation_status": "model",
         "audit_status": "recorded"
       },
       "error": null,
@@ -435,7 +448,7 @@
       "id": "T08",
       "scenario": "password_exposure",
       "status": "completed",
-      "processing_time_ms": 1646,
+      "processing_time_ms": 1648,
       "expected": {
         "category": "account_security",
         "urgency": "critical",
@@ -463,8 +476,9 @@
         "approval_reason": "Account-security concern",
         "draft_reply": "I’m sorry you’re dealing with this. Please change your password immediately and do not share it in messages. A team member will review the account-security concern.",
         "validation_warnings": [],
-        "processing_time_ms": 1477,
+        "processing_time_ms": 1497,
         "model": "llama3.1:8b",
+        "generation_status": "model",
         "audit_status": "recorded"
       },
       "error": null,
@@ -495,7 +509,7 @@
       "id": "T09",
       "scenario": "product_compatibility",
       "status": "completed",
-      "processing_time_ms": 2556,
+      "processing_time_ms": 2649,
       "expected": {
         "category": "product_information",
         "urgency": "normal",
@@ -522,8 +536,9 @@
         "approval_reason": "Compatibility cannot be confirmed from current data; Low-confidence result requires review",
         "draft_reply": "We cannot confirm compatibility. Please contact the manufacturer or check their documentation for more information.",
         "validation_warnings": [],
-        "processing_time_ms": 2387,
+        "processing_time_ms": 2474,
         "model": "llama3.1:8b",
+        "generation_status": "model",
         "audit_status": "recorded"
       },
       "error": null,
@@ -554,7 +569,7 @@
       "id": "T10",
       "scenario": "legal_threat",
       "status": "completed",
-      "processing_time_ms": 2535,
+      "processing_time_ms": 2591,
       "expected": {
         "category": "legal_safety",
         "urgency": "critical",
@@ -579,8 +594,9 @@
         "approval_reason": "Legal or safety-sensitive language",
         "draft_reply": "I’m sorry to hear about your experience. This needs immediate review by the appropriate team, who should assess the information before responding further.",
         "validation_warnings": [],
-        "processing_time_ms": 2379,
+        "processing_time_ms": 2406,
         "model": "llama3.1:8b",
+        "generation_status": "model",
         "audit_status": "recorded"
       },
       "error": null,
@@ -611,7 +627,7 @@
       "id": "T11",
       "scenario": "abusive_language",
       "status": "completed",
-      "processing_time_ms": 2104,
+      "processing_time_ms": 2127,
       "expected": {
         "category": "complaint",
         "urgency": "high",
@@ -639,8 +655,9 @@
         "validation_warnings": [
           "Complaint reply omits the required order details"
         ],
-        "processing_time_ms": 1944,
+        "processing_time_ms": 1948,
         "model": "llama3.1:8b",
+        "generation_status": "model",
         "audit_status": "recorded"
       },
       "error": null,
@@ -671,7 +688,7 @@
       "id": "T12",
       "scenario": "empty_input",
       "status": "completed",
-      "processing_time_ms": 157,
+      "processing_time_ms": 173,
       "expected": {
         "category": null,
         "urgency": null,

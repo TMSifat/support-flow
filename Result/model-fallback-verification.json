@@ -1,0 +1,17 @@
+{
+  "run_status": "complete",
+  "completed_at": "2026-09-06T17:51:01.4862994Z",
+  "test_condition": "Production build started with an unreachable Ollama endpoint and a 1,000 ms model timeout.",
+  "input": "My order #4821 arrived in red, but I ordered blue. Send a replacement today.",
+  "http_status": 200,
+  "checks": {
+    "second_model_failure_recovered": true,
+    "generation_status_is_deterministic_fallback": true,
+    "confidence_is_zero": true,
+    "human_approval_is_required": true,
+    "matched_policy_is_FUL_02": true,
+    "safe_category_reply_is_present": true,
+    "visible_fallback_warning_is_present": true
+  },
+  "result": "pass"
+}

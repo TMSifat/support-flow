@@ -64,10 +64,10 @@ export async function POST(request: Request) {
     console.error('Ticket review failed:', detail);
     return Response.json(
       {
-        error: 'The local model is unavailable. Check Ollama and try again.',
-        code: 'MODEL_UNAVAILABLE',
+        error: 'The review could not be completed due to an unexpected error.',
+        code: 'REVIEW_FAILED',
       },
-      { status: 503 },
+      { status: 500 },
     );
   }
 }

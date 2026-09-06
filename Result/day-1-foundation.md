@@ -122,8 +122,11 @@ The Day 5 system will:
 - block or escalate high-risk actions;
 - validate the result and show useful errors;
 - retain an audit record;
-- allow a non-developer to approve or edit a draft;
-- export results.
+- allow a non-developer to approve, edit, and copy a draft.
+
+### Success-target outcome
+
+The quality and safety targets were met on the recorded frozen suite. The manual-touch target was not: 8 of 11 non-empty cases required explicit approval (73% versus the target of 50% or less). Because the suite deliberately over-samples consequential cases, this does not estimate production workload, but it also does not demonstrate reduced manual touch. Independent usage data is required before making that business-value claim.
 
 ## 8. Explicit non-goals
 

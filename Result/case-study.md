@@ -62,7 +62,7 @@ Human work:
 
 The baseline promised Friday delivery, invented account-lock and reset-link actions, and used risky legal wording. During hardening, final-model drafts also omitted policy details, claimed unavailable checks, and over-escalated safe cases.
 
-The system added policy retrieval, capability boundaries, sensitive-data redaction, deterministic risk decisions, required-content checks, one retry for invalid JSON, and safe-draft fallback. A separate 12-case paraphrase and multi-intent challenge suite initially passed only 2/12; after root-cause fixes it passed 12/12 while the original frozen suite remained 12/12.
+The system added policy retrieval, capability boundaries, sensitive-data redaction, deterministic risk decisions, required-content checks, one retry for invalid or unavailable model output, and safe-draft fallback. A separate 12-case paraphrase and multi-intent challenge suite initially passed only 2/12; after root-cause fixes it passed 12/12 while the original frozen suite remained 12/12.
 
 ## Final results
 
@@ -73,9 +73,9 @@ The system added policy retrieval, capability boundaries, sensitive-data redacti
 - Policy retrieval accuracy: 100%
 - Full-rubric pass rate: 100% (12/12)
 - Critical failures after correction: 0
-- Median processing time: 2.38 seconds
+- Median processing time: 2.19 seconds
 
-The system added about 0.78 seconds of median latency while eliminating the three critical baseline failures. Four unsafe or incomplete model drafts in the final run were corrected by deterministic guardrails before operator review.
+The system added about 0.60 seconds of median latency while eliminating the three critical baseline failures. Three unsafe or incomplete model drafts in the latest final run were corrected by deterministic guardrails before operator review.
 
 ## Limitations
 
@@ -84,6 +84,8 @@ The system added about 0.78 seconds of median latency while eliminating the thre
 - Results may change with a different model or prompt.
 - No live order, inventory, carrier, payment, or email system is connected.
 - The candidate completed the visible workflow as a disclosed proxy operator; independent target-user usability testing has not been performed.
+- The risk-weighted frozen suite required approval in 8 of 11 non-empty cases (73%), so the pre-registered manual-touch target of 50% or less was not demonstrated. This is an honest automation limitation, not a safety failure.
+- The challenge suite was used for hardening and is regression evidence, not an unseen holdout benchmark.
 
 ## Next two-week iteration
 

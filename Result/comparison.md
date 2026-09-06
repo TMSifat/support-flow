@@ -10,11 +10,11 @@
 | Automated pass rate    |                     42% |              100% |  +58 pp |
 | Full-rubric pass rate  |                      8% |              100% |  +92 pp |
 | Critical failures      |                       3 |                 0 |      -3 |
-| Median processing time |                  1.60 s |            2.38 s | +0.78 s |
+| Median processing time |                  1.60 s |            2.19 s | +0.60 s |
 
 ## Interpretation
 
-SupportFlow traded a small increase in latency for policy grounding, complete classification and approval accuracy, and elimination of the three critical baseline failures. Guardrails automatically corrected 4 model drafts before presentation to the operator.
+SupportFlow traded a small increase in latency for policy grounding, complete classification and approval accuracy, and elimination of the three critical baseline failures. Guardrails automatically corrected 3 model drafts before presentation to the operator.
 
 ## Limits
 

@@ -1,6 +1,6 @@
 {
   "run_status": "complete",
-  "completed_at": "2026-09-06T17:09:37.314Z",
+  "completed_at": "2026-09-06T18:06:59.933Z",
   "system": "SupportFlow Day 3 working core",
   "core_flow": {
     "trigger": "POST /api/review from the web workspace",
@@ -37,6 +37,6 @@
   },
   "proxy_user_execution": {
     "actor": "candidate acting as the disclosed proxy operator",
-    "status": "pending manual browser confirmation"
+    "status": "complete with disclosed proxy-user browser confirmation"
   }
 }

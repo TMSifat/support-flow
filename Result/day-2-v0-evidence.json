@@ -1,12 +1,12 @@
 {
   "run_status": "complete",
-  "completed_at": "2026-09-06T17:09:27.550Z",
+  "completed_at": "2026-09-06T17:48:34.515Z",
   "system": "SupportFlow Day 2 v0",
   "environment": "local",
   "representative_flow": {
     "input": "My order #4821 arrived in red, but I ordered blue. I need it before Friday for a birthday. Send the replacement today.",
     "http_status": 200,
-    "elapsed_ms": 3485,
+    "elapsed_ms": 3200,
     "output": {
       "category": "wrong_item",
       "urgency": "high",
@@ -19,13 +19,14 @@
           "title": "Wrong or damaged item"
         }
       ],
-      "recommended_action": "Request replacement confirmation and approval",
+      "recommended_action": "Request replacement confirmation and inventory check",
       "requires_human_approval": true,
       "approval_reason": "Replacement requires stock confirmation; Time-sensitive delivery promise",
-      "draft_reply": "We're sorry to hear that the item color is incorrect. Can you please confirm if we have the blue item in stock? We'll review your request as soon as possible.",
+      "draft_reply": "We're sorry to hear that the item didn't match your order. Can you please confirm if we have the blue item in stock? We'll do our best to expedite the process.",
       "validation_warnings": [],
-      "processing_time_ms": 2922,
+      "processing_time_ms": 3123,
       "model": "llama3.1:8b",
+      "generation_status": "model",
       "audit_status": "recorded"
     },
     "checks": {

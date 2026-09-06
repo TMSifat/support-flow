@@ -44,7 +44,7 @@ Ask one non-developer proxy operator who did not build SupportFlow to complete t
 - C09: complaint, high, COM-07, ready to review — pass
 - Audit status: Recorded in every supplied result
 - Approval boundary: approval-required screenshots visibly show disabled “Approve before copy”; safe cases show Copy draft
-- Evidence not yet supplied by the candidate: edited-draft state, approved state, copied state, subjective feedback, and final sign-off
+- Initially missing evidence was later completed through candidate sign-off and fresh browser verification of edit, approval, copy, and approval-reset behavior. Subjective feedback from an independent human remains unavailable and is not claimed.
 
 ## Response to feedback
 

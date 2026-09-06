@@ -156,7 +156,7 @@ async function main() {
     },
     proxy_user_execution: {
       actor: 'candidate acting as the disclosed proxy operator',
-      status: 'pending manual browser confirmation',
+      status: 'complete with disclosed proxy-user browser confirmation',
     },
   };
 

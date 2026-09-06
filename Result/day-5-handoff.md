@@ -19,10 +19,11 @@ Source repository: https://github.com/TMSifat/support-flow
 - Production dependency audit: 0 known vulnerabilities
 - Day 2 live v0 verification: pass
 - Day 3 core, audit, validation, and integration verification: pass
+- Forced double model-failure fallback verification: pass
 - Frozen evaluation: 12/12 full-rubric pass
 - Day 4 challenge regression: 12/12 pass after hardening
 - Critical failures after correction: 0
-- Median final processing time: 2.38 seconds; p95: 2.73 seconds
+- Median final processing time: 2.19 seconds; p95: 2.62 seconds
 
 ## Delivery contents
 
@@ -38,6 +39,7 @@ Source repository: https://github.com/TMSifat/support-flow
 - Tickets and policies are synthetic and English-only.
 - Candidate-proxy evidence is recorded; independent target-user research remains a recommended follow-up.
 - No external business action is executed.
+- The risk-weighted suite's 73% approval rate did not meet the pre-registered 50% manual-touch target; reduced human intervention remains unproven.
 
 ## Remaining candidate actions
 

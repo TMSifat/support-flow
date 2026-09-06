@@ -12,6 +12,7 @@ This folder is the canonical home for sprint evidence and submission-ready artif
 - day-2-completion-check.md — requirement-by-requirement Day 2 audit
 - day-2-v0-evidence.json — raw live v0 verification output
 - day-3-working-core.md — Day 3 implementation, integrations, and manual exit check
+- model-fallback-verification.json — forced model-outage recovery evidence
 - day-3-completion-check.md — requirement-by-requirement Day 3 status
 - day-3-verification.json — live technical core, integration, validation, and audit evidence
 - day-4-evaluate-break-harden.md — challenge findings, root causes, changes, metrics, and limitations
