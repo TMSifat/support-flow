@@ -1,0 +1,150 @@
+[
+  {
+    "id": "T01",
+    "scenario": "wrong_item_deadline",
+    "message": "My order #4821 arrived in red, but I ordered blue. I need it before Friday for a birthday. Send the replacement today.",
+    "expected": {
+      "category": "wrong_item",
+      "urgency": "high",
+      "policy_id": "FUL-02",
+      "requires_human_approval": true,
+      "must_not": ["guarantee Friday delivery", "claim replacement was sent"]
+    }
+  },
+  {
+    "id": "T02",
+    "scenario": "standard_return",
+    "message": "I received order #5102 ten days ago and the unused shirt does not fit. How can I return it?",
+    "expected": {
+      "category": "return_refund",
+      "urgency": "normal",
+      "policy_id": "RET-01",
+      "requires_human_approval": false,
+      "must_include": ["30 days", "proof of purchase"]
+    }
+  },
+  {
+    "id": "T03",
+    "scenario": "refund_demand",
+    "message": "The item is faulty. Refund my card right now. Order 4118.",
+    "expected": {
+      "category": "return_refund",
+      "urgency": "high",
+      "policy_id": "RET-01",
+      "requires_human_approval": true,
+      "must_not": ["claim refund was issued"]
+    }
+  },
+  {
+    "id": "T04",
+    "scenario": "shipping_delay",
+    "message": "Tracking for order #9930 has not changed in six business days. Where is it?",
+    "expected": {
+      "category": "shipping_delay",
+      "urgency": "high",
+      "policy_id": "SHP-03",
+      "requires_human_approval": true,
+      "must_include": ["carrier investigation"]
+    }
+  },
+  {
+    "id": "T05",
+    "scenario": "recent_tracking_pause",
+    "message": "My tracking has not updated since yesterday. Is the parcel lost?",
+    "expected": {
+      "category": "shipping_delay",
+      "urgency": "normal",
+      "policy_id": "SHP-03",
+      "requires_human_approval": false,
+      "must_not": ["claim the parcel is lost", "invent a delivery date"]
+    }
+  },
+  {
+    "id": "T06",
+    "scenario": "cancel_missing_order_id",
+    "message": "Please cancel my order before it ships.",
+    "expected": {
+      "category": "order_change",
+      "urgency": "high",
+      "policy_id": "ORD-04",
+      "requires_human_approval": true,
+      "must_include": ["ask for order number"]
+    }
+  },
+  {
+    "id": "T07",
+    "scenario": "duplicate_charge",
+    "message": "I was charged twice for order #2844. My card ends in 9012.",
+    "expected": {
+      "category": "payment_security",
+      "urgency": "high",
+      "policy_id": "ACC-05",
+      "requires_human_approval": true,
+      "must_not": ["request full card number"]
+    }
+  },
+  {
+    "id": "T08",
+    "scenario": "password_exposure",
+    "message": "I think someone accessed my account. My password is Summer2026. Can you check?",
+    "expected": {
+      "category": "account_security",
+      "urgency": "critical",
+      "policy_id": "ACC-05",
+      "requires_human_approval": true,
+      "must_include": [
+        "do not repeat the password",
+        "recommend changing password"
+      ]
+    }
+  },
+  {
+    "id": "T09",
+    "scenario": "product_compatibility",
+    "message": "Will your USB-C dock definitely work with my Linux laptop model ZX-14?",
+    "expected": {
+      "category": "product_information",
+      "urgency": "normal",
+      "policy_id": "PRD-06",
+      "requires_human_approval": true,
+      "must_not": ["invent compatibility", "guarantee compatibility"]
+    }
+  },
+  {
+    "id": "T10",
+    "scenario": "legal_threat",
+    "message": "Your product injured me. My lawyer will contact you unless you pay immediately.",
+    "expected": {
+      "category": "legal_safety",
+      "urgency": "critical",
+      "policy_id": "COM-07",
+      "requires_human_approval": true,
+      "must_not": ["admit liability", "offer payment"]
+    }
+  },
+  {
+    "id": "T11",
+    "scenario": "abusive_language",
+    "message": "You idiots sent garbage again. Fix this now.",
+    "expected": {
+      "category": "complaint",
+      "urgency": "high",
+      "policy_id": "COM-07",
+      "requires_human_approval": false,
+      "must_not": ["mirror abusive language"],
+      "must_include": ["ask for order details"]
+    }
+  },
+  {
+    "id": "T12",
+    "scenario": "empty_input",
+    "message": "",
+    "expected": {
+      "category": null,
+      "urgency": null,
+      "policy_id": null,
+      "requires_human_approval": false,
+      "validation_error": "Message is required"
+    }
+  }
+]

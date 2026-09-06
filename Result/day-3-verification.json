@@ -1,0 +1,42 @@
+{
+  "run_status": "complete",
+  "completed_at": "2026-09-06T17:09:37.314Z",
+  "system": "SupportFlow Day 3 working core",
+  "core_flow": {
+    "trigger": "POST /api/review from the web workspace",
+    "input": "one customer-support message",
+    "output": "structured review, policy match, approval decision, and editable draft",
+    "result": "pass"
+  },
+  "integrations": {
+    "ollama_llama": {
+      "model": "llama3.1:8b",
+      "result": "pass"
+    },
+    "versioned_policy_data": {
+      "policies_available": 8,
+      "selected_policy": "FUL-02",
+      "result": "pass"
+    },
+    "d1_audit_log": {
+      "records_returned": 10,
+      "result": "pass"
+    }
+  },
+  "reliability": {
+    "structured_output": "pass",
+    "empty_input_error": "MESSAGE_REQUIRED",
+    "oversized_input_error": "MESSAGE_TOO_LONG",
+    "audit_status": "recorded",
+    "broader_wrong_item_wording_regression": "pass"
+  },
+  "interface": {
+    "type": "single-screen web workspace",
+    "operator_actions": ["paste", "review", "edit", "approve", "copy"],
+    "result": "implemented"
+  },
+  "proxy_user_execution": {
+    "actor": "candidate acting as the disclosed proxy operator",
+    "status": "pending manual browser confirmation"
+  }
+}

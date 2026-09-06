@@ -1,0 +1,11 @@
+{
+  "status": "complete",
+  "date": "2026-09-06",
+  "candidate_identifier": "project owner/user (name not provided)",
+  "basis": [
+    "The candidate completed the five requested browser cases and supplied timestamped screenshots.",
+    "The candidate authorized completion of the record and requested a fresh Day 1-4 audit.",
+    "Codex inspected the raw frozen and challenge outputs and reran the executable verification suite."
+  ],
+  "scope_disclosure": "The candidate performed the visible workflow. Codex performed the raw-artifact and automated semantic review. This is a disclosed candidate-proxy test, not independent target-user research."
+}

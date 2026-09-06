@@ -1,0 +1,51 @@
+{
+  "run_status": "complete",
+  "completed_at": "2026-09-06T17:09:27.550Z",
+  "system": "SupportFlow Day 2 v0",
+  "environment": "local",
+  "representative_flow": {
+    "input": "My order #4821 arrived in red, but I ordered blue. I need it before Friday for a birthday. Send the replacement today.",
+    "http_status": 200,
+    "elapsed_ms": 3485,
+    "output": {
+      "category": "wrong_item",
+      "urgency": "high",
+      "confidence": 100,
+      "facts": [],
+      "missing_information": [],
+      "policy_matches": [
+        {
+          "id": "FUL-02",
+          "title": "Wrong or damaged item"
+        }
+      ],
+      "recommended_action": "Request replacement confirmation and approval",
+      "requires_human_approval": true,
+      "approval_reason": "Replacement requires stock confirmation; Time-sensitive delivery promise",
+      "draft_reply": "We're sorry to hear that the item color is incorrect. Can you please confirm if we have the blue item in stock? We'll review your request as soon as possible.",
+      "validation_warnings": [],
+      "processing_time_ms": 2922,
+      "model": "llama3.1:8b",
+      "audit_status": "recorded"
+    },
+    "checks": {
+      "category": "pass",
+      "urgency": "pass",
+      "policy_retrieval": "pass",
+      "human_approval": "pass",
+      "structured_draft": "pass"
+    }
+  },
+  "boundary_checks": {
+    "empty_input": {
+      "http_status": 400,
+      "error_code": "MESSAGE_REQUIRED",
+      "result": "pass"
+    },
+    "unmatched_policy": {
+      "http_status": 200,
+      "policy_id": "GEN-00",
+      "result": "pass"
+    }
+  }
+}
