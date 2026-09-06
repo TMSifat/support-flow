@@ -26,7 +26,7 @@ export type SupportReview = {
   confidence: number;
   facts: string[];
   missing_information: string[];
-  policy_matches: Array<{ id: string; title: string }>;
+  policy_matches: Array<{ id: string; title: string; content: string }>;
   recommended_action: string;
   requires_human_approval: boolean;
   approval_reason: string | null;
@@ -35,6 +35,7 @@ export type SupportReview = {
   processing_time_ms: number;
   model: string;
   generation_status: 'model' | 'deterministic_fallback';
+  draft_source: 'policy_template';
   audit_status?: 'recorded' | 'unavailable';
 };
 

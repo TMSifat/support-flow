@@ -1,5 +1,7 @@
 # Day 4 Proxy-User Feedback
 
+> Historical sprint record (evaluator v1). Its completion labels, metrics and original design describe the earlier implementation, not current verification. Use [current remediation status](remediation-status.md), [architecture](architecture.md), [evaluation v2](evaluation-rubric.md), [comparison](comparison.md), and [submission checklist](submission-checklist.md). Historical proxy sign-off does not approve new runs.
+
 Status: complete with disclosed candidate-proxy execution and AI-assisted evidence review
 
 Ask one non-developer proxy operator who did not build SupportFlow to complete this without coaching.

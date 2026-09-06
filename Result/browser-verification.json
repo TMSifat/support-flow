@@ -1,0 +1,16 @@
+{
+  "completed_at": "2026-09-06T19:05:44.383Z",
+  "actor": "Automated Playwright browser test, not independent human research",
+  "checks": {
+    "normal_flow": true,
+    "policy_visible": true,
+    "critical_priority": true,
+    "approval_copy_gate": true,
+    "edit_resets_approval": true,
+    "clipboard_failure_message": true,
+    "stale_response_discarded": true,
+    "webmcp_valid_and_invalid": true,
+    "mobile_no_overflow": true,
+    "no_page_errors": true
+  }
+}

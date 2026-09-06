@@ -156,7 +156,8 @@ async function main() {
     },
     proxy_user_execution: {
       actor: 'candidate acting as the disclosed proxy operator',
-      status: 'complete with disclosed proxy-user browser confirmation',
+      status:
+        'not assessed by this API-only verification; see the separately recorded historical proxy evidence',
     },
   };
 

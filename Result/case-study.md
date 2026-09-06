@@ -1,104 +1,42 @@
-# SupportFlow — Case Study
+# SupportFlow — case study
 
-## Summary
+## Whose workflow changed?
 
-SupportFlow is a local-first support review system for a non-technical e-commerce operator. It turns an unstructured ticket into a policy-grounded classification, urgency decision, approval boundary, and editable reply. On a frozen synthetic 12-case suite, the generic-prompt baseline passed the complete rubric in 1 case; SupportFlow passed all 12.
+The intended user is a non-technical operator at a small e-commerce store. For each ticket they classify the issue, identify urgency, find policy, draft a response, decide which actions require approval, and record metadata. The synthetic store assumes 20–50 English-language messages daily; this volume and actual time savings have not been observed in a real support team.
 
-## User and problem
+The candidate completed disclosed proxy flows earlier in the sprint. Current automated browser testing is distinct from independent user research. Synthetic data is allowed by the brief and is disclosed throughout this project.
 
-The proxy user is an operator at a small e-commerce store handling 20–50 English-language email tickets per day. For every message, the operator must interpret the request, assign priority, find a policy, draft a reply, identify risk, and record the result.
+## What was built?
 
-The repeated work is slow and inconsistent. A generic AI reply may sound helpful while inventing an order check, refund, replacement, account action, or delivery promise.
+A local web workspace connects an Ollama model, versioned store policies and a D1 audit log. It accepts one pasted ticket and produces a policy-grounded review. The operator can read the policy, verify missing information, edit a policy-template reply, approve when needed and copy it.
 
-No real support team was available during the sprint. The workflow, store, policies, and tickets are synthetic. This limitation is explicit rather than presented as real user research.
+The model supplies schema-validated classification/extraction proposals. Risk rules preserve critical priority across mixed intents. Invalid model objects receive one retry and then an approval-required fallback. Operator-visible recommended actions and replies use policy templates; unverified model prose is not delivered as the final reply. This sacrifices personalization for predictable policy wording. Extracted facts are retained only when present in the redacted input.
 
-## Existing workflow and baseline
+No email, refund, replacement, cancellation or account action is performed. Order/inventory/payment/account verification and sending remain human responsibilities. Local model inference avoids external model API charges but requires installation and suitable local resources.
 
-The baseline used one generic support prompt with the same local Llama 3.1 8B model. It had no policy retrieval, deterministic approval rules, sensitive-data redaction, validator, retry, or audit log.
+## Baseline and proof
 
-Baseline results:
+Both conditions use the same Llama 3.1 8B model and the original 12-case suite: 11 non-empty messages plus a separate validation case. Baseline uses one generic prompt without policies or tools. Evaluator v2 applies the same eight-point quality checks to baseline and final; final schema/policy capabilities are additional checks. Failed requests stay in the denominator. Recorded v2 results and timing are in [comparison](comparison.md), [baseline summary](baseline-summary.md), and [final summary](final-summary.md).
 
-- Category accuracy: 75%
-- Urgency accuracy: 75%
-- Approval accuracy: 75%
-- Automated pass rate: 42%
-- Full-rubric pass rate: 8% (1/12)
-- Critical failures: 3
-- Median processing time: 1.60 seconds
+The earlier v1 full-rubric comparison overstated what its checker established. That claim was withdrawn: baseline used static case reviews while final reused automated passes. The corrected checker rejects known-bad refund, compatibility and liability statements and does not create human sign-off. Its outputs are automated regression evidence, not proof of universal safety.
 
-## Scope and non-goals
+## Failures, causes and changes
 
-The v1 system accepts one pasted ticket, retrieves one policy, produces one structured review and draft, and records privacy-minimized audit metadata.
+- Mixed legal/security plus recent tracking text downgraded critical priority. A general tracking override outranked risk; the override now applies only when no higher-risk reason exists.
+- Null or incomplete JSON bypassed retry validation. Both JSON schema guidance and runtime shape validation now apply inside the retry boundary.
+- Equals signs and quoted passwords evaded redaction. Named-secret parsing now supports these forms, and request-prompt probes verify removal.
+- Unsafe recommendations and unsupported reply promises escaped text checks. The delivered reply/action now use versioned templates and derived verification items.
+- The UI showed only a policy ID and could display contradictory missing-information text. Policy content is expandable; verification items are derived independently from model suggestions.
+- Old responses could race edited input; request versioning prevents stale rendering. Clipboard failures now produce an actionable message. Browser tests exercise approval reset, copy gating and WebMCP error handling.
 
-It does not send email, process a refund or replacement, query live orders or inventory, support attachments, or replace human judgment.
+Controlled fault tests improved from 3/20 on the earlier source to 20/20. Original live tests pass 12/12, challenge tests 12/12, and new mixed-intent/privacy tests 8/8 in the retained run. [Raw hardening evidence](hardening-regression.json) and [browser evidence](browser-verification.json) disclose their automated methods.
 
-## Architecture and trade-offs
+## Human ownership and remaining limitations
 
-The workflow combines three layers:
+The candidate owns scope, synthetic-data disclosure, operating boundaries and final presentation. AI performed substantial coding, data creation, checks and documentation, including this later hardening. Current result files are not automatically signed off by the candidate.
 
-1. Local Llama 3.1 8B generates classification, extracted facts, missing information, recommended action, and reply.
-2. A versioned policy knowledge base grounds the response.
-3. Deterministic rules redact sensitive data, enforce minimum urgency and approval, validate required content, detect unsupported claims, and replace unsafe drafts.
+Actual human handling time, manual touches, field-extraction accuracy, independent setup and adoption remain unmeasured. Approval-required rate is not manual-touch rate; the 50% manual-touch target is unproven. Text rules can miss new phrasing, confidence is uncalibrated, and templates can be too generic. English-only text and one primary issue are deliberate scope limits. D1 records review metadata, not durable approval or sending events.
 
-A local model avoids API cost and keeps inference on the sprint computer. The trade-off is that a public hosted version cannot use the computer’s Ollama service. The accepted reproducible-local-project format is therefore the primary delivery path.
+## Next two weeks
 
-## Work delegated to AI and judgment retained by humans
-
-AI work:
-
-- Ticket classification
-- Fact and missing-information extraction
-- Policy-informed draft generation
-- Recommended next action
-
-Human work:
-
-- Refund, replacement, cancellation, security, legal, compatibility, and delivery decisions
-- Verification against live order or account systems
-- Editing and final approval
-- Sending the response
-
-## Failures and changes
-
-The baseline promised Friday delivery, invented account-lock and reset-link actions, and used risky legal wording. During hardening, final-model drafts also omitted policy details, claimed unavailable checks, and over-escalated safe cases.
-
-The system added policy retrieval, capability boundaries, sensitive-data redaction, deterministic risk decisions, required-content checks, one retry for invalid or unavailable model output, and safe-draft fallback. A separate 12-case paraphrase and multi-intent challenge suite initially passed only 2/12; after root-cause fixes it passed 12/12 while the original frozen suite remained 12/12.
-
-## Final results
-
-- Structured output: 100%
-- Category accuracy: 100%
-- Urgency accuracy: 100%
-- Approval accuracy: 100%
-- Policy retrieval accuracy: 100%
-- Full-rubric pass rate: 100% (12/12)
-- Critical failures after correction: 0
-- Median processing time: 2.19 seconds
-
-The system added about 0.60 seconds of median latency while eliminating the three critical baseline failures. Three unsafe or incomplete model drafts in the latest final run were corrected by deterministic guardrails before operator review.
-
-## Limitations
-
-- Only 12 synthetic English-language cases were tested.
-- Keyword retrieval can fail on novel or multi-intent tickets.
-- Results may change with a different model or prompt.
-- No live order, inventory, carrier, payment, or email system is connected.
-- The candidate completed the visible workflow as a disclosed proxy operator; independent target-user usability testing has not been performed.
-- The risk-weighted frozen suite required approval in 8 of 11 non-empty cases (73%), so the pre-registered manual-touch target of 50% or less was not demonstrated. This is an honest automation limitation, not a safety failure.
-- The challenge suite was used for hardening and is regression evidence, not an unseen holdout benchmark.
-
-## Next two-week iteration
-
-Week 1:
-
-- Ask two proxy operators to complete five tickets each without assistance.
-- Measure time-to-draft, correction count, approval clarity, and task completion.
-- Add multi-intent and ambiguous tickets to the frozen regression set.
-- Improve retrieval using weighted phrase and semantic similarity tests.
-
-Week 2:
-
-- Add a read-only sandbox order lookup.
-- Add CSV export for audit review.
-- Measure real operator acceptance and correction rates.
-- Set release gates for zero critical failures and at least 95% escalation recall on an expanded 50-case set.
+Week 1: give two independent operators the README/runbook, observe unassisted setup and five tickets each, record time/edits/approval mistakes, and respond to their feedback. Week 2: expand to 50 cases, test a read-only sandbox order lookup and compare operator outcomes. Actual adoption begins only when people use the system. See [the measurement plan](adoption-plan.md) and [uncompleted acceptance form](handoff-acceptance.md).

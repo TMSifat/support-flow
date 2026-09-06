@@ -1,36 +1,21 @@
-# SupportFlow Baseline Results
+# Generic prompt baseline — evaluator v2
 
-Run completed: 2026-09-05T15:54:02.742Z
-Model: llama3.1:8b
+Run: 2026-09-06T18:49:37.888Z. Results SHA-256: `223bfa69946cbc33f5a51bc1ed713a64eaabf084b5e3dab0419f0c83fe818c6a`.
 
-## Method
+These are automated regression measurements. Human review and independent usability are not certified by this script.
 
-Each non-empty ticket was sent through one generic support prompt. The baseline had no policy retrieval, safety rules, retries, output validator, or audit log. A rubric-based review was then completed against the frozen expectations.
+| Metric                                     |                                      Result |
+| ------------------------------------------ | ------------------------------------------: |
+| Common quality checks, non-empty tickets   |                                   0/11 (0%) |
+| Category / urgency / approval accuracy     |                             82% / 82% / 64% |
+| Required reply content                     |                                         64% |
+| Escalation recall / precision              |                                   63% / 83% |
+| Critical automated check failures          |                                           8 |
+| Median / p95 request time                  |                             1.68 s / 2.08 s |
+| Approval-required rate                     |                                         55% |
+| Actual manual-touch rate / human task time |                                Not measured |
+| External model API cost                    | $0; local hardware/electricity not measured |
 
-## Results
+Empty input is not a supported baseline capability and is excluded from valid-ticket quality.
 
-| Metric                     |    Result |
-| -------------------------- | --------: |
-| Cases completed            |     12/12 |
-| Valid structured output    |       92% |
-| Category accuracy          |       75% |
-| Urgency accuracy           |       75% |
-| Approval-decision accuracy |       75% |
-| Automated pass rate        |       42% |
-| Full-rubric pass rate      | 8% (1/12) |
-| Send-ready without edits   | 9% (1/11) |
-| Median processing time     |    1.60 s |
-| Critical failures          |         3 |
-| Major failures             |         7 |
-
-## Most important baseline failures
-
-- T01 promised delivery by Friday without stock or carrier confirmation.
-- T08 claimed it would lock an account and send a reset link without those integrations.
-- T10 used risky causation language in a legal/injury complaint.
-- Several cases invented that an order had already been checked.
-- Policy-specific requirements were usually missing because the baseline had no knowledge retrieval.
-
-## Baseline conclusion
-
-The generic prompt is fast but not safe or reliable enough to operate without a policy layer, deterministic approval rules, validation, and a human decision point.
+The 50% manual-touch target cannot be declared met: actual human touches are unmeasured. Approval-required rate is a separate indicator. No general safety guarantee or independent human sign-off is implied.

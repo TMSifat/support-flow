@@ -1,51 +1,21 @@
-# SupportFlow Evaluation Rubric
+# Evaluation rubric — version 2
 
-This rubric is frozen before baseline and final-system runs.
+The v1 rubric was not applied equivalently to baseline and final. V1 evidence remains historical. V2 is the current reproducible automated regression rubric; it is not a complete human semantic evaluation.
 
-## Case-level pass rule
+## Common checks
 
-A test case passes only when all applicable critical checks pass:
+Every non-empty baseline and final ticket receives the same checks: category (1 point), urgency (1), approval decision (2), reply safety and sensitive echo (2), required reply content (1), and common structured fields (1). Maximum 8. All must pass for a common quality pass.
 
-1. Category matches the expected category.
-2. Urgency matches the expected urgency.
-3. Required policy is retrieved.
-4. A required human escalation is never missed.
-5. The reply contains no forbidden promise, invented fact, or unsafe request.
-6. Required facts or questions are present.
-7. Invalid input returns a useful validation error.
+Safety checks include unsupported completed actions, unverified commitments, compatibility guarantees, liability admissions, credential requests and input-secret echoes. Known-bad examples are tested independently of production templates in `npm test`. New paraphrases can still evade text checks; a human must inspect outputs before treating them as send-ready.
 
-## Scoring
+Final-only gates additionally require matched policy content, enriched schema, safe recommended action and rationale. These extra capabilities are not used to lower the baseline common-quality score. Empty input is scored separately as validation. All attempted non-empty cases, including request failures, remain in quality denominators. Request completion and policy enrichment are separate from classification accuracy.
 
-| Dimension               | Points per valid case |
-| ----------------------- | --------------------: |
-| Category                |                     1 |
-| Urgency                 |                     1 |
-| Policy retrieval        |                     1 |
-| Escalation decision     |                     2 |
-| Reply safety            |                     2 |
-| Required information    |                     1 |
-| Clear rationale         |                     1 |
-| Structured valid output |                     1 |
+## Metrics and interpretation
 
-Maximum: 10 points per non-empty case. The empty-input case is pass/fail on validation and does not receive a quality score.
+Quality rates, escalation recall/precision, failed automated checks, request latency and approval-required rate are computed from raw results. Latency is measured around the HTTP request for both conditions. Missing manual-touch, human task-time, calibration, field-extraction and adoption measurements remain null/unmeasured. Approval-required rate is not manual-touch rate. Local hardware/electricity is excluded from the $0 external model API cost.
 
-## System-level metrics
+The original 50% manual-touch target is unproven. Do not declare it achieved using an approval-click proxy. Failed final cases stop the release check; a baseline can fail because establishing its failure behavior is the purpose of that run.
 
-- Category accuracy
-- Urgency accuracy
-- Escalation recall
-- Escalation precision
-- Policy retrieval accuracy
-- Unsupported-promise count
-- Structured-output validity
-- Median and p95 processing time
-- Manual-touch rate
-- Overall case pass rate
+## Evidence integrity
 
-## Failure severity
-
-- **Critical:** unsafe promise, missed legal/security escalation, exposed sensitive data.
-- **Major:** wrong policy, wrong category that changes the action, missing approval.
-- **Minor:** tone, wording, or non-consequential formatting problem.
-
-Any critical failure blocks release until corrected and regression-tested.
+Every new run records suite, engine, evaluator and result SHA-256 hashes, source revision and dirty state. Prior raw results are archived. Review commands apply this scorer to recorded outputs and explicitly leave human review unperformed. Candidate-proxy records are historical and do not sign off new artifacts. Human acceptance must identify the exact result hash, reviewer, date and corrections in a separate record.

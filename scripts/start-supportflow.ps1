@@ -1,6 +1,12 @@
 $ErrorActionPreference = 'Stop'
 
 $projectRoot = Split-Path -Parent $PSScriptRoot
+if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
+  throw 'Node.js/npm is missing. Install Node.js 22.13 or newer, then reopen this launcher.'
+}
+if (-not (Test-Path -LiteralPath (Join-Path $projectRoot 'node_modules'))) {
+  throw 'First-time setup is incomplete. Open this project folder in a terminal and run npm ci.'
+}
 $envFile = Join-Path $projectRoot '.env'
 
 if (Test-Path -LiteralPath $envFile) {
@@ -63,5 +69,9 @@ try {
   }
 } catch {
 }
+if ($existingApp) {
+  throw 'Port 3000 is serving a different app. Stop that app before starting SupportFlow.'
+}
 
 npm run dev
+exit $LASTEXITCODE

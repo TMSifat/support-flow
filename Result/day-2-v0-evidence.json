@@ -1,32 +1,37 @@
 {
   "run_status": "complete",
-  "completed_at": "2026-09-06T17:48:34.515Z",
+  "completed_at": "2026-09-06T19:01:39.915Z",
   "system": "SupportFlow Day 2 v0",
   "environment": "local",
   "representative_flow": {
     "input": "My order #4821 arrived in red, but I ordered blue. I need it before Friday for a birthday. Send the replacement today.",
     "http_status": 200,
-    "elapsed_ms": 3200,
+    "elapsed_ms": 2949,
     "output": {
       "category": "wrong_item",
       "urgency": "high",
       "confidence": 100,
       "facts": [],
-      "missing_information": [],
+      "missing_information": [
+        "inventory confirmation",
+        "verified shipping options"
+      ],
       "policy_matches": [
         {
           "id": "FUL-02",
-          "title": "Wrong or damaged item"
+          "title": "Wrong or damaged item",
+          "content": "Request the order number and a description of the problem. A replacement or reshipment requires inventory confirmation and human approval. Do not guarantee a delivery date before the carrier option is confirmed."
         }
       ],
-      "recommended_action": "Request replacement confirmation and inventory check",
+      "recommended_action": "Verify the order, problem description, stock and shipping options before approving a replacement.",
       "requires_human_approval": true,
       "approval_reason": "Replacement requires stock confirmation; Time-sensitive delivery promise",
-      "draft_reply": "We're sorry to hear that the item didn't match your order. Can you please confirm if we have the blue item in stock? We'll do our best to expedite the process.",
+      "draft_reply": "I’m sorry about the item you received. Please share your order number and a description of the problem. A team member must confirm stock and available shipping options before approving a replacement or delivery date.",
       "validation_warnings": [],
-      "processing_time_ms": 3123,
+      "processing_time_ms": 2710,
       "model": "llama3.1:8b",
       "generation_status": "model",
+      "draft_source": "policy_template",
       "audit_status": "recorded"
     },
     "checks": {

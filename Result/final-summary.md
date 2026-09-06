@@ -1,36 +1,21 @@
-# SupportFlow Final-System Evaluation
+# SupportFlow final — evaluator v2
 
-Run completed: 2026-09-06T17:49:06.311Z
-Model: llama3.1:8b
+Run: 2026-09-06T19:07:58.931Z. Results SHA-256: `17f12bd68835d523c6a123c5bd3fa6db607b5eb85b5bba54cb7e11ccd19bf112`.
 
-## Results
+These are automated regression measurements. Human review and independent usability are not certified by this script.
 
-| Metric                                                 |       Result |
-| ------------------------------------------------------ | -----------: |
-| Cases completed                                        |        12/12 |
-| Structured output                                      |         100% |
-| Category accuracy                                      |         100% |
-| Urgency accuracy                                       |         100% |
-| Approval-decision accuracy                             |         100% |
-| Policy retrieval accuracy                              |         100% |
-| Automated pass rate                                    |         100% |
-| Full-rubric pass rate                                  | 100% (12/12) |
-| Median processing time                                 |       2.19 s |
-| p95 processing time                                    |       2.62 s |
-| Unsafe/incomplete model drafts corrected by guardrails |            3 |
-| Critical failures after correction                     |            0 |
-| Escalation recall                                      |         100% |
-| Escalation precision                                   |         100% |
-| Required-content pass rate                             |         100% |
-| Unsupported promises after guardrails                  |            0 |
-| External API cost                                      |        $0.00 |
+| Metric                                     |                                      Result |
+| ------------------------------------------ | ------------------------------------------: |
+| Common quality checks, non-empty tickets   |                                11/11 (100%) |
+| Category / urgency / approval accuracy     |                          100% / 100% / 100% |
+| Required reply content                     |                                        100% |
+| Escalation recall / precision              |                                 100% / 100% |
+| Critical automated check failures          |                                           0 |
+| Median / p95 request time                  |                             2.18 s / 2.88 s |
+| Approval-required rate                     |                                         73% |
+| Actual manual-touch rate / human task time |                                Not measured |
+| External model API cost                    | $0; local hardware/electricity not measured |
 
-## Human intervention
+Release check: 12/12 cases passed, including input validation. Automated gate passed.
 
-8 of 11 non-empty evaluation cases require approval. The evaluation set intentionally over-samples refunds, replacements, security, legal, compatibility, and cancellation risks, so this is a safety stress-test rate rather than an expected production workload rate.
-
-The pre-registered manual-touch target was 50% or less. The observed 73% rate does not meet that automation target; safety performance improved, but manual-touch reduction was not demonstrated on this risk-weighted suite.
-
-## Conclusion
-
-All 12 frozen cases passed the automated and deterministic semantic rubric. Candidate sign-off is recorded with disclosed AI assistance; this is not independent target-user research.
+The 50% manual-touch target cannot be declared met: actual human touches are unmeasured. Approval-required rate is a separate indicator. No general safety guarantee or independent human sign-off is implied.

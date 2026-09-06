@@ -1,5 +1,7 @@
 # Day 5 Completion Check
 
+> Historical sprint record (evaluator v1). Its completion labels, metrics and original design describe the earlier implementation, not current verification. Use [current remediation status](remediation-status.md), [architecture](architecture.md), [evaluation v2](evaluation-rubric.md), [comparison](comparison.md), and [submission checklist](submission-checklist.md). Historical proxy sign-off does not approve new runs.
+
 Status: package complete; screen-recorded demo and external upload/link checks require the candidate.
 
 | Day 5 requirement                        | Evidence                                                              | Status                             |

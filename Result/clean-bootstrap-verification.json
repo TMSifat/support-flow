@@ -1,0 +1,13 @@
+{
+  "date": "2026-09-07",
+  "method": "Agent-executed fresh local directory with source files only; no copied node_modules, build output, database state or Git history",
+  "platform": "Windows",
+  "independent_human_test": false,
+  "checks": {
+    "npm_ci": "pass: 567 packages installed",
+    "engine_and_evaluator_regressions": "pass",
+    "fresh_local_d1_schema": "pass",
+    "production_build": "pass"
+  },
+  "limits": "This verifies clean technical setup on the current machine. It does not demonstrate another person's unassisted installation or a different hardware/OS environment."
+}

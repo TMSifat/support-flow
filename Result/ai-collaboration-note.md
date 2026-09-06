@@ -17,6 +17,8 @@
 
 ## Verification
 
+Current verification uses evaluator v2 with common baseline/final checks, negative safety fixtures, controlled model fault injection and automated browser tests. Final replies/actions are versioned policy templates. Raw runs have hashes; older results are retained. Current human review and independent user acceptance are explicitly unperformed. The earlier case-ID-based review/sign-off generators were rejected and replaced.
+
 - The same 12 frozen cases were used for baseline and final runs.
 - The same Llama 3.1 8B model was used in both conditions.
 - Outputs were checked against expected category, urgency, approval, policy, required content, and forbidden behavior.
@@ -25,6 +27,9 @@
 - The review API and local audit log were exercised directly.
 
 ## Results rejected or corrected
+
+- The earlier “only the video remains” completion assessment was rejected after deeper testing found mixed-intent priority, schema, redaction and evaluation defects. Current status is recorded in remediation-status.md.
+- Automated checks are no longer labelled full human semantic review. Old candidate-proxy sign-off does not approve current outputs.
 
 - The first UI was rejected because it contained unnecessary status text, decorative effects, and an obvious AI-template appearance. It was replaced with a compact support workspace.
 - The baseline Friday-delivery promise was rejected.

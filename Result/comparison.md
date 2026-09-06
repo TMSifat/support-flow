@@ -1,25 +1,14 @@
-# Baseline vs Final System
+# Baseline versus final — common evaluator v2
 
-| Metric                 | Generic prompt baseline | SupportFlow final |  Change |
-| ---------------------- | ----------------------: | ----------------: | ------: |
-| Structured output      |                     92% |              100% |   +8 pp |
-| Category accuracy      |                     75% |              100% |  +25 pp |
-| Urgency accuracy       |                     75% |              100% |  +25 pp |
-| Approval accuracy      |                     75% |              100% |  +25 pp |
-| Policy retrieval       |           Not available |              100% |   Added |
-| Automated pass rate    |                     42% |              100% |  +58 pp |
-| Full-rubric pass rate  |                      8% |              100% |  +92 pp |
-| Critical failures      |                       3 |                 0 |      -3 |
-| Median processing time |                  1.60 s |            2.19 s | +0.60 s |
+Both conditions use the same local model and the same eight-point common quality checks. Policy retrieval and richer final schema are reported as additional capabilities, not used to penalize baseline quality. Invalid input is scored separately. Failed non-empty requests remain in quality denominators.
 
-## Interpretation
+| Metric                            | Generic prompt | SupportFlow |
+| --------------------------------- | -------------: | ----------: |
+| Common automated quality checks   |           0/11 |       11/11 |
+| Critical automated check failures |              8 |           0 |
+| Median request time               |         1.68 s |      2.18 s |
+| Approval-required rate            |            55% |         73% |
 
-SupportFlow traded a small increase in latency for policy grounding, complete classification and approval accuracy, and elimination of the three critical baseline failures. Guardrails automatically corrected 3 model drafts before presentation to the operator.
+This is a synthetic regression comparison, not independent real-world effectiveness research. Final drafts are versioned policy templates; the model supplies validated classification/extraction proposals. Personalization and actual order/account decisions require the operator. Regex-based evaluation still needs human review and unseen examples. Actual handling-time savings, manual-touch reduction, field-extraction accuracy and adoption have not been measured.
 
-## Limits
-
-- The dataset is synthetic and contains only 12 English-language cases.
-- The same local model generated baseline and final outputs; results may vary on other hardware or models.
-- The test set is deliberately risk-heavy and does not estimate real production ticket distribution.
-- No live order, inventory, payment, carrier, or email action is connected.
-- A real support operator has not yet completed usability testing.
+Historical v1 scores and outputs are retained under `Result/history/`; do not compare their old full-rubric numbers directly with v2.

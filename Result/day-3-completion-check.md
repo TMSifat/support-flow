@@ -1,5 +1,7 @@
 # Day 3 Completion Check
 
+> Historical sprint record (evaluator v1). Its completion labels, metrics and original design describe the earlier implementation, not current verification. Use [current remediation status](remediation-status.md), [architecture](architecture.md), [evaluation v2](evaluation-rubric.md), [comparison](comparison.md), and [submission checklist](submission-checklist.md). Historical proxy sign-off does not approve new runs.
+
 Status: complete
 Audit date: 2026-09-05
 

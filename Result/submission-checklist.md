@@ -1,58 +1,30 @@
-# Submission Checklist
+# Current submission checklist
 
-## Working system
+## Prepared
 
-- [x] Reproducible local project
-- [x] Sample data and executable core path
-- [x] Example configuration with no secrets
-- [x] Local Llama 3.1 8B integration
-- [x] Policy knowledge-base integration
-- [x] Privacy-minimized D1 audit log
-- [x] Input validation, retry, fallback, and useful errors
-- [x] Final repository and clean ZIP prepared
+- [x] Runnable local repository, synthetic sample inputs and example configuration
+- [x] Windows first-time instructions, launcher, README and operator runbook
+- [x] Ollama and D1 tool integrations plus versioned policies
+- [x] Runtime model schema validation, retry/fallback, priority precedence and tested redaction forms
+- [x] Policy-visible UI, editable drafts, approval/copy boundaries and error recovery
+- [x] Common baseline/final evaluator, raw results, failure history and negative tests
+- [x] Original/challenge/new-input regression evidence
+- [x] Quality, latency, external API cost and approval-required metrics; missing human measurements disclosed
+- [x] Architecture, case study, AI collaboration note and two-week plan
+- [x] Historical candidate-proxy evidence clearly separated from current automated tests
 
-## Evaluation package
+## Recording and handoff
 
-- [x] 12 frozen test cases and expected behavior
-- [x] Baseline raw results
-- [x] Final raw results
-- [x] Baseline versus final comparison
-- [x] Pass/fail and failure analysis
-- [x] Quality and speed metrics
-- [x] Cost, escalation recall/precision, and human-intervention metrics
-- [x] Day 4 paraphrase and multi-intent before/after regression
-- [x] Deterministic required-content, unsafe-action, and privacy checks
-- [x] Disclosed candidate-proxy execution and candidate evaluation sign-off
-- [ ] Independent target-user validation (recommended follow-up, not claimed)
+- [x] [Five-minute recording verified and linked](demo.md) — silent automated screen demonstration with on-screen explanations
+- [ ] Candidate has watched the current recording and reviewed the specific result hash
+- [ ] Independent operator has completed current-version handoff acceptance
+- [ ] Actual human handling-time, touch count and adoption observations recorded
 
-## Case study
+The last three items require real participation; they are not auto-certified. Independent testing improves the central proof of use without the candidate. Synthetic-data and historical candidate-proxy disclosures remain visible.
 
-- [x] User and problem
-- [x] Existing workflow and bottleneck
-- [x] Scope and non-goals
-- [x] Architecture and trade-offs
-- [x] AI work versus human judgment
-- [x] Failures, changes, results, and limitations
-- [x] Two-week iteration plan
+## Submission
 
-## AI collaboration note
-
-- [x] Tools and roles
-- [x] Delegated work
-- [x] Verification method
-- [x] Rejected or corrected outputs
-- [x] Candidate-owned decisions
-
-## Demo
-
-- [x] Five-minute script
-- [ ] Screen recording completed
-- [ ] Demo link added
-
-## Final submission
-
-- [x] Repository link added: https://github.com/TMSifat/support-flow
-- [ ] Live URL added only if the model is remotely accessible
-- [ ] All links tested
-- [x] Files remain below 25 MB each
-- [ ] Submit Quest selected only after final review
+- Repository: https://github.com/TMSifat/support-flow
+- Public hosting: not required; reproducible local delivery is accepted by the brief.
+- JSON export: not required.
+- [ ] Candidate selected Submit Quest after final review

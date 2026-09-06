@@ -1,5 +1,7 @@
 # SupportFlow — Day 2 System Design and v0
 
+> Historical sprint record (evaluator v1). Its completion labels, metrics and original design describe the earlier implementation, not current verification. Use [current remediation status](remediation-status.md), [architecture](architecture.md), [evaluation v2](evaluation-rubric.md), [comparison](comparison.md), and [submission checklist](submission-checklist.md). Historical proxy sign-off does not approve new runs.
+
 Date: 2026-09-05
 Sprint: 5-Day Remote AI OS Sprint
 Status: Day 2 complete; local v0 verified

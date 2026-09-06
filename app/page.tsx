@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Check,
   ChevronRight,
@@ -38,8 +38,10 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [approved, setApproved] = useState(false);
   const [copied, setCopied] = useState(false);
+  const requestVersion = useRef(0);
 
   async function reviewTicket(message = ticket) {
+    const version = ++requestVersion.current;
     setIsRunning(true);
     setReview(null);
     setError(null);
@@ -47,12 +49,15 @@ export default function Home() {
     setCopied(false);
     try {
       const result = await requestReview(message);
+      if (version !== requestVersion.current) return;
       setReview(result);
       setReply(result.draft_reply);
+      return result;
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : 'Review failed.');
+      if (version === requestVersion.current)
+        setError(caught instanceof Error ? caught.message : 'Review failed.');
     } finally {
-      setIsRunning(false);
+      if (version === requestVersion.current) setIsRunning(false);
     }
   }
 
@@ -86,30 +91,25 @@ export default function Home() {
               throw new Error('Message is required.');
             }
             setTicket(message);
-            setIsRunning(true);
-            setReview(null);
-            setError(null);
-            setApproved(false);
-            setCopied(false);
-            try {
-              const result = await requestReview(message);
-              setReview(result);
-              setReply(result.draft_reply);
-              return {
-                category: result.category,
-                urgency: result.urgency,
-                requires_human_approval: result.requires_human_approval,
-              };
-            } finally {
-              setIsRunning(false);
-            }
+            const result = await reviewTicket(message);
+            if (!result)
+              throw new Error(
+                'Review failed or was superseded by a newer ticket.',
+              );
+            return {
+              category: result.category,
+              urgency: result.urgency,
+              requires_human_approval: result.requires_human_approval,
+            };
           },
         },
         { signal: lifecycle.signal },
       ),
     ).catch(() => {});
 
-    return () => lifecycle.abort();
+    return () => {
+      lifecycle.abort();
+    };
   }, []);
 
   return (
@@ -165,6 +165,8 @@ export default function Home() {
               id="ticket-message"
               value={ticket}
               onChange={(event) => {
+                requestVersion.current++;
+                setIsRunning(false);
                 setTicket(event.target.value);
                 setReview(null);
                 setError(null);
@@ -243,7 +245,7 @@ export default function Home() {
                     value={review.policy_matches[0]?.id ?? 'None'}
                   />
                   <ReviewItem
-                    label="Confidence"
+                    label="Model estimate"
                     value={`${review.confidence}%`}
                   />
                   <ReviewItem
@@ -263,6 +265,23 @@ export default function Home() {
                     }
                   />
                 </dl>
+
+                <details className="my-4 rounded-xl border border-[#e2e6ec] bg-white p-4 text-sm leading-6">
+                  <summary className="cursor-pointer font-medium">
+                    Read matched policy
+                  </summary>
+                  <p className="mt-2">{review.policy_matches[0]?.content}</p>
+                </details>
+                <p className="mb-4 text-sm text-[#536074]">
+                  Policy-template draft; personalize after checking the details.
+                  The model estimate is not a measured probability of
+                  correctness.
+                </p>
+                {error && (
+                  <p role="alert" className="mb-4 text-sm text-[#8a2525]">
+                    {error}
+                  </p>
+                )}
 
                 {review.approval_reason && (
                   <div className="my-6 border-l-2 border-[#d99a1b] py-1 pl-4">
@@ -291,7 +310,7 @@ export default function Home() {
                     <p className="mt-2 text-sm leading-6 text-[#536074]">
                       {review.missing_information.length
                         ? review.missing_information.join(', ')
-                        : 'Nothing required before operator review.'}
+                        : 'Verify the message and policy before use.'}
                     </p>
                   </div>
                 </div>
@@ -331,8 +350,16 @@ export default function Home() {
                     variant="outline"
                     className="h-10 border-[#d7dce3] bg-white px-4"
                     onClick={async () => {
-                      await navigator.clipboard.writeText(reply);
-                      setCopied(true);
+                      try {
+                        await navigator.clipboard.writeText(reply);
+                        setCopied(true);
+                        setError(null);
+                      } catch {
+                        setCopied(false);
+                        setError(
+                          'Could not copy automatically. Select the reply text and copy it manually.',
+                        );
+                      }
                     }}
                     disabled={
                       !reply.trim() ||

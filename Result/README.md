@@ -1,46 +1,18 @@
-# SupportFlow Result Pack
+# SupportFlow evidence pack
 
-This folder is the canonical home for sprint evidence and submission-ready artifacts.
+Start with [current remediation status](remediation-status.md), [comparison](comparison.md), [rubric v2](evaluation-rubric.md), [case study](case-study.md) and [submission checklist](submission-checklist.md).
 
-## Current contents
+The [five-minute demo](demo.md) includes live flows, measured results and limitations, with explicit automated/synthetic disclosure.
 
-- baseline-results.json — raw baseline outputs, timing, and automated checks
-- baseline-summary.md — readable baseline summary
-- day-1-foundation.md — problem, workflow, scope, assumptions, and success metrics
-- day-1-completion-check.md — requirement-by-requirement Day 1 audit
-- day-2-design-v0.md — system design, contracts, choices, boundaries, and v0 evidence
-- day-2-completion-check.md — requirement-by-requirement Day 2 audit
-- day-2-v0-evidence.json — raw live v0 verification output
-- day-3-working-core.md — Day 3 implementation, integrations, and manual exit check
-- model-fallback-verification.json — forced model-outage recovery evidence
-- day-3-completion-check.md — requirement-by-requirement Day 3 status
-- day-3-verification.json — live technical core, integration, validation, and audit evidence
-- day-4-evaluate-break-harden.md — challenge findings, root causes, changes, metrics, and limitations
-- day-4-challenge-before.json — raw challenge results before Day 4 hardening
-- day-4-challenge-after.json — raw regression results after Day 4 hardening
-- day-4-completion-check.md — requirement-by-requirement Day 4 status
-- day-4-proxy-feedback-form.md — completed disclosed candidate-proxy execution, UX feedback, and response record
-- candidate-signoff.json — sign-off provenance and disclosure boundary
-- evaluation-rubric.md — frozen evaluation criteria
-- architecture.md — system components, data flow, integrations, and approval boundaries
-- final-results.json — raw improved-system outputs and full rubric review
-- final-summary.md — readable final-system metrics
-- comparison.md — before/after results, trade-offs, and limitations
-- failure-analysis.md — root causes, fixes, regression evidence, and remaining risks
-- operator-runbook.md — non-technical operating and recovery instructions
-- case-study.md — portfolio-ready narrative
-- ai-collaboration-note.md — AI usage, verification, corrections, and candidate ownership
-- demo-script.md — timed five-minute presentation script
-- demo-recording-checklist.md — exact candidate recording and link-verification steps
-- adoption-plan.md — first-two-week adoption measures, targets, and release gate
-- day-5-handoff.md — final verification, delivery contents, limits, and remaining actions
-- day-5-completion-check.md — Day 5 requirement-by-requirement status
-- submission-checklist.md — final packaging and upload status
+Current raw evidence:
 
-## Planned contents
+- baseline-results.json and final-results.json: same common evaluator, explicit provenance, no automatic human review.
+- day-4-challenge-after.json: current live challenge regression.
+- hardening-results.json: new mixed-intent/privacy live cases.
+- hardening-regression.json: before/after controlled engine tests and evaluator negative checks.
+- browser-verification.json: automated UI, approval, race, clipboard and WebMCP checks.
+- clean-bootstrap-verification.json: fresh dependency install, tests, D1 setup and build without Git history on the current Windows machine.
 
-- independent target-user validation (recommended follow-up)
-- screen-recorded demo link
-- final repository or ZIP link
+Architecture, operator-runbook, AI-collaboration-note and adoption-plan explain operation and boundaries. Handoff-acceptance is an uncompleted independent-user form.
 
-Synthetic-data and proxy-user assumptions must remain clearly disclosed in every external submission.
+Original day-by-day documents are labelled historical. Candidate-signoff and old proxy screenshots describe earlier activity and do not approve new results. History contains previous raw results, including failed runs, and the earlier engine fixture used for reproducible regression tests. Old v1 scores are not comparable with current v2 numbers.

@@ -1,40 +1,30 @@
-# SupportFlow Operator Runbook
+# Operator runbook
 
 ## Start
 
-On the prepared sprint computer, run:
+Complete the three-step first-time setup in the root README. Afterwards double-click `Start-SupportFlow.cmd` and open http://localhost:3000. Keep the terminal open. If the app is already running, the launcher tells you.
 
-    powershell -ExecutionPolicy Bypass -File scripts/start-supportflow.ps1
+## Process a ticket
 
-Then open http://localhost:3000.
+1. Paste one English-language message and choose Review ticket.
+2. Check category and priority, then expand Read matched policy.
+3. Read the verification items and recommended action. Perform necessary checks in your actual order/account systems; SupportFlow cannot do them.
+4. Personalize the policy-template draft. The model estimate is uncalibrated and is not evidence that a fact is verified.
+5. Approve consequential replies only after the required checks. Copy unlocks after approval; editing resets approval.
+6. Copy the reply and send it using the authorized external channel. SupportFlow does not send it.
 
-## Review a ticket
+Safe self-service templates do not require an extra approval click. They still require your review. If the model is unavailable, the clearly labelled fallback always requires approval. Neither a green status nor clicking Approve proves that a real action occurred.
 
-1. Paste the customer message.
-2. Select Review ticket.
-3. Check category, priority, matched policy, and confidence.
-4. Read the approval reason when present.
-5. Edit the reply if needed.
-6. Approve only after completing any required order, stock, payment, account, carrier, or legal check.
+## Recover from a problem
 
-## Never do from SupportFlow alone
+- Blank or oversized message: enter between 1 and 5,000 characters.
+- Safe fallback: inspect the policy carefully. Check Ollama and the selected model before the next request.
+- Review failed: retry once and report the time and error code to the maintainer; avoid attaching customer secrets to logs.
+- Audit unavailable: run `npm run db:local:setup`; if it continues, ask the maintainer to inspect database access. Do not assume migration is the only possible cause.
+- Copy failed: select the draft text and copy manually.
+- Missing Node/npm or model: follow the README prerequisite steps.
+- Port 3000 occupied: stop the other application before starting SupportFlow.
 
-- Confirm a refund, credit, replacement, cancellation, or delivery date.
-- Claim an order, account, payment, or carrier action occurred.
-- Request a password or full card number.
-- Send a legal or safety-sensitive reply without manager review.
+## Boundaries
 
-## Errors
-
-- Message is required: paste non-empty ticket text.
-- Message too long: reduce it below 5,000 characters.
-- Safe fallback shown: the model failed twice. Verify the matched policy and draft carefully; explicit approval is mandatory.
-- Audit history unavailable: the database migration is missing; reviews can still run, but the operator should notify the maintainer.
-
-## Quality check before sending
-
-- Is the reply grounded in the displayed policy?
-- Does it avoid claims about actions that have not occurred?
-- Are missing order details requested?
-- Is human approval shown for consequential cases?
-- Does the tone remain calm and neutral?
+Never claim a refund, replacement, cancellation, carrier action or account change was performed by SupportFlow. Never request passwords/full card numbers. Route legal, safety and security issues to the appropriate person. Approval is not saved as a durable audit event. Independent first-time operation should be recorded using handoff-acceptance.md.

@@ -1,79 +1,33 @@
-# SupportFlow Architecture
+# SupportFlow architecture — current
 
-## System goal
+## Flow and boundaries
 
-Convert one unstructured customer-support message into a policy-grounded, reviewable response without allowing the model to make consequential promises or actions.
-
-## End-to-end flow
-
-1. A non-technical operator pastes a ticket into the web interface.
-2. The API validates message presence and length.
-3. Sensitive content such as exposed passwords or full card numbers is redacted before model inference.
-4. Keyword retrieval selects the most relevant policy from the versioned knowledge base.
-5. Deterministic rules identify legal, security, refund, replacement, cancellation, compatibility, and delivery risks.
-6. The local Ollama model produces a structured classification, rationale, facts, missing information, and reply draft.
-7. The validator checks category, urgency, approval state, and unsupported-action phrases.
-8. Deterministic guardrails override unsafe model decisions and replace an unsafe draft with a safe category template.
-9. If both model attempts fail, the system returns a clearly labelled deterministic fallback with zero confidence and mandatory operator approval.
-10. The interface shows the policy, confidence, generation source, approval boundary, and editable reply.
-11. The operator retains approval and sending authority.
-
-## Components
-
-| Component                | Responsibility                                                             |
-| ------------------------ | -------------------------------------------------------------------------- |
-| Web workspace            | Ticket input, review result, editing, approval                             |
-| Review API               | Input contract, orchestration, useful error responses                      |
-| Policy retriever         | Selects a relevant policy from the supplied knowledge base                 |
-| Ollama / Llama 3.1 8B    | Classification, extraction, recommended action, draft generation           |
-| Deterministic guardrails | Redaction, minimum urgency, mandatory approval, unsafe-claim detection     |
-| D1 audit log             | Persists minimal review metadata without storing customer messages         |
-| Evaluation runner        | Executes the frozen 12-case suite and saves comparable evidence            |
-| Result pack              | Stores baseline, final results, failure analysis, and submission documents |
+1. The operator enters one message (required string, 1–5,000 characters after meaningful-content validation).
+2. The API rejects invalid JSON, blank messages and oversized input.
+3. Named password/passcode/PIN/security-code values and full card-number patterns are redacted before inference.
+4. Deterministic risk rules select a primary category and policy; high-risk urgency takes precedence over a recent tracking pause.
+5. Ollama receives the redacted input, policy and explicit JSON schema. Runtime validation rejects null, arrays, primitives, incomplete objects and invalid field types.
+6. A failed response is retried once; a second failure returns zero model confidence, a visible warning and mandatory approval.
+7. Versioned templates produce the final reply and recommended action. Required verification items are derived independently of the model. Model facts survive only when directly present in the redacted input.
+8. D1 records privacy-minimized review metadata. A logging failure is visible but does not discard the review.
+9. The operator can read the policy, edit the template, approve when required and copy. Draft/ticket edits invalidate approval; superseded responses cannot overwrite newer input.
 
 ## Integrations
 
-1. **Ollama HTTP API** at a configurable local URL for model inference.
-2. **Versioned policy knowledge base** loaded from data/knowledge-base.json for retrieval-grounded generation.
-3. **D1 database** for durable, privacy-minimized audit metadata.
+Ollama HTTP API provides local inference. D1 provides local durable audit metadata. The versioned JSON knowledge base provides policies. There is no live order, inventory, payment, account or email integration.
 
-## Data contract
+## Output contract
 
-Input:
+category; urgency; confidence (uncalibrated model estimate); facts; missing_information (checks still requiring verification); policy_matches with id/title/content; recommended_action; requires_human_approval; approval_reason; draft_reply; validation_warnings; processing_time_ms; model; generation_status (model or deterministic_fallback); draft_source (policy_template); audit_status (recorded or unavailable).
 
-- message: required non-empty string, maximum 5,000 characters
+Input is message only. Earlier ticket_id/received_at design fields were dropped from v1. Audit records receive their own generated ID and timestamp.
 
-Output:
+## Human decisions
 
-- category
-- urgency
-- confidence
-- facts
-- missing_information
-- policy_matches
-- recommended_action
-- requires_human_approval
-- approval_reason
-- draft_reply
-- validation_warnings
-- processing_time_ms
-- model
+Refunds, replacements, cancellations, sensitive/security/legal issues and unsupported compatibility require human approval. Safe standard-return instructions, short tracking pauses and non-threatening complaints may use a reviewed policy template without an additional approval click, even with a low model estimate. Unknown/unclear cases and outage fallbacks require approval. Insults alone do not imply a legal/security escalation; threats do.
 
-## Human approval boundary
+Approval is a UI acknowledgement, not proof that verification or sending occurred; it is not durably audited. Operator checks and human sending authority remain outside the app. Missing verification items can remain visible until the operator checks external systems.
 
-Approval is mandatory for refunds, replacements, delivery promises, order cancellation, legal or safety issues, account security, payment security, unknown compatibility, and other high-risk or low-confidence cases. The system never sends email or performs financial/account actions.
+## Trade-offs and limitations
 
-## Fallbacks and failure handling
-
-- Invalid input returns a specific 400 response.
-- Invalid or unavailable model output triggers one retry.
-- A second model failure returns a deterministic safe reply, zero confidence, a visible warning, and mandatory approval.
-- Unsafe action claims trigger a deterministic safe-draft fallback.
-- Policy and rule decisions remain available independently of model wording.
-
-## Privacy and permissions
-
-- Passwords and card-number patterns are redacted before inference.
-- The local model keeps inference on the user’s computer.
-- No reply is sent automatically.
-- Secrets and machine-specific endpoints are configuration, not source code.
+Policy templates reduce personalization and do not cover every novel issue. Redaction and intent detection are pattern-based and cannot guarantee recognition of all forms. Model proposals and estimates are not ground truth. Non-English messages and attachments are outside scope. The final evaluator is independent of production code but still incomplete; new cases and human review remain necessary. Local hosting requires the machine's Ollama service; no public hosting is claimed.

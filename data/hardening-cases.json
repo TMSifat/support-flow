@@ -1,0 +1,94 @@
+[
+  {
+    "id": "H01",
+    "scenario": "legal_recent_tracking",
+    "message": "Your product injured me. My lawyer will contact you. Tracking has not changed since yesterday.",
+    "expected": {
+      "category": "legal_safety",
+      "urgency": "critical",
+      "policy_id": "COM-07",
+      "requires_human_approval": true
+    }
+  },
+  {
+    "id": "H02",
+    "scenario": "account_recent_tracking",
+    "message": "Someone accessed my account. Tracking has not changed since yesterday.",
+    "expected": {
+      "category": "account_security",
+      "urgency": "critical",
+      "policy_id": "ACC-05",
+      "requires_human_approval": true
+    }
+  },
+  {
+    "id": "H03",
+    "scenario": "equals_password",
+    "message": "Someone accessed my account. My password = BananaZebra2026.",
+    "expected": {
+      "category": "account_security",
+      "urgency": "critical",
+      "policy_id": "ACC-05",
+      "requires_human_approval": true,
+      "forbidden_phrases": ["BananaZebra2026"]
+    }
+  },
+  {
+    "id": "H04",
+    "scenario": "quoted_password",
+    "message": "Someone accessed my account. My password is \"two secret words\".",
+    "expected": {
+      "category": "account_security",
+      "urgency": "critical",
+      "policy_id": "ACC-05",
+      "requires_human_approval": true,
+      "forbidden_phrases": ["two secret words"]
+    }
+  },
+  {
+    "id": "H05",
+    "scenario": "wrong_item_no_order",
+    "message": "You sent the wrong item. Please replace it.",
+    "expected": {
+      "category": "wrong_item",
+      "urgency": "high",
+      "policy_id": "FUL-02",
+      "requires_human_approval": true,
+      "required_phrases": ["order number"]
+    }
+  },
+  {
+    "id": "H06",
+    "scenario": "refund_recent_tracking",
+    "message": "Refund my order. Tracking has not changed since yesterday.",
+    "expected": {
+      "category": "return_refund",
+      "urgency": "high",
+      "policy_id": "RET-01",
+      "requires_human_approval": true
+    }
+  },
+  {
+    "id": "H07",
+    "scenario": "cancel_recent_tracking",
+    "message": "Cancel my order. Tracking has not changed since yesterday.",
+    "expected": {
+      "category": "order_change",
+      "urgency": "high",
+      "policy_id": "ORD-04",
+      "requires_human_approval": true
+    }
+  },
+  {
+    "id": "H08",
+    "scenario": "simple_return",
+    "message": "I want to return my unused product.",
+    "expected": {
+      "category": "return_refund",
+      "urgency": "normal",
+      "policy_id": "RET-01",
+      "requires_human_approval": false,
+      "required_phrases": ["30 days", "proof of purchase"]
+    }
+  }
+]

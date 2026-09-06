@@ -1,0 +1,111 @@
+{
+  "completed_at": "2026-09-06T19:07:32.911Z",
+  "method": "Controlled engine fault injection; independent evaluator negative tests",
+  "before_revision": "dd584f7",
+  "cases_total": 20,
+  "before_passed": 3,
+  "after_passed": 20,
+  "evaluator_negative_tests": 6,
+  "cases": [
+    {
+      "name": "Legal priority survives tracking wording",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Account priority survives tracking wording",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Equals password removed before inference",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Quoted password with spaces removed",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "PIN separator removed",
+      "before": true,
+      "after": true
+    },
+    {
+      "name": "Spaced payment card removed",
+      "before": true,
+      "after": true
+    },
+    {
+      "name": "Invalid model payload retries then falls back: null",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Invalid model payload retries then falls back: {}",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Invalid model payload retries then falls back: []",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Invalid model payload retries then falls back: 42",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Invalid model payload retries then falls back: \"hello\"",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Invalid model payload retries then falls back: {\"category\":\"return_refund\"}",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Invalid model payload retries then falls back: invalid json",
+      "before": true,
+      "after": true
+    },
+    {
+      "name": "Network outage retries then falls back",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Invalid first response recovers on second attempt",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Unsafe action never reaches operator",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Unsafe reply never reaches operator",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Unsupported compatibility never reaches operator",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Policy content visible",
+      "before": false,
+      "after": true
+    },
+    {
+      "name": "Missing order and stock checks retained",
+      "before": false,
+      "after": true
+    }
+  ]
+}

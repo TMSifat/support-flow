@@ -1,5 +1,7 @@
 # Failure Analysis and Hardening
 
+> Historical sprint record (evaluator v1). Its completion labels, metrics and original design describe the earlier implementation, not current verification. Use [current remediation status](remediation-status.md), [architecture](architecture.md), [evaluation v2](evaluation-rubric.md), [comparison](comparison.md), and [submission checklist](submission-checklist.md). Historical proxy sign-off does not approve new runs.
+
 ## Day 4 challenge-test update
 
 The original frozen evaluation passed after the first implementation, but a separate 12-case paraphrase and multi-intent challenge suite initially passed only 2/12. Day 4 added explicit high-risk category precedence, broader intent and duration recognition, passcode/PIN redaction, expanded unsupported-action detection, and consistent safe-self-service approval handling. The challenge suite then passed 12/12 while the original frozen suite remained 12/12. See `day-4-evaluate-break-harden.md` for the five failure groups and raw before/after evidence.
