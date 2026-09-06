@@ -2,6 +2,8 @@
 
 Status: engineering and package preparation complete; candidate screen recording and final upload remain.
 
+Source repository: https://github.com/TMSifat/support-flow
+
 ## Runnable system
 
 - Reproducible local project with `package-lock.json` and `.env.example`
@@ -40,5 +42,5 @@ Status: engineering and package preparation complete; candidate screen recording
 ## Remaining candidate actions
 
 1. Record the five-minute demo using `demo-recording-checklist.md`.
-2. Upload the ZIP/repository and video; test both links while signed out.
-3. Add the links to the submission form and complete the final review before selecting Submit Quest.
+2. Upload the video and test its link while signed out.
+3. Add the repository and video links to the submission form, then complete the final review before selecting Submit Quest.
