@@ -8,7 +8,7 @@ Complete the three-step first-time setup in the root README. Afterwards double-c
 
 1. Paste one English-language message and choose Review ticket.
 2. Check category and priority, then expand Read matched policy.
-3. Read the verification items and recommended action. Perform necessary checks in your actual order/account systems; SupportFlow cannot do them.
+3. Read “Provided in the message”, “Still to verify” and the recommended action. A displayed order ID is supplied by the customer, not verified in an order system. Perform necessary checks in your actual order/account systems; SupportFlow cannot do them.
 4. Personalize the policy-template draft. The model estimate is uncalibrated and is not evidence that a fact is verified.
 5. Approve consequential replies only after the required checks. Copy unlocks after approval; editing resets approval.
 6. Copy the reply and send it using the authorized external channel. SupportFlow does not send it.
@@ -28,3 +28,5 @@ Safe self-service templates do not require an extra approval click. They still r
 ## Boundaries
 
 Never claim a refund, replacement, cancellation, carrier action or account change was performed by SupportFlow. Never request passwords/full card numbers. Route legal, safety and security issues to the appropriate person. Approval is not saved as a durable audit event. Independent first-time operation should be recorded using handoff-acceptance.md.
+
+The human-test-kit.md file contains five synthetic tickets and measurement instructions. Actual observations belong in human-observations.json; blank values remain unmeasured. The candidate must separately complete current-candidate-review.json after reviewing the exact version and recording.

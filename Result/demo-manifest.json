@@ -1,0 +1,40 @@
+{
+  "recorded_at": "2026-09-07T09:27:05.826Z",
+  "method": "Silent automated screen recording of the actual local application; synthetic messages; not human usability evidence",
+  "evaluator_version": "3",
+  "engine_sha256": "d35c9c0bbfee0944aa451a7cfc5289dee5c9d9363df2d6306d16feb1aa31d294",
+  "result_sha256": "9af0469df788e9800edeb171bf6aa172ac05fb7896bf6d929c3c07556f6e4baa",
+  "suite_result_hashes": [
+    {
+      "system": "final",
+      "sha256": "9af0469df788e9800edeb171bf6aa172ac05fb7896bf6d929c3c07556f6e4baa"
+    },
+    {
+      "system": "challenge",
+      "sha256": "6d1c589e0f95a4cd69adbf18552bdd9b1b0491367f7141bed219c98a59421e60"
+    },
+    {
+      "system": "hardening",
+      "sha256": "d52c41ba6dc13e78492594603187b138a5e3be3ce3e3b04516957e2b4c53b092"
+    },
+    {
+      "system": "remediation",
+      "sha256": "3e5752160355ebd718e982478fed18a4f235ec5a3922348f1cc67729a418fe5b"
+    }
+  ],
+  "video_sha256": "21350a9685243f7fa993641ec219af0d744d733584c26e4b3b3635156eba7615",
+  "candidate_watched": null,
+  "trimmed_to_seconds": 300,
+  "duration_seconds": 300,
+  "width": 1440,
+  "height": 1180,
+  "sampled_frames_seconds": [
+    10,
+    105,
+    175,
+    240,
+    295,
+    299
+  ],
+  "sample_inspection": "Agent inspected content, full draft and visible approval/reset controls; not candidate viewing"
+}

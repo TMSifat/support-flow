@@ -1,5 +1,8 @@
 {
   "status": "complete",
+  "record_scope": "historical candidate-proxy activity before current remediation",
+  "approves_current_results": false,
+  "current_review_record": "current-candidate-review.json",
   "date": "2026-09-06",
   "candidate_identifier": "project owner/user (name not provided)",
   "basis": [

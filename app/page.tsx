@@ -277,6 +277,30 @@ export default function Home() {
                   The model estimate is not a measured probability of
                   correctness.
                 </p>
+                {(review.extracted_fields?.order_number ||
+                  review.facts.length > 0) && (
+                  <div className="mb-4 rounded-xl border border-[#e2e6ec] bg-white p-4">
+                    <h3 className="text-sm font-semibold">
+                      Provided in the message
+                    </h3>
+                    {review.extracted_fields?.order_number && (
+                      <p className="mt-2 text-sm">
+                        Order #{review.extracted_fields.order_number}
+                      </p>
+                    )}
+                    {review.facts.length > 0 && (
+                      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm leading-6 text-[#536074]">
+                        {review.facts.map((fact, index) => (
+                          <li key={`${index}-${fact}`}>{fact}</li>
+                        ))}
+                      </ul>
+                    )}
+                    <p className="mt-2 text-sm text-[#667085]">
+                      Customer-provided details; verify them in the relevant
+                      system.
+                    </p>
+                  </div>
+                )}
                 {error && (
                   <p role="alert" className="mb-4 text-sm text-[#8a2525]">
                     {error}
@@ -304,9 +328,7 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="rounded-xl border border-[#e2e6ec] bg-white p-4">
-                    <h3 className="text-sm font-semibold">
-                      Missing information
-                    </h3>
+                    <h3 className="text-sm font-semibold">Still to verify</h3>
                     <p className="mt-2 text-sm leading-6 text-[#536074]">
                       {review.missing_information.length
                         ? review.missing_information.join(', ')

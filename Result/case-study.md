@@ -1,42 +1,45 @@
 # SupportFlow — case study
 
-## Whose workflow changed?
+## User, problem and scope
 
-The intended user is a non-technical operator at a small e-commerce store. For each ticket they classify the issue, identify urgency, find policy, draft a response, decide which actions require approval, and record metadata. The synthetic store assumes 20–50 English-language messages daily; this volume and actual time savings have not been observed in a real support team.
+The intended user is a non-technical operator at a small e-commerce store. They repeatedly classify a ticket, judge urgency, look up policy, draft a reply, identify actions needing approval and record the review. A synthetic store assumes 20–50 English messages daily; actual volume and pain have not been observed in a real team. Synthetic inputs are allowed by the brief and are disclosed.
 
-The candidate completed disclosed proxy flows earlier in the sprint. Current automated browser testing is distinct from independent user research. Synthetic data is allowed by the brief and is disclosed throughout this project.
+The five-day scope is one pasted message through a reviewable reply. Non-goals: sending messages, refunds, replacements, cancellation execution, account changes, live order/inventory/payment lookup, attachments and other languages. The workflow ends with an operator reviewing, editing, approving where required and copying a draft. Consequential actions remain external human responsibilities.
 
-## What was built?
+## Architecture and trade-offs
 
-A local web workspace connects an Ollama model, versioned store policies and a D1 audit log. It accepts one pasted ticket and produces a policy-grounded review. The operator can read the policy, verify missing information, edit a policy-template reply, approve when needed and copy it.
+A compact web UI calls a validated API. The engine redacts named secrets, recognizes risk and retrieves a versioned policy. Ollama returns a schema-validated proposal; one invalid attempt retries and a second failure yields a zero-confidence, approval-required fallback. D1 stores review metadata without customer text.
 
-The model supplies schema-validated classification/extraction proposals. Risk rules preserve critical priority across mixed intents. Invalid model objects receive one retry and then an approval-required fallback. Operator-visible recommended actions and replies use policy templates; unverified model prose is not delivered as the final reply. This sacrifices personalization for predictable policy wording. Extracted facts are retained only when present in the redacted input.
+Final replies/actions are policy templates. Parsed order IDs personalize them without claiming an order lookup. The operator sees provided excerpts/identifiers separately from remaining verification. Model text is not sent as an unrestricted final reply. This favors predictable wording over personalization. The local model avoids external API charges but introduces installation/resource costs and latency.
 
-No email, refund, replacement, cancellation or account action is performed. Order/inventory/payment/account verification and sending remain human responsibilities. Local model inference avoids external model API charges but requires installation and suitable local resources.
+Recognized requests remain stable against ordinary model category errors. Legal/account/payment model signals may raise priority, and a critical result always requires review. Novel wording with no deterministic category can use the model category. Estimates are uncalibrated. Approval is a UI acknowledgement, not a durable approval/sending record.
 
-## Baseline and proof
+## Baseline and measurements
 
-Both conditions use the same Llama 3.1 8B model and the original 12-case suite: 11 non-empty messages plus a separate validation case. Baseline uses one generic prompt without policies or tools. Evaluator v2 applies the same eight-point quality checks to baseline and final; final schema/policy capabilities are additional checks. Failed requests stay in the denominator. Recorded v2 results and timing are in [comparison](comparison.md), [baseline summary](baseline-summary.md), and [final summary](final-summary.md).
+Evaluator v3 uses a common eight-point quality score across a generic prompt, a policy-aware prompt and SupportFlow on 11 nonempty original cases. Blank validation is separate. Four final-system suites total 50 synthetic development/regression cases. All current final release checks pass, but these are not unseen generalization results. Raw runs, source/evaluator/knowledge hashes and failed earlier runs are retained.
 
-The earlier v1 full-rubric comparison overstated what its checker established. That claim was withdrawn: baseline used static case reviews while final reused automated passes. The corrected checker rejects known-bad refund, compatibility and liability statements and does not create human sign-off. Its outputs are automated regression evidence, not proof of universal safety.
+The original suite passes even with a neutral model stub: rules/templates explain that gain. A no-inference ablation on new semantic paraphrases measures where the model helps. This is reported directly in [system comparison](system-comparison.md), alongside the policy-aware baseline. No human-time saving is inferred from HTTP latency.
+
+Order-number extraction is measured on 18 new cases (100% in the current run); two cases also assert required identifier facts. This is narrow field coverage, not broad fact-extraction accuracy.
 
 ## Failures, causes and changes
 
-- Mixed legal/security plus recent tracking text downgraded critical priority. A general tracking override outranked risk; the override now applies only when no higher-risk reason exists.
-- Null or incomplete JSON bypassed retry validation. Both JSON schema guidance and runtime shape validation now apply inside the retry boundary.
-- Equals signs and quoted passwords evaded redaction. Named-secret parsing now supports these forms, and request-prompt probes verify removal.
-- Unsafe recommendations and unsupported reply promises escaped text checks. The delivered reply/action now use versioned templates and derived verification items.
-- The UI showed only a policy ID and could display contradictory missing-information text. Policy content is expandable; verification items are derived independently from model suggestions.
-- Old responses could race edited input; request versioning prevents stale rendering. Clipboard failures now produce an actionable message. Browser tests exercise approval reset, copy gating and WebMCP error handling.
+- “issue” and “suede” matched an unbounded “sue” regex. Token boundaries fixed the false legal escalation.
+- An injury plus a routine return bypassed approval. Expanded injury recognition and critical-model precedence close the tested escape.
+- Address changes were classified as tracking delays. Address-edit intents now use order/fulfillment verification and mandatory approval.
+- A password suffix survived punctuation and an order number containing “is” was missed. Complete-token redaction and shared identifier parsing fix both tested failures.
+- “Five items” counted as tracking duration. Duration recognition now requires tracking context; ambiguous calendar intervals require verification.
+- The scorer accepted a forbidden lost-parcel claim. V3 explicitly maps every original prohibition and tests known-bad examples.
+- During these fixes, live inference misclassified an explicit refund and a benign tracking case; ordinary model proposals no longer overwrite recognized requests. Additional injury-category definitions corrected another semantic failure. Failed runs were kept, not erased.
 
-Controlled fault tests improved from 3/20 on the earlier source to 20/20. Original live tests pass 12/12, challenge tests 12/12, and new mixed-intent/privacy tests 8/8 in the retained run. [Raw hardening evidence](hardening-regression.json) and [browser evidence](browser-verification.json) disclose their automated methods.
+Controlled shared behavioral tests improved from 4/18 to 18/18; new schema capabilities were excluded from that comparison. The earlier 20-case fault suite still passes. See the raw regression and current live files.
 
-## Human ownership and remaining limitations
+## AI collaboration and human judgment
 
-The candidate owns scope, synthetic-data disclosure, operating boundaries and final presentation. AI performed substantial coding, data creation, checks and documentation, including this later hardening. Current result files are not automatically signed off by the candidate.
+AI performed substantial implementation, test creation, automated execution and documentation. The candidate historically rejected an over-designed interface and chose a compact operational presentation. The collaboration note discloses AI work, rejected results and decisions requiring human ownership. Current outputs are not automatically signed off. The candidate must understand and explain the architecture, evaluation and trade-offs personally.
 
-Actual human handling time, manual touches, field-extraction accuracy, independent setup and adoption remain unmeasured. Approval-required rate is not manual-touch rate; the 50% manual-touch target is unproven. Text rules can miss new phrasing, confidence is uncalibrated, and templates can be too generic. English-only text and one primary issue are deliberate scope limits. D1 records review metadata, not durable approval or sending events.
+## Remaining limitations and next two weeks
 
-## Next two weeks
+An independent participant is currently unavailable. Historical candidate-proxy activity is distinct from current-version independent operation; original screenshot files are not included as fresh evidence. Human task time, touches, adoption, setup and feedback remain unmeasured. The ready five-ticket handoff kit records observed outcomes and ties them to this version when a person is available.
 
-Week 1: give two independent operators the README/runbook, observe unassisted setup and five tickets each, record time/edits/approval mistakes, and respond to their feedback. Week 2: expand to 50 cases, test a read-only sandbox order lookup and compare operator outcomes. Actual adoption begins only when people use the system. See [the measurement plan](adoption-plan.md) and [uncompleted acceptance form](handoff-acceptance.md).
+Week 1: two independent operators if available, unassisted setup, five tickets each, observed times/edits/approval understanding and feedback-driven changes. Week 2: new unseen examples beyond the existing 50 regression cases, a read-only sandbox order lookup and another operator comparison. The 50% manual-touch target remains unproven. See adoption-plan.md and human-test-kit.md.

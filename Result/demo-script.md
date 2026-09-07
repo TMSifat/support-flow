@@ -1,58 +1,29 @@
-# Five-Minute Demo Script
+# Current five-minute candidate presentation guide
 
-> Historical sprint record (evaluator v1). Its completion labels, metrics and original design describe the earlier implementation, not current verification. Use [current remediation status](remediation-status.md), [architecture](architecture.md), [evaluation v2](evaluation-rubric.md), [comparison](comparison.md), and [submission checklist](submission-checklist.md). Historical proxy sign-off does not approve new runs.
+Use this with the current recording/results. Speak in your own words; do not claim an independent operator session or time savings that were not measured.
 
-## 0:00–0:40 — Problem and baseline
+## 0:00–0:35 — User and baseline
 
-“A small e-commerce support operator repeatedly classifies messages, searches policy, drafts replies, and decides when approval is needed. I used synthetic data because I did not have access to a real support team.”
+A small-store operator repeats classification, policy lookup, drafting and approval decisions. The store and tickets are synthetic; assumed daily volume is not observed. Explain the generic prompt baseline and why review boundaries matter.
 
-Show baseline-summary.md. Point out 1/12 full-rubric passes and the three critical failures.
+## 0:35–1:55 — Live flow
 
-## 0:40–1:10 — System boundary
+Paste T02, run Review ticket and expand the policy. Show the provided order ID, remaining verification and policy-template reply. Scroll the whole draft into view and edit it. Explain that customer-provided facts are not externally verified.
 
-Show the SupportFlow workspace.
+## 1:55–3:10 — Failure, correction and approval
 
-“SupportFlow drafts and explains. It does not send email or perform refunds, replacements, order changes, account actions, or delivery promises. Those stay with a human.”
+Paste: Your charger burned my hand. I want to return the unused accessories. Explain how the earlier self-service rule suppressed approval. Show the corrected critical safety policy and blocked copy. Approve, edit, then show approval reset. No real action or message is sent.
 
-## 1:10–2:20 — Live normal flow
+## 3:10–3:40 — Validation and fallback
 
-Use T02:
+Clear the input and show the disabled review action. Explain that invalid model output retries once, then returns a visibly labelled zero-confidence fallback requiring approval. The controlled tests exercise this; the recording does not pretend to be an independent human trial.
 
-“I received order #5102 ten days ago and the unused shirt does not fit. How can I return it?”
+## 3:40–4:23 — Measured results
 
-Select Review ticket. Show:
+Current common evaluator: generic prompt 0/11; final 11/11. Median HTTP times 1.62 s and 2.46 s. All 50 final regression cases pass. New controlled behavioral checks improved 4/18 to 18/18. Explain the policy-aware baseline and no-inference comparison: existing rules cover the original cases, while the model helps on three new semantic paraphrases.
 
-- return/refund category
-- normal priority
-- RET-01 policy
-- no unnecessary approval
-- 30-day and proof-of-purchase requirements in the draft
+## 4:23–5:00 — Ownership, limitations and next step
 
-## 2:20–3:30 — Failure handling
+Explain one personally rejected AI result and one architectural trade-off. Be precise: templates trade personalization for predictable wording; no live order/action integration exists; the set was used in development. A non-builder is currently unavailable, so human setup/time/edits/adoption remain pending. Show the ready human test kit and next-two-week plan.
 
-Use T08:
-
-“I think someone accessed my account. My password is Summer2026. Can you check?”
-
-Show:
-
-- account-security category
-- critical urgency
-- mandatory approval
-- password-change guidance
-
-Explain that the password is redacted before inference and that the system does not claim it locked the account or sent a link.
-
-Show that Copy draft remains blocked until approval. Approve the draft, show Copy draft unlock, then edit one character and show that approval resets. Explain that a separately tested double model failure produces a labelled zero-confidence safe fallback instead of an autonomous answer.
-
-## 3:30–4:25 — Evaluation
-
-Show comparison.md.
-
-“I froze 12 representative, edge, and failure cases before the final run. The same model was used for baseline and final. Full-rubric pass rate increased from 8% to 100%, critical failures fell from three to zero, and median latency increased from 1.60 to 2.19 seconds. A separate challenge suite improved from 2/12 to 12/12 after hardening.”
-
-## 4:25–5:00 — Limitation and next step
-
-“The main limitation is that the dataset is synthetic and small, there is no live order system, and the recorded usability evidence is candidate-proxy testing rather than independent user research. My next step is independent proxy-user testing and an expanded 50-case suite, followed by a read-only sandbox order lookup.”
-
-End on the Result folder and mention the runnable project, raw results, case study, AI note, and runbook.
+Current result SHA-256: 9af0469df788e9800edeb171bf6aa172ac05fb7896bf6d929c3c07556f6e4baa.

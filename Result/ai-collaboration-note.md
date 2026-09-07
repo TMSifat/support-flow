@@ -17,9 +17,9 @@
 
 ## Verification
 
-Current verification uses evaluator v2 with common baseline/final checks, negative safety fixtures, controlled model fault injection and automated browser tests. Final replies/actions are versioned policy templates. Raw runs have hashes; older results are retained. Current human review and independent user acceptance are explicitly unperformed. The earlier case-ID-based review/sign-off generators were rejected and replaced.
+Current verification uses evaluator v3 with common baseline/final checks, negative safety fixtures, controlled model fault injection and automated browser tests. Final replies/actions are versioned policy templates. Raw runs have hashes; older results are retained. Current human review and independent user acceptance are explicitly unperformed. The earlier case-ID-based review/sign-off generators were rejected and replaced.
 
-- The same 12 frozen cases were used for baseline and final runs.
+- The current common comparison uses the same 11 non-empty original messages for both prompt baselines and the final system; the twelfth, blank-input case checks final-system validation separately.
 - The same Llama 3.1 8B model was used in both conditions.
 - Outputs were checked against expected category, urgency, approval, policy, required content, and forbidden behavior.
 - Raw outputs and processing times were retained.
@@ -48,3 +48,7 @@ Current verification uses evaluator v2 with common baseline/final checks, negati
 ## Transparency note
 
 AI contributed substantial implementation and writing. The candidate is responsible for understanding the architecture, validating the evidence, explaining trade-offs, presenting limitations honestly, and making the final submission.
+
+## Second audit response
+
+Codex fixed the newly demonstrated injury/approval, substring, address-change, secret-suffix, quantity/duration, missing-order and scorer-prohibition defects. Live failures during remediation were rejected and retained before another correction. It added 18 regression cases, narrow extraction checks, policy-aware and no-inference comparisons, a current-result-bound demo and a human test kit. The candidate reported that an independent operator is unavailable; no human result was invented. Customer-provided facts now include exact model excerpts and a deterministically parsed order identifier.

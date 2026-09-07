@@ -4,10 +4,10 @@ const baseline = JSON.parse(
 );
 const final = JSON.parse(await readFile('Result/final-results.json', 'utf8'));
 if (
-  baseline.summary.evaluator_version !== '2' ||
-  final.summary.evaluator_version !== '2'
+  baseline.summary.evaluator_version !== '3' ||
+  final.summary.evaluator_version !== '3'
 )
-  throw new Error('Run baseline and final using evaluator v2 first.');
+  throw new Error('Run baseline and final using evaluator v3 first.');
 const pct = (n) => (n === null ? 'Not measured' : `${Math.round(n * 100)}%`);
 const seconds = (n) =>
   n === null ? 'Not measured' : `${(n / 1000).toFixed(2)} s`;
@@ -19,7 +19,7 @@ for (const [name, result] of [
   await writeFile(
     `Result/${name}-summary.md`,
     [
-      `# ${name === 'baseline' ? 'Generic prompt baseline' : 'SupportFlow final'} — evaluator v2`,
+      `# ${name === 'baseline' ? 'Generic prompt baseline' : 'SupportFlow final'} — evaluator v3`,
       '',
       `Run: ${s.completed_at}. Results SHA-256: \`${s.result_sha256}\`.`,
       '',
@@ -51,7 +51,7 @@ const b = baseline.summary,
 await writeFile(
   'Result/comparison.md',
   [
-    '# Baseline versus final — common evaluator v2',
+    '# Baseline versus final — common evaluator v3',
     '',
     'Both conditions use the same local model and the same eight-point common quality checks. Policy retrieval and richer final schema are reported as additional capabilities, not used to penalize baseline quality. Invalid input is scored separately. Failed non-empty requests remain in quality denominators.',
     '',
@@ -64,7 +64,7 @@ await writeFile(
     '',
     'This is a synthetic regression comparison, not independent real-world effectiveness research. Final drafts are versioned policy templates; the model supplies validated classification/extraction proposals. Personalization and actual order/account decisions require the operator. Regex-based evaluation still needs human review and unseen examples. Actual handling-time savings, manual-touch reduction, field-extraction accuracy and adoption have not been measured.',
     '',
-    'Historical v1 scores and outputs are retained under `Result/history/`; do not compare their old full-rubric numbers directly with v2.',
+    'Historical v1/v2 outputs are retained under `Result/history/`. V3 enforces every declared must-not prohibition. Do not compare differently scored runs directly. See system-comparison.md for the policy-aware prompt and no-inference ablation.',
     '',
   ].join('\n'),
 );

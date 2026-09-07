@@ -1,5 +1,7 @@
 # SupportFlow — Day 1 Foundation
 
+> Historical initial design. Current contracts, measured results and limitations are in [the current submission index](../Result/START-HERE.md). This document does not certify the current version or human adoption.
+
 Date: 2026-09-05
 Sprint: 5-Day Remote AI OS Sprint
 Status: Day 1 complete; scope locked for v1

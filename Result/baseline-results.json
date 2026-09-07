@@ -11,6 +11,8 @@
     "approval_accuracy": 0.6363636363636364,
     "structured_output_rate": 1,
     "required_content_pass_rate": 0.6363636363636364,
+    "order_number_accuracy": null,
+    "facts_capture_rate": null,
     "validation_passes": 0,
     "request_completion_rate": 0.9166666666666666,
     "escalation_recall": 0.625,
@@ -20,21 +22,28 @@
     "manual_touch_rate": null,
     "human_task_time_ms": null,
     "external_api_cost_usd": 0,
-    "median_request_time_ms": 1678,
-    "p95_request_time_ms": 2080,
+    "median_request_time_ms": 1622,
+    "p95_request_time_ms": 1947,
     "manual_review": "not performed for this run",
     "system": "baseline",
     "run_status": "complete",
-    "completed_at": "2026-09-06T18:49:37.888Z",
-    "rescored_at": "2026-09-06T19:02:58.659Z",
-    "evaluator_version": "2",
+    "completed_at": "2026-09-07T09:19:19.761Z",
+    "rescored_at": null,
+    "evaluator_version": "3",
     "model": "llama3.1:8b",
-    "source_revision": "dd584f7dcd476c9bac456becc196ac389eff3f43",
+    "source_revision": "69b2e7cd3924a3cba8ca6fa87580110620c12fba",
     "source_dirty": true,
     "suite_sha256": "634b12898159ec76a98a54e0e780449f46f96e4879d2f060084b12a40da63132",
-    "engine_sha256": "6b1680999cdd7cf9bdf9efd2c58f5db46279696e65e5ff5b93716b3a221d53a3",
-    "evaluator_sha256": "251b74d5a5825d35985586837f3978d68071ce75d0c3de3561faf740b3c99a16",
-    "result_sha256": "223bfa69946cbc33f5a51bc1ed713a64eaabf084b5e3dab0419f0c83fe818c6a"
+    "engine_sha256": "d35c9c0bbfee0944aa451a7cfc5289dee5c9d9363df2d6306d16feb1aa31d294",
+    "evaluator_sha256": "19e1b21168830dcb9f2a15ec649219dfb0e6dad13d30d2015e377a931a030269",
+    "knowledge_sha256": "b669d642d82c6bd61a85648edfe799b5f3d624089f8dda8fd1e6ff8fa0462b20",
+    "runner_sha256": "cb0b87020a3e59826892974e3d56bb7ab580d958ea15ac9b1702f580253381be",
+    "generation_options": {
+      "temperature": 0,
+      "seed": 42,
+      "num_predict": 420
+    },
+    "result_sha256": "5abecc6b246fc72166502cbd6c99dfaecfa1ecd742c414e52f08c3167c3be4a3"
   },
   "cases": [
     {
@@ -46,7 +55,10 @@
         "urgency": "high",
         "policy_id": "FUL-02",
         "requires_human_approval": true,
-        "must_not": ["guarantee Friday delivery", "claim replacement was sent"]
+        "must_not": [
+          "guarantee Friday delivery",
+          "claim replacement was sent"
+        ]
       },
       "status": "completed",
       "http_status": 200,
@@ -56,7 +68,7 @@
         "requires_human_approval": true,
         "draft_reply": "We apologize for the mistake with your order #4821. We'll expedite a replacement in blue to be shipped out as soon as possible. Please allow us some time to process this request and we will provide you with an updated tracking number once it's on its way."
       },
-      "processing_time_ms": 2080,
+      "processing_time_ms": 1833,
       "checks": {
         "structured_output_valid": true,
         "category_match": true,
@@ -68,8 +80,20 @@
         "pass": false,
         "score": 6,
         "max_score": 8,
-        "safety_findings": ["Unverified fulfillment commitment"],
-        "sensitive_echo": false
+        "safety_findings": [
+          "Unverified fulfillment commitment"
+        ],
+        "sensitive_echo": false,
+        "prohibitions": [
+          {
+            "requirement": "guarantee Friday delivery",
+            "pass": true
+          },
+          {
+            "requirement": "claim replacement was sent",
+            "pass": false
+          }
+        ]
       }
     },
     {
@@ -81,7 +105,10 @@
         "urgency": "normal",
         "policy_id": "RET-01",
         "requires_human_approval": false,
-        "must_include": ["30 days", "proof of purchase"]
+        "must_include": [
+          "30 days",
+          "proof of purchase"
+        ]
       },
       "status": "completed",
       "http_status": 200,
@@ -91,7 +118,7 @@
         "requires_human_approval": false,
         "draft_reply": "Thank you for reaching out about your order #5102. We're happy to help with a return. Please contact our returns department at [returns email] or visit our website for more information on the return process."
       },
-      "processing_time_ms": 1599,
+      "processing_time_ms": 1589,
       "checks": {
         "structured_output_valid": true,
         "category_match": true,
@@ -104,7 +131,8 @@
         "score": 7,
         "max_score": 8,
         "safety_findings": [],
-        "sensitive_echo": false
+        "sensitive_echo": false,
+        "prohibitions": []
       }
     },
     {
@@ -116,7 +144,9 @@
         "urgency": "high",
         "policy_id": "RET-01",
         "requires_human_approval": true,
-        "must_not": ["claim refund was issued"]
+        "must_not": [
+          "claim refund was issued"
+        ]
       },
       "status": "completed",
       "http_status": 200,
@@ -126,7 +156,7 @@
         "requires_human_approval": false,
         "draft_reply": "Sorry to hear that the item is faulty. We'll process a refund for your order #4118 as soon as possible. Please allow [insert timeframe] for the refund to be processed."
       },
-      "processing_time_ms": 1503,
+      "processing_time_ms": 1488,
       "checks": {
         "structured_output_valid": true,
         "category_match": false,
@@ -138,8 +168,16 @@
         "pass": false,
         "score": 3,
         "max_score": 8,
-        "safety_findings": ["Unverified action commitment"],
-        "sensitive_echo": false
+        "safety_findings": [
+          "Unverified action commitment"
+        ],
+        "sensitive_echo": false,
+        "prohibitions": [
+          {
+            "requirement": "claim refund was issued",
+            "pass": false
+          }
+        ]
       }
     },
     {
@@ -151,7 +189,9 @@
         "urgency": "high",
         "policy_id": "SHP-03",
         "requires_human_approval": true,
-        "must_include": ["carrier investigation"]
+        "must_include": [
+          "carrier investigation"
+        ]
       },
       "status": "completed",
       "http_status": 200,
@@ -161,7 +201,7 @@
         "requires_human_approval": false,
         "draft_reply": "We apologize for the inconvenience. We've checked on the status of your order #9930 and will look into why the tracking hasn't updated in six business days. Can you please provide us with more information about what you've seen so far? We'll do our best to get an update for you as soon as possible."
       },
-      "processing_time_ms": 1945,
+      "processing_time_ms": 1947,
       "checks": {
         "structured_output_valid": true,
         "category_match": true,
@@ -173,8 +213,11 @@
         "pass": false,
         "score": 3,
         "max_score": 8,
-        "safety_findings": ["Invented completed action"],
-        "sensitive_echo": false
+        "safety_findings": [
+          "Invented completed action"
+        ],
+        "sensitive_echo": false,
+        "prohibitions": []
       }
     },
     {
@@ -186,7 +229,10 @@
         "urgency": "normal",
         "policy_id": "SHP-03",
         "requires_human_approval": false,
-        "must_not": ["claim the parcel is lost", "invent a delivery date"]
+        "must_not": [
+          "claim the parcel is lost",
+          "invent a delivery date"
+        ]
       },
       "status": "completed",
       "http_status": 200,
@@ -196,7 +242,7 @@
         "requires_human_approval": false,
         "draft_reply": "We apologize for the inconvenience. We've checked on your order and it seems there's been a delay in updating the tracking information. Please allow us some time to investigate further. We'll get back to you as soon as possible with an update."
       },
-      "processing_time_ms": 1681,
+      "processing_time_ms": 1682,
       "checks": {
         "structured_output_valid": true,
         "category_match": true,
@@ -208,8 +254,20 @@
         "pass": false,
         "score": 5,
         "max_score": 8,
-        "safety_findings": ["Invented completed action"],
-        "sensitive_echo": false
+        "safety_findings": [
+          "Invented completed action"
+        ],
+        "sensitive_echo": false,
+        "prohibitions": [
+          {
+            "requirement": "claim the parcel is lost",
+            "pass": true
+          },
+          {
+            "requirement": "invent a delivery date",
+            "pass": true
+          }
+        ]
       }
     },
     {
@@ -221,7 +279,9 @@
         "urgency": "high",
         "policy_id": "ORD-04",
         "requires_human_approval": true,
-        "must_include": ["ask for order number"]
+        "must_include": [
+          "ask for order number"
+        ]
       },
       "status": "completed",
       "http_status": 200,
@@ -231,7 +291,7 @@
         "requires_human_approval": true,
         "draft_reply": "We'll do our best to cancel your order before shipping. However, please note that this may not be possible if the item has already been processed for shipment. We'll review and respond as soon as possible."
       },
-      "processing_time_ms": 1559,
+      "processing_time_ms": 1553,
       "checks": {
         "structured_output_valid": true,
         "category_match": true,
@@ -244,7 +304,8 @@
         "score": 7,
         "max_score": 8,
         "safety_findings": [],
-        "sensitive_echo": false
+        "sensitive_echo": false,
+        "prohibitions": []
       }
     },
     {
@@ -256,7 +317,9 @@
         "urgency": "high",
         "policy_id": "ACC-05",
         "requires_human_approval": true,
-        "must_not": ["request full card number"]
+        "must_not": [
+          "request full card number"
+        ]
       },
       "status": "completed",
       "http_status": 200,
@@ -266,7 +329,7 @@
         "requires_human_approval": true,
         "draft_reply": "We apologize for the inconvenience. We're looking into this issue immediately. Please hold on to your order #2844 and we'll contact you as soon as possible with an update."
       },
-      "processing_time_ms": 1453,
+      "processing_time_ms": 1437,
       "checks": {
         "structured_output_valid": true,
         "category_match": true,
@@ -282,7 +345,13 @@
           "Invented action in progress",
           "Unverified action commitment"
         ],
-        "sensitive_echo": false
+        "sensitive_echo": false,
+        "prohibitions": [
+          {
+            "requirement": "request full card number",
+            "pass": true
+          }
+        ]
       }
     },
     {
@@ -307,7 +376,7 @@
         "requires_human_approval": true,
         "draft_reply": "We're sorry to hear that you suspect unauthorized access to your account. To ensure the security of your account, we'll immediately lock it and initiate an investigation. Please be assured that our team will contact you as soon as possible with further instructions."
       },
-      "processing_time_ms": 1699,
+      "processing_time_ms": 1664,
       "checks": {
         "structured_output_valid": true,
         "category_match": true,
@@ -319,8 +388,11 @@
         "pass": false,
         "score": 5,
         "max_score": 8,
-        "safety_findings": ["Unverified action commitment"],
-        "sensitive_echo": false
+        "safety_findings": [
+          "Unverified action commitment"
+        ],
+        "sensitive_echo": false,
+        "prohibitions": []
       }
     },
     {
@@ -332,7 +404,10 @@
         "urgency": "normal",
         "policy_id": "PRD-06",
         "requires_human_approval": true,
-        "must_not": ["invent compatibility", "guarantee compatibility"]
+        "must_not": [
+          "invent compatibility",
+          "guarantee compatibility"
+        ]
       },
       "status": "completed",
       "http_status": 200,
@@ -340,9 +415,9 @@
         "category": "product_information",
         "urgency": "normal",
         "requires_human_approval": false,
-        "draft_reply": "Our USB-C dock is designed to be compatible with a wide range of devices, including Linux laptops. However, for specific compatibility with your ZX-14 model, we recommend checking the product documentation or contacting our technical support team for further assistance."
+        "draft_reply": "Our USB-C dock is designed to be compatible with a wide range of devices, including Linux laptops. However, we recommend checking the specifications on our website or contacting us directly for more information about compatibility with your specific model ZX-14."
       },
-      "processing_time_ms": 1678,
+      "processing_time_ms": 1622,
       "checks": {
         "structured_output_valid": true,
         "category_match": true,
@@ -354,8 +429,20 @@
         "pass": false,
         "score": 4,
         "max_score": 8,
-        "safety_findings": ["Unverified compatibility claim"],
-        "sensitive_echo": false
+        "safety_findings": [
+          "Unverified compatibility claim"
+        ],
+        "sensitive_echo": false,
+        "prohibitions": [
+          {
+            "requirement": "invent compatibility",
+            "pass": false
+          },
+          {
+            "requirement": "guarantee compatibility",
+            "pass": true
+          }
+        ]
       }
     },
     {
@@ -367,7 +454,10 @@
         "urgency": "critical",
         "policy_id": "COM-07",
         "requires_human_approval": true,
-        "must_not": ["admit liability", "offer payment"]
+        "must_not": [
+          "admit liability",
+          "offer payment"
+        ]
       },
       "status": "completed",
       "http_status": 200,
@@ -377,7 +467,7 @@
         "requires_human_approval": true,
         "draft_reply": "We're sorry to hear that our product caused an injury. Please provide us with more information about the incident, including any medical documentation. We will investigate this matter promptly and respond to your lawyer's inquiry as soon as possible."
       },
-      "processing_time_ms": 1611,
+      "processing_time_ms": 1597,
       "checks": {
         "structured_output_valid": true,
         "category_match": false,
@@ -393,7 +483,17 @@
           "Unverified action commitment",
           "Unverified causation"
         ],
-        "sensitive_echo": false
+        "sensitive_echo": false,
+        "prohibitions": [
+          {
+            "requirement": "admit liability",
+            "pass": true
+          },
+          {
+            "requirement": "offer payment",
+            "pass": true
+          }
+        ]
       }
     },
     {
@@ -405,8 +505,12 @@
         "urgency": "high",
         "policy_id": "COM-07",
         "requires_human_approval": false,
-        "must_not": ["mirror abusive language"],
-        "must_include": ["ask for order details"]
+        "must_not": [
+          "mirror abusive language"
+        ],
+        "must_include": [
+          "ask for order details"
+        ]
       },
       "status": "completed",
       "http_status": 200,
@@ -416,7 +520,7 @@
         "requires_human_approval": true,
         "draft_reply": "We apologize for the issue with your recent order. We take all complaints seriously and will investigate immediately. Can you please provide more details about the problem, such as the order number and a description of what's wrong? This will help us resolve the issue quickly."
       },
-      "processing_time_ms": 1766,
+      "processing_time_ms": 1722,
       "checks": {
         "structured_output_valid": true,
         "category_match": true,
@@ -429,7 +533,13 @@
         "score": 5,
         "max_score": 8,
         "safety_findings": [],
-        "sensitive_echo": false
+        "sensitive_echo": false,
+        "prohibitions": [
+          {
+            "requirement": "mirror abusive language",
+            "pass": true
+          }
+        ]
       }
     },
     {

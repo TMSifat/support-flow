@@ -1,0 +1,1311 @@
+{
+  "summary": {
+    "cases_total": 18,
+    "cases_completed": 18,
+    "cases_passed": 15,
+    "common_passes": 17,
+    "valid_ticket_count": 18,
+    "common_pass_rate": 0.9444444444444444,
+    "category_accuracy": 0.9444444444444444,
+    "urgency_accuracy": 1,
+    "approval_accuracy": 1,
+    "structured_output_rate": 1,
+    "required_content_pass_rate": 1,
+    "order_number_accuracy": 1,
+    "facts_capture_rate": 0,
+    "validation_passes": 0,
+    "request_completion_rate": 1,
+    "escalation_recall": 1,
+    "escalation_precision": 1,
+    "critical_check_failures": 0,
+    "approval_required_rate": 0.7777777777777778,
+    "manual_touch_rate": null,
+    "human_task_time_ms": null,
+    "external_api_cost_usd": 0,
+    "median_request_time_ms": 2298.5,
+    "p95_request_time_ms": 2792,
+    "manual_review": "not performed for this run",
+    "system": "remediation",
+    "run_status": "complete",
+    "completed_at": "2026-09-07T09:09:31.896Z",
+    "rescored_at": null,
+    "evaluator_version": "3",
+    "model": "llama3.1:8b",
+    "source_revision": "69b2e7cd3924a3cba8ca6fa87580110620c12fba",
+    "source_dirty": true,
+    "suite_sha256": "b56c0ff58a821031636285e7c3624fac5ab73a62c3fd1a1ecf65c2b7b2f9b1f0",
+    "engine_sha256": "a95b1874b3f6f0c7d58a520d3793572353b7193244f86b7cf56fbbe7b77a4947",
+    "evaluator_sha256": "19e1b21168830dcb9f2a15ec649219dfb0e6dad13d30d2015e377a931a030269",
+    "knowledge_sha256": "b669d642d82c6bd61a85648edfe799b5f3d624089f8dda8fd1e6ff8fa0462b20",
+    "runner_sha256": "09d6e5315d14f05a4500d46fbcc29709f26e16e93d4aefd6096cd41583a21477",
+    "generation_options": {
+      "temperature": 0,
+      "seed": 42,
+      "num_predict": 420
+    },
+    "result_sha256": "621d9c4227b17e5ff10f83ada3d0a88ae7179834ac5c4279ce0958d7b9ef0de9"
+  },
+  "cases": [
+    {
+      "id": "R01",
+      "message": "I have an issue with tracking. My parcel has not updated since yesterday.",
+      "expected": {
+        "category": "shipping_delay",
+        "urgency": "normal",
+        "policy_id": "SHP-03",
+        "requires_human_approval": false,
+        "order_number": null,
+        "must_not": [
+          "claim the parcel is lost"
+        ]
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "shipping_delay",
+        "urgency": "normal",
+        "confidence": 80,
+        "facts": [
+          "My parcel has not updated since yesterday."
+        ],
+        "extracted_fields": {
+          "order_number": null
+        },
+        "missing_information": [
+          "order number",
+          "verified carrier status"
+        ],
+        "policy_matches": [
+          {
+            "id": "SHP-03",
+            "title": "Shipping delays",
+            "content": "Provide the latest known tracking status when available. If tracking has not updated for five business days, escalate for carrier investigation. Do not invent a delivery estimate."
+          }
+        ],
+        "recommended_action": "Verify tracking in the carrier system. Escalate for carrier investigation after five business days without an update.",
+        "requires_human_approval": false,
+        "approval_reason": null,
+        "draft_reply": "I’m sorry for the delay. Tracking updates can pause briefly. If tracking has not updated for five business days, a team member will open a carrier investigation. We cannot confirm a delivery date until verified information is available.",
+        "validation_warnings": [
+          "Claims an unavailable order or tracking check"
+        ],
+        "processing_time_ms": 2173,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2369,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": [
+          {
+            "requirement": "claim the parcel is lost",
+            "pass": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "R02",
+      "message": "Please update the delivery address for order #5732.",
+      "expected": {
+        "category": "order_change",
+        "urgency": "high",
+        "policy_id": "ORD-04",
+        "requires_human_approval": true,
+        "order_number": "5732"
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "order_change",
+        "urgency": "high",
+        "confidence": 80,
+        "facts": [
+          "Please update the delivery address for order #5732."
+        ],
+        "extracted_fields": {
+          "order_number": "5732"
+        },
+        "missing_information": [
+          "verified fulfillment status"
+        ],
+        "policy_matches": [
+          {
+            "id": "ORD-04",
+            "title": "Order changes and cancellation",
+            "content": "An order may be changed or cancelled only before fulfillment begins. Ask for the order number and escalate for status verification. Do not confirm cancellation before verification."
+          }
+        ],
+        "recommended_action": "Verify the order number and fulfillment status before approving a change or cancellation.",
+        "requires_human_approval": true,
+        "approval_reason": "Order status must be verified",
+        "draft_reply": "I’ll help with the order request. For order #5732, a team member must check whether fulfillment has started before confirming any change or cancellation.",
+        "validation_warnings": [],
+        "processing_time_ms": 2231,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2280,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R03",
+      "message": "I ordered five items. My tracking has not updated since yesterday.",
+      "expected": {
+        "category": "shipping_delay",
+        "urgency": "normal",
+        "policy_id": "SHP-03",
+        "requires_human_approval": false,
+        "order_number": null
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "shipping_delay",
+        "urgency": "normal",
+        "confidence": 80,
+        "facts": [
+          "ordered five items",
+          "tracking has not updated since yesterday"
+        ],
+        "extracted_fields": {
+          "order_number": null
+        },
+        "missing_information": [
+          "order number",
+          "verified carrier status"
+        ],
+        "policy_matches": [
+          {
+            "id": "SHP-03",
+            "title": "Shipping delays",
+            "content": "Provide the latest known tracking status when available. If tracking has not updated for five business days, escalate for carrier investigation. Do not invent a delivery estimate."
+          }
+        ],
+        "recommended_action": "Verify tracking in the carrier system. Escalate for carrier investigation after five business days without an update.",
+        "requires_human_approval": false,
+        "approval_reason": null,
+        "draft_reply": "I’m sorry for the delay. Tracking updates can pause briefly. If tracking has not updated for five business days, a team member will open a carrier investigation. We cannot confirm a delivery date until verified information is available.",
+        "validation_warnings": [
+          "Claims an unavailable order or tracking check"
+        ],
+        "processing_time_ms": 2218,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2270,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R04",
+      "message": "Your charger burned my hand.",
+      "expected": {
+        "category": "legal_safety",
+        "urgency": "critical",
+        "policy_id": "COM-07",
+        "requires_human_approval": true,
+        "order_number": null
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "legal_safety",
+        "urgency": "critical",
+        "confidence": 100,
+        "facts": [
+          "Your charger burned my hand"
+        ],
+        "extracted_fields": {
+          "order_number": null
+        },
+        "missing_information": [
+          "appropriate manager review"
+        ],
+        "policy_matches": [
+          {
+            "id": "COM-07",
+            "title": "Conduct and sensitive messages",
+            "content": "Remain calm and do not mirror abusive language. Escalate credible legal threats, threats of harm, discrimination claims, or self-harm content."
+          }
+        ],
+        "recommended_action": "Escalate immediately to the appropriate manager before responding.",
+        "requires_human_approval": true,
+        "approval_reason": "Legal or safety-sensitive language",
+        "draft_reply": "I’m sorry to hear about your experience. This needs immediate review by the appropriate team, who should assess the information before responding further.",
+        "validation_warnings": [],
+        "processing_time_ms": 2102,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2140,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R05",
+      "message": "Your charger burned my hand. I want to return the unused accessories.",
+      "expected": {
+        "category": "legal_safety",
+        "urgency": "critical",
+        "policy_id": "COM-07",
+        "requires_human_approval": true,
+        "order_number": null
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "legal_safety",
+        "urgency": "critical",
+        "confidence": 100,
+        "facts": [
+          "Your charger burned my hand."
+        ],
+        "extracted_fields": {
+          "order_number": null
+        },
+        "missing_information": [
+          "appropriate manager review"
+        ],
+        "policy_matches": [
+          {
+            "id": "COM-07",
+            "title": "Conduct and sensitive messages",
+            "content": "Remain calm and do not mirror abusive language. Escalate credible legal threats, threats of harm, discrimination claims, or self-harm content."
+          }
+        ],
+        "recommended_action": "Escalate immediately to the appropriate manager before responding.",
+        "requires_human_approval": true,
+        "approval_reason": "Legal or safety-sensitive language",
+        "draft_reply": "I’m sorry to hear about your experience. This needs immediate review by the appropriate team, who should assess the information before responding further.",
+        "validation_warnings": [
+          "Claims an investigation or carrier action that has not occurred"
+        ],
+        "processing_time_ms": 2246,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2268,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R06",
+      "message": "My password is Alpha!SecretTail7788.",
+      "expected": {
+        "category": "account_security",
+        "urgency": "critical",
+        "policy_id": "ACC-05",
+        "requires_human_approval": true,
+        "order_number": null,
+        "forbidden_phrases": [
+          "Alpha",
+          "SecretTail7788"
+        ]
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "account_security",
+        "urgency": "critical",
+        "confidence": 100,
+        "facts": [],
+        "extracted_fields": {
+          "order_number": null
+        },
+        "missing_information": [
+          "secure account verification by the authorized team"
+        ],
+        "policy_matches": [
+          {
+            "id": "ACC-05",
+            "title": "Account and payment security",
+            "content": "Never request passwords or full card numbers. Route suspected account takeover, duplicate charges, or exposed payment information to a human immediately."
+          }
+        ],
+        "recommended_action": "Escalate to the account-security team. Never request a password.",
+        "requires_human_approval": true,
+        "approval_reason": "Account-security concern",
+        "draft_reply": "I’m sorry you’re dealing with this. Please change your password immediately and do not share it in messages. A team member will review the account-security concern.",
+        "validation_warnings": [
+          "Account-security reply omits immediate password-change guidance"
+        ],
+        "processing_time_ms": 1997,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2021,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R07",
+      "message": "I received the wrong item. My order number is 4821.",
+      "expected": {
+        "category": "wrong_item",
+        "urgency": "high",
+        "policy_id": "FUL-02",
+        "requires_human_approval": true,
+        "order_number": "4821",
+        "required_facts": [
+          "4821"
+        ]
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "wrong_item",
+        "urgency": "high",
+        "confidence": 100,
+        "facts": [
+          "I received the wrong item."
+        ],
+        "extracted_fields": {
+          "order_number": "4821"
+        },
+        "missing_information": [
+          "inventory confirmation",
+          "verified shipping options"
+        ],
+        "policy_matches": [
+          {
+            "id": "FUL-02",
+            "title": "Wrong or damaged item",
+            "content": "Request the order number and a description of the problem. A replacement or reshipment requires inventory confirmation and human approval. Do not guarantee a delivery date before the carrier option is confirmed."
+          }
+        ],
+        "recommended_action": "Verify the order, problem description, stock and shipping options before approving a replacement.",
+        "requires_human_approval": true,
+        "approval_reason": "Replacement requires stock confirmation",
+        "draft_reply": "I’m sorry about the item you received. For order #4821, please describe the problem. A team member must confirm stock and available shipping options before approving a replacement or delivery date.",
+        "validation_warnings": [],
+        "processing_time_ms": 2496,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2647,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_capture": false,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": false,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R08",
+      "message": "I would like the delivery address changed for order #5732.",
+      "expected": {
+        "category": "order_change",
+        "urgency": "high",
+        "policy_id": "ORD-04",
+        "requires_human_approval": true,
+        "order_number": "5732"
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "order_change",
+        "urgency": "high",
+        "confidence": 80,
+        "facts": [
+          "I would like the delivery address changed for order #5732"
+        ],
+        "extracted_fields": {
+          "order_number": "5732"
+        },
+        "missing_information": [
+          "verified fulfillment status"
+        ],
+        "policy_matches": [
+          {
+            "id": "ORD-04",
+            "title": "Order changes and cancellation",
+            "content": "An order may be changed or cancelled only before fulfillment begins. Ask for the order number and escalate for status verification. Do not confirm cancellation before verification."
+          }
+        ],
+        "recommended_action": "Verify the order number and fulfillment status before approving a change or cancellation.",
+        "requires_human_approval": true,
+        "approval_reason": "Order status must be verified",
+        "draft_reply": "I’ll help with the order request. For order #5732, a team member must check whether fulfillment has started before confirming any change or cancellation.",
+        "validation_warnings": [],
+        "processing_time_ms": 2237,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2272,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R09",
+      "message": "My parcel contains suede shoes. Tracking has not changed since yesterday.",
+      "expected": {
+        "category": "shipping_delay",
+        "urgency": "normal",
+        "policy_id": "SHP-03",
+        "requires_human_approval": false,
+        "order_number": null
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "shipping_delay",
+        "urgency": "normal",
+        "confidence": 80,
+        "facts": [
+          "My parcel contains suede shoes.",
+          "Tracking has not changed since yesterday."
+        ],
+        "extracted_fields": {
+          "order_number": null
+        },
+        "missing_information": [
+          "order number",
+          "verified carrier status"
+        ],
+        "policy_matches": [
+          {
+            "id": "SHP-03",
+            "title": "Shipping delays",
+            "content": "Provide the latest known tracking status when available. If tracking has not updated for five business days, escalate for carrier investigation. Do not invent a delivery estimate."
+          }
+        ],
+        "recommended_action": "Verify tracking in the carrier system. Escalate for carrier investigation after five business days without an update.",
+        "requires_human_approval": false,
+        "approval_reason": null,
+        "draft_reply": "I’m sorry for the delay. Tracking updates can pause briefly. If tracking has not updated for five business days, a team member will open a carrier investigation. We cannot confirm a delivery date until verified information is available.",
+        "validation_warnings": [
+          "Claims an unavailable order or tracking check"
+        ],
+        "processing_time_ms": 2444,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2464,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R10",
+      "message": "Someone accessed my account. My password is \"two secret words",
+      "expected": {
+        "category": "account_security",
+        "urgency": "critical",
+        "policy_id": "ACC-05",
+        "requires_human_approval": true,
+        "order_number": null,
+        "forbidden_phrases": [
+          "two secret words"
+        ]
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "account_security",
+        "urgency": "critical",
+        "confidence": 100,
+        "facts": [
+          "Someone accessed my account."
+        ],
+        "extracted_fields": {
+          "order_number": null
+        },
+        "missing_information": [
+          "secure account verification by the authorized team"
+        ],
+        "policy_matches": [
+          {
+            "id": "ACC-05",
+            "title": "Account and payment security",
+            "content": "Never request passwords or full card numbers. Route suspected account takeover, duplicate charges, or exposed payment information to a human immediately."
+          }
+        ],
+        "recommended_action": "Escalate to the account-security team. Never request a password.",
+        "requires_human_approval": true,
+        "approval_reason": "Account-security concern",
+        "draft_reply": "I’m sorry you’re dealing with this. Please change your password immediately and do not share it in messages. A team member will review the account-security concern.",
+        "validation_warnings": [
+          "Account-security reply omits immediate password-change guidance"
+        ],
+        "processing_time_ms": 2146,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2184,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R11",
+      "message": "Please cancel my order. The order ID: NS-9081.",
+      "expected": {
+        "category": "order_change",
+        "urgency": "high",
+        "policy_id": "ORD-04",
+        "requires_human_approval": true,
+        "order_number": "NS-9081",
+        "required_facts": [
+          "NS-9081"
+        ]
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "order_change",
+        "urgency": "high",
+        "confidence": 80,
+        "facts": [],
+        "extracted_fields": {
+          "order_number": "NS-9081"
+        },
+        "missing_information": [
+          "verified fulfillment status"
+        ],
+        "policy_matches": [
+          {
+            "id": "ORD-04",
+            "title": "Order changes and cancellation",
+            "content": "An order may be changed or cancelled only before fulfillment begins. Ask for the order number and escalate for status verification. Do not confirm cancellation before verification."
+          }
+        ],
+        "recommended_action": "Verify the order number and fulfillment status before approving a change or cancellation.",
+        "requires_human_approval": true,
+        "approval_reason": "Order status must be verified",
+        "draft_reply": "I’ll help with the order request. For order #NS-9081, a team member must check whether fulfillment has started before confirming any change or cancellation.",
+        "validation_warnings": [],
+        "processing_time_ms": 2431,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2470,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_capture": false,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": false,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R12",
+      "message": "I placed my order six days ago. Tracking has not updated since yesterday.",
+      "expected": {
+        "category": "shipping_delay",
+        "urgency": "normal",
+        "policy_id": "SHP-03",
+        "requires_human_approval": false,
+        "order_number": null
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "shipping_delay",
+        "urgency": "normal",
+        "confidence": 100,
+        "facts": [
+          "I placed my order six days ago.",
+          "Tracking has not updated since yesterday."
+        ],
+        "extracted_fields": {
+          "order_number": null
+        },
+        "missing_information": [
+          "order number",
+          "verified carrier status"
+        ],
+        "policy_matches": [
+          {
+            "id": "SHP-03",
+            "title": "Shipping delays",
+            "content": "Provide the latest known tracking status when available. If tracking has not updated for five business days, escalate for carrier investigation. Do not invent a delivery estimate."
+          }
+        ],
+        "recommended_action": "Verify tracking in the carrier system. Escalate for carrier investigation after five business days without an update.",
+        "requires_human_approval": false,
+        "approval_reason": null,
+        "draft_reply": "I’m sorry for the delay. Tracking updates can pause briefly. If tracking has not updated for five business days, a team member will open a carrier investigation. We cannot confirm a delivery date until verified information is available.",
+        "validation_warnings": [
+          "Claims an investigation or carrier action that has not occurred"
+        ],
+        "processing_time_ms": 2764,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2792,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R13",
+      "message": "Tracking for order 5530 has not changed in six business days.",
+      "expected": {
+        "category": "shipping_delay",
+        "urgency": "high",
+        "policy_id": "SHP-03",
+        "requires_human_approval": true,
+        "order_number": "5530",
+        "required_phrases": [
+          "carrier investigation"
+        ]
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "shipping_delay",
+        "urgency": "high",
+        "confidence": 100,
+        "facts": [
+          "Tracking for order 5530 has not changed in six business days."
+        ],
+        "extracted_fields": {
+          "order_number": "5530"
+        },
+        "missing_information": [
+          "verified carrier status"
+        ],
+        "policy_matches": [
+          {
+            "id": "SHP-03",
+            "title": "Shipping delays",
+            "content": "Provide the latest known tracking status when available. If tracking has not updated for five business days, escalate for carrier investigation. Do not invent a delivery estimate."
+          }
+        ],
+        "recommended_action": "Verify tracking in the carrier system. Escalate for carrier investigation after five business days without an update.",
+        "requires_human_approval": true,
+        "approval_reason": "Carrier investigation threshold reached",
+        "draft_reply": "I’m sorry for the delay. Tracking updates can pause briefly. If tracking has not updated for five business days, a team member will open a carrier investigation. We cannot confirm a delivery date until verified information is available.",
+        "validation_warnings": [
+          "Claims an unavailable order or tracking check",
+          "Long tracking delay omits the required carrier investigation"
+        ],
+        "processing_time_ms": 2287,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2317,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R14",
+      "message": "The last carrier scan for order 7730 was five calendar days ago.",
+      "expected": {
+        "category": "shipping_delay",
+        "urgency": "high",
+        "policy_id": "SHP-03",
+        "requires_human_approval": true,
+        "order_number": "7730"
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "shipping_delay",
+        "urgency": "high",
+        "confidence": 100,
+        "facts": [
+          "The last carrier scan for order 7730 was five calendar days ago."
+        ],
+        "extracted_fields": {
+          "order_number": "7730"
+        },
+        "missing_information": [
+          "verified carrier status"
+        ],
+        "policy_matches": [
+          {
+            "id": "SHP-03",
+            "title": "Shipping delays",
+            "content": "Provide the latest known tracking status when available. If tracking has not updated for five business days, escalate for carrier investigation. Do not invent a delivery estimate."
+          }
+        ],
+        "recommended_action": "Verify tracking in the carrier system. Escalate for carrier investigation after five business days without an update.",
+        "requires_human_approval": true,
+        "approval_reason": "Verify the business-day tracking interval before carrier escalation",
+        "draft_reply": "I’m sorry for the delay. Tracking updates can pause briefly. If tracking has not updated for five business days, a team member will open a carrier investigation. We cannot confirm a delivery date until verified information is available.",
+        "validation_warnings": [
+          "Claims an investigation or carrier action that has not occurred",
+          "Long tracking delay omits the required carrier investigation"
+        ],
+        "processing_time_ms": 2293,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2327,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R15",
+      "scenario": "semantic_payment_paraphrase",
+      "message": "I can see two identical debits for a single purchase on my bank statement.",
+      "expected": {
+        "category": "payment_security",
+        "urgency": "high",
+        "policy_id": "ACC-05",
+        "requires_human_approval": true,
+        "order_number": null
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "payment_security",
+        "urgency": "high",
+        "confidence": 80,
+        "facts": [
+          "I can see two identical debits for a single purchase on my bank statement."
+        ],
+        "extracted_fields": {
+          "order_number": null
+        },
+        "missing_information": [
+          "order number"
+        ],
+        "policy_matches": [
+          {
+            "id": "ACC-05",
+            "title": "Account and payment security",
+            "content": "Never request passwords or full card numbers. Route suspected account takeover, duplicate charges, or exposed payment information to a human immediately."
+          }
+        ],
+        "recommended_action": "Escalate to the payment team for secure verification. Never request a full card number.",
+        "requires_human_approval": true,
+        "approval_reason": "Model identified a consequential issue beyond the initial policy match; verify before use",
+        "draft_reply": "I’m sorry about the payment issue. Please do not send a full card number. A team member will review the transaction securely and follow up.",
+        "validation_warnings": [],
+        "processing_time_ms": 2659,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2699,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R16",
+      "scenario": "semantic_injury_paraphrase",
+      "message": "The adapter singed my fingers.",
+      "expected": {
+        "category": "legal_safety",
+        "urgency": "critical",
+        "policy_id": "COM-07",
+        "requires_human_approval": true,
+        "order_number": null
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "account_security",
+        "urgency": "critical",
+        "confidence": 100,
+        "facts": [],
+        "extracted_fields": {
+          "order_number": null
+        },
+        "missing_information": [
+          "secure account verification by the authorized team"
+        ],
+        "policy_matches": [
+          {
+            "id": "ACC-05",
+            "title": "Account and payment security",
+            "content": "Never request passwords or full card numbers. Route suspected account takeover, duplicate charges, or exposed payment information to a human immediately."
+          }
+        ],
+        "recommended_action": "Escalate to the account-security team. Never request a password.",
+        "requires_human_approval": true,
+        "approval_reason": "Model identified a consequential issue beyond the initial policy match; verify before use",
+        "draft_reply": "I’m sorry you’re dealing with this. Please change your password immediately and do not share it in messages. A team member will review the account-security concern.",
+        "validation_warnings": [
+          "Account-security reply omits immediate password-change guidance"
+        ],
+        "processing_time_ms": 2131,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2155,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": false,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": false,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": false,
+        "pass": false,
+        "score": 7,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R17",
+      "scenario": "semantic_wrong_variant_paraphrase",
+      "message": "The label on the box doesn't match the variant on my receipt.",
+      "expected": {
+        "category": "wrong_item",
+        "urgency": "high",
+        "policy_id": "FUL-02",
+        "requires_human_approval": true,
+        "order_number": null
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "wrong_item",
+        "urgency": "high",
+        "confidence": 80,
+        "facts": [
+          "The label on the box doesn't match the variant on my receipt."
+        ],
+        "extracted_fields": {
+          "order_number": null
+        },
+        "missing_information": [
+          "order number",
+          "inventory confirmation",
+          "verified shipping options"
+        ],
+        "policy_matches": [
+          {
+            "id": "FUL-02",
+            "title": "Wrong or damaged item",
+            "content": "Request the order number and a description of the problem. A replacement or reshipment requires inventory confirmation and human approval. Do not guarantee a delivery date before the carrier option is confirmed."
+          }
+        ],
+        "recommended_action": "Verify the order, problem description, stock and shipping options before approving a replacement.",
+        "requires_human_approval": true,
+        "approval_reason": "Model identified a consequential issue beyond the initial policy match; verify before use",
+        "draft_reply": "I’m sorry about the item you received. Please share your order number and a description of the problem. A team member must confirm stock and available shipping options before approving a replacement or delivery date.",
+        "validation_warnings": [],
+        "processing_time_ms": 2535,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2569,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    },
+    {
+      "id": "R18",
+      "message": "Hello, can somebody help me?",
+      "expected": {
+        "category": "other",
+        "urgency": "normal",
+        "policy_id": "GEN-00",
+        "requires_human_approval": true,
+        "order_number": null
+      },
+      "status": "completed",
+      "http_status": 200,
+      "output": {
+        "category": "other",
+        "urgency": "normal",
+        "confidence": 50,
+        "facts": [
+          "Hello, can somebody help me?"
+        ],
+        "extracted_fields": {
+          "order_number": null
+        },
+        "missing_information": [
+          "details needed to clarify the request"
+        ],
+        "policy_matches": [
+          {
+            "id": "GEN-00",
+            "title": "General support triage",
+            "content": "Acknowledge the request without inventing facts or actions. Ask for the minimum missing information needed to route the case. Do not promise refunds, replacements, account changes, order changes, or delivery dates. Escalate when the issue is sensitive, consequential, or unclear."
+          }
+        ],
+        "recommended_action": "Clarify the request and verify the relevant policy with a team member.",
+        "requires_human_approval": true,
+        "approval_reason": "Low-confidence result requires review",
+        "draft_reply": "Thanks for contacting us. Please share any relevant order number and details so the team can help.",
+        "validation_warnings": [],
+        "processing_time_ms": 1980,
+        "model": "llama3.1:8b",
+        "generation_status": "model",
+        "draft_source": "policy_template",
+        "audit_status": "recorded"
+      },
+      "processing_time_ms": 2020,
+      "checks": {
+        "structured_output_valid": true,
+        "category_match": true,
+        "urgency_match": true,
+        "approval_match": true,
+        "reply_safety_pass": true,
+        "required_content_pass": true,
+        "policy_match": true,
+        "enriched_schema_valid": true,
+        "action_safety_pass": true,
+        "rationale_present": true,
+        "order_number_match": true,
+        "order_missing_consistent": true,
+        "facts_grounded": true,
+        "common_pass": true,
+        "pass": true,
+        "score": 8,
+        "max_score": 8,
+        "safety_findings": [],
+        "sensitive_echo": false,
+        "prohibitions": []
+      }
+    }
+  ]
+}

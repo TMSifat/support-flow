@@ -26,7 +26,7 @@ This plan begins when SupportFlow is tested with independent proxy operators or 
 ## Week 2
 
 1. Add a read-only sandbox order lookup with explicit unavailable-state handling.
-2. Expand the frozen set to 50 cases, including multi-intent and adversarial wording.
+2. Collect unseen cases beyond the current 50-case regression set, including multi-intent and adversarial wording.
 3. Add CSV audit export for operational review.
 4. Repeat operator testing and compare adoption and quality measures with Week 1.
 5. Release only if approval-boundary compliance is 100% and critical failures remain zero.

@@ -1,7 +1,9 @@
 // Records the real local app plus evidence cards. No customer data is used.
 // Optional dependency: playwright. NODE_PATH may select an existing installation.
 import { createRequire } from 'node:module';
-import { readFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, rename } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 const { chromium } = createRequire(import.meta.url)('playwright');
 const final = JSON.parse(
   await readFile('Result/final-results.json', 'utf8'),
@@ -9,14 +11,17 @@ const final = JSON.parse(
 const baseline = JSON.parse(
   await readFile('Result/baseline-results.json', 'utf8'),
 ).summary;
+const suites = await Promise.all(['final-results','day-4-challenge-after','hardening-results','remediation-results'].map(async name => JSON.parse(await readFile(`Result/${name}.json`,'utf8')).summary));
+if (suites.some(s=>s.evaluator_version!=='3'||s.cases_passed!==s.cases_total)) throw new Error('All current v3 release suites must pass before recording.');
+const remediation = JSON.parse(await readFile('Result/remediation-regression.json','utf8'));
 const browser = await chromium.launch({
   headless: true,
   executablePath: process.env.PLAYWRIGHT_EXECUTABLE,
 });
 await mkdir('outputs/demo-raw', { recursive: true });
 const ctx = await browser.newContext({
-  viewport: { width: 1360, height: 980 },
-  recordVideo: { dir: 'outputs/demo-raw', size: { width: 1360, height: 980 } },
+  viewport: { width: 1440, height: 1180 },
+  recordVideo: { dir: 'outputs/demo-raw', size: { width: 1440, height: 1180 } },
 });
 await ctx.addInitScript(() => {
   Object.defineProperty(document, 'modelContext', {
@@ -72,6 +77,9 @@ async function run(message) {
     .click();
   await page.locator('#reply-draft').waitFor({ timeout: 65000 });
 }
+async function focus(selector) {
+  await page.locator(selector).evaluate(element => element.scrollIntoView({block:'center'}));
+}
 await card('The recurring problem', [
   'A small-store support operator repeatedly reads messages, searches policy, drafts replies and decides when approval is needed.',
   'This sprint uses a synthetic store and tickets. The assumed 20–50 daily messages and actual human time savings have not been independently measured.',
@@ -100,44 +108,49 @@ await page
     'Thanks for getting in touch. ' +
       (await page.locator('#reply-draft').inputValue()),
   );
+await focus('#reply-draft');
 console.log('Demo 1:30 — editable draft');
 await until(115);
 await caption(
-  'Mixed-intent regression: a legal/injury concern plus a recent tracking pause. Priority must remain critical. Copy stays blocked until operator approval.',
+  'A failure found during audit: an injury plus a routine return used to bypass approval. The corrected result must remain critical, use the safety policy and require approval.',
 );
 await run(
-  'Your product injured me. My lawyer will contact you. Tracking has not changed since yesterday.',
+  'Your charger burned my hand. I want to return the unused accessories.',
 );
+await page.evaluate(()=>window.scrollTo(0,0));
 console.log('Demo 1:55 — critical priority');
 await until(155);
 await caption(
   'Synthetic approval demonstration: Approve unlocks Copy. Editing afterwards resets approval. In real use, complete all required external checks first. No message is sent by this app.',
 );
 await page.getByRole('button', { name: 'Approve draft', exact: true }).click();
+await focus('#reply-draft');
 await until(169);
 await page
   .locator('#reply-draft')
   .fill('A manager must review this concern before responding.');
+await focus('#reply-draft');
 console.log('Demo 2:35 — approval and reset');
 await until(190);
 await caption(
   'Input validation: an empty message cannot be submitted. Invalid model JSON is retried; a second failure returns a labelled zero-confidence fallback requiring approval. Fault-injection results are shown next.',
 );
 await page.locator('#ticket-message').fill('');
+await focus('#ticket-message');
 console.log('Demo 3:10 — validation');
 await until(220);
 await card('Measured results and failure handling', [
   `Same evaluator, 11 non-empty tickets: baseline ${baseline.common_passes}/11 common quality passes; final ${final.common_passes}/11. Final input-validation case is reported separately.`,
   `Median HTTP request time: ${(baseline.median_request_time_ms / 1000).toFixed(2)} seconds baseline; ${(final.median_request_time_ms / 1000).toFixed(2)} seconds final. This is not human handling time.`,
-  'Live regression: original 12/12, challenge 12/12, new mixed-intent/privacy suite 8/8. Controlled model fault tests improved from 3/20 on the old code to 20/20.',
-  'Known-bad replies test the evaluator itself. Raw results, source/evaluator hashes and previous failed runs are retained. Automated passing does not certify general safety or human sign-off.',
+  `Live regression: ${suites.reduce((n,s)=>n+s.cases_passed,0)}/${suites.reduce((n,s)=>n+s.cases_total,0)} across four suites. New controlled behavioral regressions: ${remediation.before_behavior_passed}/${remediation.cases_total} before, ${remediation.after_behavior_passed}/${remediation.cases_total} after. All 11 declared prohibitions have negative tests.`,
+  'A no-inference ablation and policy-aware prompt comparison separate rule/template value from model value. Extracted order IDs are measured; human handling-time savings are still unmeasured.',
 ]);
 console.log('Demo 3:40 — results');
 await until(263);
 await card('Handoff and the most important limitation', [
   'Final drafts are policy templates: predictable and editable, but less personalized. There is no live order, inventory, payment, account or email connection.',
   'Another person can follow the Windows README: install dependencies, pull the Ollama model, and launch Start-SupportFlow.cmd. Independent first-time operation still needs a real participant.',
-  'Actual manual touches, human time savings and adoption are unmeasured. The next two weeks focus on two independent operators, observed corrections and an expanded regression suite.',
+  'Actual manual touches, human time savings and adoption are unmeasured. No independent operator is currently available. The ready-to-run handoff kit records observed times, edits and feedback when a participant is available.',
   'Deliverables: runnable repository, raw evaluation evidence, case study, AI collaboration note, runbook and this recording. Public online deployment is optional.',
 ]);
 console.log('Demo 4:23 — limitations and handoff');
@@ -145,4 +158,11 @@ await until(300);
 await ctx.close();
 await page.video().saveAs('Result/supportflow-demo.webm');
 await browser.close();
+// Browser encoders can pad the final frame. Trim only the tail; do not speed up
+// actual interactions. FFMPEG_PATH is an optional maintainer dependency.
+if (process.env.FFMPEG_PATH) {
+  execFileSync(process.env.FFMPEG_PATH, ['-y','-hide_banner','-loglevel','error','-i','Result/supportflow-demo.webm','-t','300','-c','copy','Result/supportflow-demo.trimmed.webm']);
+  await rename('Result/supportflow-demo.trimmed.webm','Result/supportflow-demo.webm');
+}
+await writeFile('Result/demo-manifest.json',JSON.stringify({recorded_at:new Date().toISOString(),method:'Silent automated screen recording of the actual local application; synthetic messages; not human usability evidence',evaluator_version:'3',engine_sha256:final.engine_sha256,result_sha256:final.result_sha256,suite_result_hashes:suites.map(s=>({system:s.system,sha256:s.result_sha256})),video_sha256:createHash('sha256').update(await readFile('Result/supportflow-demo.webm')).digest('hex'),trimmed_to_seconds:process.env.FFMPEG_PATH ? 300 : null,candidate_watched:null},null,2)+'\n');
 console.log('Demo saved: Result/supportflow-demo.webm');

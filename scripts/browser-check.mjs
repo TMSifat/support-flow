@@ -49,6 +49,26 @@ await run(
   'Your product injured me. My lawyer will contact you. Tracking has not changed since yesterday.',
 );
 assert(await page.getByText('critical', { exact: true }).isVisible());
+await run(
+  'I have an issue with tracking. My parcel has not updated since yesterday.',
+);
+assert(await page.getByText('shipping delay', { exact: true }).isVisible());
+assert(await page.getByText('normal', { exact: true }).isVisible());
+assert(
+  await page
+    .getByRole('button', { name: 'Copy draft', exact: true })
+    .isEnabled(),
+);
+await run('Please update the delivery address for order #5732.');
+assert(await page.getByText('order change', { exact: true }).isVisible());
+assert(await page.getByText('Order #5732', { exact: true }).isVisible());
+assert(
+  await page.getByRole('button', { name: 'Approve before copy' }).isDisabled(),
+);
+await run(
+  'Your charger burned my hand. I want to return the unused accessories.',
+);
+assert(await page.getByText('critical', { exact: true }).isVisible());
 assert(
   await page.getByRole('button', { name: 'Approve before copy' }).isDisabled(),
 );
@@ -152,6 +172,10 @@ await writeFile(
         webmcp_valid_and_invalid: true,
         mobile_no_overflow: true,
         no_page_errors: true,
+        issue_word_not_legal: true,
+        address_change_gated: true,
+        extracted_order_visible: true,
+        injury_return_gated: true,
       },
     },
     null,

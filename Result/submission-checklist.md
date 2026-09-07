@@ -1,30 +1,20 @@
 # Current submission checklist
 
-## Prepared
+## Technical package
 
-- [x] Runnable local repository, synthetic sample inputs and example configuration
-- [x] Windows first-time instructions, launcher, README and operator runbook
-- [x] Ollama and D1 tool integrations plus versioned policies
-- [x] Runtime model schema validation, retry/fallback, priority precedence and tested redaction forms
-- [x] Policy-visible UI, editable drafts, approval/copy boundaries and error recovery
-- [x] Common baseline/final evaluator, raw results, failure history and negative tests
-- [x] Original/challenge/new-input regression evidence
-- [x] Quality, latency, external API cost and approval-required metrics; missing human measurements disclosed
-- [x] Architecture, case study, AI collaboration note and two-week plan
-- [x] Historical candidate-proxy evidence clearly separated from current automated tests
+- [x] Runnable local project, sample inputs, example configuration and Windows launcher
+- [x] Ollama inference, versioned policies and D1 audit integration
+- [x] Audited safety/approval, routing, duration, redaction and order-extraction fixes
+- [x] Common evaluator v3, every declared prohibition tested, preserved failed runs
+- [x] 50 live final cases and narrow field checks; prompt and ablation comparisons
+- [x] Current README, architecture, case study, runbook, AI note and two-week plan
+- [x] Human measurement kit and strict version-matched observation summary
 
-## Recording and handoff
+## Actual participation and final presentation
 
-- [x] [Five-minute recording verified and linked](demo.md) — silent automated screen demonstration with on-screen explanations
-- [ ] Candidate has watched the current recording and reviewed the specific result hash
-- [ ] Independent operator has completed current-version handoff acceptance
-- [ ] Actual human handling-time, touch count and adoption observations recorded
+- [ ] Candidate watched the refreshed recording and reviewed the exact current result hash
+- [ ] A non-builder completed current-version setup and tasks without coaching
+- [ ] Actual human times, edits, feedback and resulting changes recorded
+- [ ] Candidate checked access as the intended reviewer and submitted the quest
 
-The last three items require real participation; they are not auto-certified. Independent testing improves the central proof of use without the candidate. Synthetic-data and historical candidate-proxy disclosures remain visible.
-
-## Submission
-
-- Repository: https://github.com/TMSifat/support-flow
-- Public hosting: not required; reproducible local delivery is accepted by the brief.
-- JSON export: not required.
-- [ ] Candidate selected Submit Quest after final review
+No independent participant is currently available; this is explicitly pending. Neither synthetic browser automation nor a prepared form counts as human research. Refer to demo.md for recording details and final-verification.json for engineering/package checks. The local ZIP is a valid delivery format; online hosting and JSON export are optional.

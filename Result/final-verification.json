@@ -1,0 +1,80 @@
+{
+  "completed_at": "2026-09-07T09:29:58.607Z",
+  "scope": "Agent technical verification; no human acceptance or real-world savings certified",
+  "engine_sha256": "d35c9c0bbfee0944aa451a7cfc5289dee5c9d9363df2d6306d16feb1aa31d294",
+  "evaluator_sha256": "19e1b21168830dcb9f2a15ec649219dfb0e6dad13d30d2015e377a931a030269",
+  "engineering": {
+    "Lint": 0,
+    "Typecheck": 0,
+    "Build": 0
+  },
+  "live_suites": [
+    {
+      "file": "final-results.json",
+      "passed": 12,
+      "total": 12,
+      "result_sha256": "9af0469df788e9800edeb171bf6aa172ac05fb7896bf6d929c3c07556f6e4baa"
+    },
+    {
+      "file": "day-4-challenge-after.json",
+      "passed": 12,
+      "total": 12,
+      "result_sha256": "6d1c589e0f95a4cd69adbf18552bdd9b1b0491367f7141bed219c98a59421e60"
+    },
+    {
+      "file": "hardening-results.json",
+      "passed": 8,
+      "total": 8,
+      "result_sha256": "d52c41ba6dc13e78492594603187b138a5e3be3ce3e3b04516957e2b4c53b092"
+    },
+    {
+      "file": "remediation-results.json",
+      "passed": 18,
+      "total": 18,
+      "result_sha256": "3e5752160355ebd718e982478fed18a4f235ec5a3922348f1cc67729a418fe5b"
+    }
+  ],
+  "live_cases_passed": 50,
+  "prior_fault_cases_passed": 20,
+  "new_controlled_cases_passed": 18,
+  "declared_prohibition_negative_cases": 11,
+  "browser_checks": {
+    "normal_flow": true,
+    "policy_visible": true,
+    "critical_priority": true,
+    "approval_copy_gate": true,
+    "edit_resets_approval": true,
+    "clipboard_failure_message": true,
+    "stale_response_discarded": true,
+    "webmcp_valid_and_invalid": true,
+    "mobile_no_overflow": true,
+    "no_page_errors": true,
+    "issue_word_not_legal": true,
+    "address_change_gated": true,
+    "extracted_order_visible": true,
+    "injury_return_gated": true
+  },
+  "clean_source_only_bootstrap": {
+    "date": "2026-09-07",
+    "method": "Fresh source-only folder; no copied node_modules, build output, local D1 state or Git history. Agent execution on the existing Windows machine, not independent user acceptance.",
+    "engine_sha256": "d35c9c0bbfee0944aa451a7cfc5289dee5c9d9363df2d6306d16feb1aa31d294",
+    "checks": {
+      "install": 0,
+      "regressions": 0,
+      "d1": 0,
+      "build": 0
+    },
+    "all_passed": true,
+    "independent_human_test": false
+  },
+  "video": {
+    "duration_seconds": 300,
+    "width": 1440,
+    "height": 1180,
+    "sha256": "21350a9685243f7fa993641ec219af0d744d733584c26e4b3b3635156eba7615",
+    "bytes": 22490833
+  },
+  "human_acceptance": "pending: independent participant unavailable",
+  "candidate_review": "pending: current result/video review",
+  "source_delivery": "Current local project and source ZIP; GitHub publication has not been performed in this remediation"
+}

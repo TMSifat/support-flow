@@ -8,6 +8,8 @@ The store, policies and tickets are synthetic. The candidate-proxy workflow is d
 
 Prerequisites: Node.js 22.13 or newer, Git, and Ollama. Model download size and required resources depend on the selected model; confirm your machine can run it before the handoff. This project has not been independently tested on macOS or Linux.
 
+Tested here with Node.js 24.11.0, an AMD Ryzen 5 5600X and about 16 GB RAM. The installed llama3.1:8b model is about 4.9 GB on disk. These describe the tested machine, not a guaranteed minimum specification; request latency on other hardware may differ.
+
 1. Download/clone this repository and run `npm ci` in its folder.
 2. Install/start Ollama and run `ollama pull llama3.1:8b`.
 3. Double-click `Start-SupportFlow.cmd`, then open http://localhost:3000.
@@ -26,9 +28,11 @@ Read the matched policy in the workspace. Treat the model estimate as uncalibrat
 
 ## Evidence and checks
 
-Current authoritative results use evaluator v2:
+Start with [the current submission index](Result/START-HERE.md). Current authoritative results use evaluator v3:
 
 - [Comparison](Result/comparison.md) and [final results](Result/final-summary.md)
+- [Policy-aware prompt and no-inference comparison](Result/system-comparison.md)
+- [New audit regressions](Result/remediation-regression.json) and [18 new live cases](Result/remediation-results.json)
 - [Evaluation rubric](Result/evaluation-rubric.md)
 - [Hardening before/after evidence](Result/hardening-regression.json)
 - [Case study](Result/case-study.md), [architecture](Result/architecture.md), [operator runbook](Result/operator-runbook.md)
@@ -36,7 +40,7 @@ Current authoritative results use evaluator v2:
 - [Two-week adoption plan](Result/adoption-plan.md)
 - [Five-minute screen-recorded demo](Result/demo.md)
 
-Run `npm test` for model fault-injection and evaluator negative tests. With the app and Ollama running, run `npm run baseline`, `npm run evaluate`, `npm run day4:challenge`, `npm run evaluate:hardening`, then `npm run evaluate:report`. Failed final/challenge/hardening cases produce a nonzero exit code. Prior raw runs are archived in Result/history before replacement. Review commands rescore output; they never certify human review.
+Run `npm test` for model fault injection, audit regressions, field extraction and all declared prohibition negative tests. With the app and Ollama running, run `npm run evaluate:all` for all 50 final-system cases, both prompt baselines, the no-inference comparison and reports. Failed final-system cases stop that command. Prior raw runs are archived in Result/history before replacement. Review commands rescore output; they never certify human review.
 
 For engineering checks run `npm run lint`, `npx tsc --noEmit`, and `npm run build`.
 
@@ -44,6 +48,6 @@ Optional maintainer browser QA and recording use Playwright (not required to run
 
 ## Limitations and handoff
 
-The original suite contains 12 synthetic cases; challenge and hardening suites provide additional regression coverage, not an unseen generalization benchmark. Automated text checks remain incomplete and do not replace human review. Actual manual touches, field-extraction accuracy, real operator time savings, independent installation and adoption are unmeasured. External model API cost is zero; hardware/electricity cost is unmeasured.
+The original suite contains 12 synthetic cases; challenge, hardening and remediation suites bring the total to 50. These provide regression coverage, not an unseen generalization benchmark. Automated text checks remain incomplete and do not replace human review. Order-number extraction and two required identifier facts are measured on the remediation suite; this is not broad extraction accuracy. Actual manual touches, real operator time savings, independent installation and adoption are unmeasured. External model API cost is zero; hardware/electricity cost is unmeasured.
 
-The runnable local repository is the delivery format accepted by the brief. Online hosting and JSON export are not required. Follow [handoff acceptance](Result/handoff-acceptance.md) to collect independent evidence without inventing it.
+The runnable local repository is the delivery format accepted by the brief. Online hosting and JSON export are not required. No independent operator is currently available. The [human test kit](Result/human-test-kit.md) and version-bound observation form are ready; run `npm run handoff:summarize` after collecting actual observations. The separate [candidate review](Result/current-candidate-review.json) must be completed by the candidate after watching the current video and reviewing its exact result hash.

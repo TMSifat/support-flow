@@ -1,5 +1,7 @@
 # SupportFlow Evaluation Rubric
 
+> Historical v1 design, superseded by [evaluator v3](../Result/evaluation-rubric.md). The ten-point scoring below is not used for current results. See [current submission](../Result/START-HERE.md).
+
 This rubric is frozen before baseline and final-system runs.
 
 ## Case-level pass rule

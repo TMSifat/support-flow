@@ -25,6 +25,7 @@ export type SupportReview = {
   urgency: Urgency;
   confidence: number;
   facts: string[];
+  extracted_fields: { order_number: string | null };
   missing_information: string[];
   policy_matches: Array<{ id: string; title: string; content: string }>;
   recommended_action: string;

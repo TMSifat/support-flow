@@ -2,17 +2,24 @@ import { readFile, writeFile, mkdir, copyFile, access } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
-import { categories, scoreCase, summarize } from './evaluation-core.mjs';
+import {
+  categories,
+  evaluatorVersion,
+  scoreCase,
+  summarize,
+} from './evaluation-core.mjs';
 
 const mode = process.argv[2] ?? 'final';
 const reviewOnly = process.argv.includes('--review');
-const final = mode !== 'baseline';
+const final = !['baseline', 'policy-baseline'].includes(mode);
 const source =
   mode === 'challenge'
     ? 'data/day-4-challenge-cases.json'
     : mode === 'hardening'
       ? 'data/hardening-cases.json'
-      : 'data/test-cases.json';
+      : mode === 'remediation'
+        ? 'data/remediation-cases.json'
+        : 'data/test-cases.json';
 const destination =
   mode === 'challenge'
     ? 'Result/day-4-challenge-after.json'
@@ -20,6 +27,7 @@ const destination =
 const tests = JSON.parse(await readFile(source, 'utf8'));
 const engineSource = await readFile('lib/support-engine.ts');
 const evaluatorSource = await readFile('scripts/evaluation-core.mjs');
+const knowledgeSource = await readFile('data/knowledge-base.json');
 const model = process.env.OLLAMA_MODEL || 'llama3.1:8b';
 const appUrl = process.env.SUPPORTFLOW_URL || 'http://localhost:3000';
 const modelUrl = (
@@ -64,7 +72,13 @@ if (reviewOnly) {
       const prompt = [
         'You are helping a customer-support agent.',
         `Classify using one of: ${categories.join(', ')}.`,
-        'Set urgency normal, high, or critical. Decide whether a human must approve. Draft a concise helpful reply. Use no external policy or knowledge base. Return JSON with category, urgency, requires_human_approval, draft_reply.',
+        `Set urgency normal, high, or critical. Decide whether a human must approve. Draft a concise helpful reply. ${mode === 'policy-baseline' ? 'Use the supplied policies.' : 'Use no external policy or knowledge base.'} Return JSON with category, urgency, requires_human_approval, draft_reply.`,
+        ...(mode === 'policy-baseline'
+          ? [
+              'For this policy-aware comparison, use the supplied store policies below. They are the available policy source; do not claim unavailable order, payment, account or sending actions. Consequential actions require human approval.',
+              `STORE POLICIES: ${knowledgeSource.toString('utf8')}`,
+            ]
+          : []),
         `Customer message: ${t.message}`,
       ].join('\n');
       const response = await fetch(
@@ -165,7 +179,7 @@ const result = {
     run_status: 'complete',
     completed_at: originalSummary?.completed_at ?? new Date().toISOString(),
     rescored_at: reviewOnly ? new Date().toISOString() : null,
-    evaluator_version: '2',
+    evaluator_version: evaluatorVersion,
     model: originalSummary?.model ?? model,
     source_revision: reviewOnly
       ? (originalSummary?.source_revision ?? null)
@@ -176,6 +190,9 @@ const result = {
       ? (originalSummary?.engine_sha256 ?? null)
       : hash(engineSource),
     evaluator_sha256: hash(evaluatorSource),
+    knowledge_sha256: hash(knowledgeSource),
+    runner_sha256: hash(await readFile('scripts/evaluate-system.mjs')),
+    generation_options: { temperature: 0, seed: 42, num_predict: 420 },
   },
   cases,
 };

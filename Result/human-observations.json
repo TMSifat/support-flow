@@ -1,0 +1,121 @@
+{
+  "status": "pending_real_participant",
+  "result_sha256": "9af0469df788e9800edeb171bf6aa172ac05fb7896bf6d929c3c07556f6e4baa",
+  "engine_sha256": "d35c9c0bbfee0944aa451a7cfc5289dee5c9d9363df2d6306d16feb1aa31d294",
+  "operator": {
+    "identifier": null,
+    "date": null,
+    "machine": null,
+    "not_the_builder": null
+  },
+  "setup": {
+    "completed_without_coaching": null,
+    "minutes": null,
+    "problem": null
+  },
+  "trials": [
+    {
+      "case_id": "T02",
+      "method": "previous_method",
+      "seconds": null,
+      "completed_without_help": null,
+      "substantive_edits": null,
+      "approval_boundary_correct": null,
+      "unsafe_output": null,
+      "feedback": null
+    },
+    {
+      "case_id": "T02",
+      "method": "supportflow",
+      "seconds": null,
+      "completed_without_help": null,
+      "substantive_edits": null,
+      "approval_boundary_correct": null,
+      "unsafe_output": null,
+      "feedback": null
+    },
+    {
+      "case_id": "T04",
+      "method": "previous_method",
+      "seconds": null,
+      "completed_without_help": null,
+      "substantive_edits": null,
+      "approval_boundary_correct": null,
+      "unsafe_output": null,
+      "feedback": null
+    },
+    {
+      "case_id": "T04",
+      "method": "supportflow",
+      "seconds": null,
+      "completed_without_help": null,
+      "substantive_edits": null,
+      "approval_boundary_correct": null,
+      "unsafe_output": null,
+      "feedback": null
+    },
+    {
+      "case_id": "T08",
+      "method": "previous_method",
+      "seconds": null,
+      "completed_without_help": null,
+      "substantive_edits": null,
+      "approval_boundary_correct": null,
+      "unsafe_output": null,
+      "feedback": null
+    },
+    {
+      "case_id": "T08",
+      "method": "supportflow",
+      "seconds": null,
+      "completed_without_help": null,
+      "substantive_edits": null,
+      "approval_boundary_correct": null,
+      "unsafe_output": null,
+      "feedback": null
+    },
+    {
+      "case_id": "T06",
+      "method": "previous_method",
+      "seconds": null,
+      "completed_without_help": null,
+      "substantive_edits": null,
+      "approval_boundary_correct": null,
+      "unsafe_output": null,
+      "feedback": null
+    },
+    {
+      "case_id": "T06",
+      "method": "supportflow",
+      "seconds": null,
+      "completed_without_help": null,
+      "substantive_edits": null,
+      "approval_boundary_correct": null,
+      "unsafe_output": null,
+      "feedback": null
+    },
+    {
+      "case_id": "T11",
+      "method": "previous_method",
+      "seconds": null,
+      "completed_without_help": null,
+      "substantive_edits": null,
+      "approval_boundary_correct": null,
+      "unsafe_output": null,
+      "feedback": null
+    },
+    {
+      "case_id": "T11",
+      "method": "supportflow",
+      "seconds": null,
+      "completed_without_help": null,
+      "substantive_edits": null,
+      "approval_boundary_correct": null,
+      "unsafe_output": null,
+      "feedback": null
+    }
+  ],
+  "overall_feedback": null,
+  "change_requested": null,
+  "change_made": null
+}

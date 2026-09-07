@@ -1,13 +1,13 @@
 {
   "date": "2026-09-07",
-  "method": "Agent-executed fresh local directory with source files only; no copied node_modules, build output, database state or Git history",
-  "platform": "Windows",
-  "independent_human_test": false,
+  "method": "Fresh source-only folder; no copied node_modules, build output, local D1 state or Git history. Agent execution on the existing Windows machine, not independent user acceptance.",
+  "engine_sha256": "d35c9c0bbfee0944aa451a7cfc5289dee5c9d9363df2d6306d16feb1aa31d294",
   "checks": {
-    "npm_ci": "pass: 567 packages installed",
-    "engine_and_evaluator_regressions": "pass",
-    "fresh_local_d1_schema": "pass",
-    "production_build": "pass"
+    "install": 0,
+    "regressions": 0,
+    "d1": 0,
+    "build": 0
   },
-  "limits": "This verifies clean technical setup on the current machine. It does not demonstrate another person's unassisted installation or a different hardware/OS environment."
+  "all_passed": true,
+  "independent_human_test": false
 }

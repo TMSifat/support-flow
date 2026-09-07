@@ -1,0 +1,209 @@
+[
+  {
+    "id": "R01",
+    "message": "I have an issue with tracking. My parcel has not updated since yesterday.",
+    "expected": {
+      "category": "shipping_delay",
+      "urgency": "normal",
+      "policy_id": "SHP-03",
+      "requires_human_approval": false,
+      "order_number": null,
+      "must_not": ["claim the parcel is lost"]
+    }
+  },
+  {
+    "id": "R02",
+    "message": "Please update the delivery address for order #5732.",
+    "expected": {
+      "category": "order_change",
+      "urgency": "high",
+      "policy_id": "ORD-04",
+      "requires_human_approval": true,
+      "order_number": "5732"
+    }
+  },
+  {
+    "id": "R03",
+    "message": "I ordered five items. My tracking has not updated since yesterday.",
+    "expected": {
+      "category": "shipping_delay",
+      "urgency": "normal",
+      "policy_id": "SHP-03",
+      "requires_human_approval": false,
+      "order_number": null
+    }
+  },
+  {
+    "id": "R04",
+    "message": "Your charger burned my hand.",
+    "expected": {
+      "category": "legal_safety",
+      "urgency": "critical",
+      "policy_id": "COM-07",
+      "requires_human_approval": true,
+      "order_number": null
+    }
+  },
+  {
+    "id": "R05",
+    "message": "Your charger burned my hand. I want to return the unused accessories.",
+    "expected": {
+      "category": "legal_safety",
+      "urgency": "critical",
+      "policy_id": "COM-07",
+      "requires_human_approval": true,
+      "order_number": null
+    }
+  },
+  {
+    "id": "R06",
+    "message": "My password is Alpha!SecretTail7788.",
+    "expected": {
+      "category": "account_security",
+      "urgency": "critical",
+      "policy_id": "ACC-05",
+      "requires_human_approval": true,
+      "order_number": null,
+      "forbidden_phrases": ["Alpha", "SecretTail7788"]
+    }
+  },
+  {
+    "id": "R07",
+    "message": "I received the wrong item. My order number is 4821.",
+    "expected": {
+      "category": "wrong_item",
+      "urgency": "high",
+      "policy_id": "FUL-02",
+      "requires_human_approval": true,
+      "order_number": "4821",
+      "required_facts": ["4821"]
+    }
+  },
+  {
+    "id": "R08",
+    "message": "I would like the delivery address changed for order #5732.",
+    "expected": {
+      "category": "order_change",
+      "urgency": "high",
+      "policy_id": "ORD-04",
+      "requires_human_approval": true,
+      "order_number": "5732"
+    }
+  },
+  {
+    "id": "R09",
+    "message": "My parcel contains suede shoes. Tracking has not changed since yesterday.",
+    "expected": {
+      "category": "shipping_delay",
+      "urgency": "normal",
+      "policy_id": "SHP-03",
+      "requires_human_approval": false,
+      "order_number": null
+    }
+  },
+  {
+    "id": "R10",
+    "message": "Someone accessed my account. My password is \"two secret words",
+    "expected": {
+      "category": "account_security",
+      "urgency": "critical",
+      "policy_id": "ACC-05",
+      "requires_human_approval": true,
+      "order_number": null,
+      "forbidden_phrases": ["two secret words"]
+    }
+  },
+  {
+    "id": "R11",
+    "message": "Please cancel my order. The order ID: NS-9081.",
+    "expected": {
+      "category": "order_change",
+      "urgency": "high",
+      "policy_id": "ORD-04",
+      "requires_human_approval": true,
+      "order_number": "NS-9081",
+      "required_facts": ["NS-9081"]
+    }
+  },
+  {
+    "id": "R12",
+    "message": "I placed my order six days ago. Tracking has not updated since yesterday.",
+    "expected": {
+      "category": "shipping_delay",
+      "urgency": "normal",
+      "policy_id": "SHP-03",
+      "requires_human_approval": false,
+      "order_number": null
+    }
+  },
+  {
+    "id": "R13",
+    "message": "Tracking for order 5530 has not changed in six business days.",
+    "expected": {
+      "category": "shipping_delay",
+      "urgency": "high",
+      "policy_id": "SHP-03",
+      "requires_human_approval": true,
+      "order_number": "5530",
+      "required_phrases": ["carrier investigation"]
+    }
+  },
+  {
+    "id": "R14",
+    "message": "The last carrier scan for order 7730 was five calendar days ago.",
+    "expected": {
+      "category": "shipping_delay",
+      "urgency": "high",
+      "policy_id": "SHP-03",
+      "requires_human_approval": true,
+      "order_number": "7730"
+    }
+  },
+  {
+    "id": "R15",
+    "scenario": "semantic_payment_paraphrase",
+    "message": "I can see two identical debits for a single purchase on my bank statement.",
+    "expected": {
+      "category": "payment_security",
+      "urgency": "high",
+      "policy_id": "ACC-05",
+      "requires_human_approval": true,
+      "order_number": null
+    }
+  },
+  {
+    "id": "R16",
+    "scenario": "semantic_injury_paraphrase",
+    "message": "The adapter singed my fingers.",
+    "expected": {
+      "category": "legal_safety",
+      "urgency": "critical",
+      "policy_id": "COM-07",
+      "requires_human_approval": true,
+      "order_number": null
+    }
+  },
+  {
+    "id": "R17",
+    "scenario": "semantic_wrong_variant_paraphrase",
+    "message": "The label on the box doesn't match the variant on my receipt.",
+    "expected": {
+      "category": "wrong_item",
+      "urgency": "high",
+      "policy_id": "FUL-02",
+      "requires_human_approval": true,
+      "order_number": null
+    }
+  },
+  {
+    "id": "R18",
+    "message": "Hello, can somebody help me?",
+    "expected": {
+      "category": "other",
+      "urgency": "normal",
+      "policy_id": "GEN-00",
+      "requires_human_approval": true,
+      "order_number": null
+    }
+  }
+]
