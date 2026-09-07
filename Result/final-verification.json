@@ -76,5 +76,6 @@
   },
   "human_acceptance": "pending: independent participant unavailable",
   "candidate_review": "pending: current result/video review",
-  "source_delivery": "Current local project and source ZIP; GitHub publication has not been performed in this remediation"
+  "source_delivery": "Published to GitHub main at 42a902d09d1cbb42d7fec68f4b03ade6171765eb; public source, evidence and demo verified. Local source ZIP is refreshed after final documentation.",
+  "publication_verification": "publication-verification.json"
 }

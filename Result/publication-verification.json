@@ -1,0 +1,110 @@
+{
+  "verified_at": "2026-09-07T09:55:15.996Z",
+  "repository": "https://github.com/TMSifat/support-flow",
+  "branch": "main",
+  "published_artifact_commit": "42a902d09d1cbb42d7fec68f4b03ade6171765eb",
+  "verification": "Unauthenticated GitHub API and raw-content requests; all selected files match the published Git commit.",
+  "files": [
+    {
+      "path": "README.md",
+      "public_http_status": 200,
+      "bytes": 5611,
+      "sha256": "8b34cf14c5f199719b0c205d2046b344a6d84da26ca4c345371eb995926bb2e6",
+      "matches_commit": true
+    },
+    {
+      "path": "Result/START-HERE.md",
+      "public_http_status": 200,
+      "bytes": 1488,
+      "sha256": "7ecc3357688f01a5cb6949e8092620de05302a725d677dd58093234f0f1eb60c",
+      "matches_commit": true
+    },
+    {
+      "path": "Result/case-study.md",
+      "public_http_status": 200,
+      "bytes": 5645,
+      "sha256": "9334ea7e6f1eb8e2a3dabd91a4e8e09bd1e7048155a8a4c32d19896b55777353",
+      "matches_commit": true
+    },
+    {
+      "path": "Result/system-comparison.md",
+      "public_http_status": 200,
+      "bytes": 2881,
+      "sha256": "970c0ec8905a04449d9dfc111b5d10db25797443284026bdb025d60d502f53f3",
+      "matches_commit": true
+    },
+    {
+      "path": "Result/ai-collaboration-note.md",
+      "public_http_status": 200,
+      "bytes": 4072,
+      "sha256": "417215a187df9beaf9be5c6e30c75e8494121fb20c91a65026cd810c748c6906",
+      "matches_commit": true
+    },
+    {
+      "path": "Result/submission-text.md",
+      "public_http_status": 200,
+      "bytes": 2868,
+      "sha256": "6aa5c4a5d5be35ba9a4638b4b61a53928f3b438e67aa404d3ae0f3159b509e92",
+      "matches_commit": true
+    },
+    {
+      "path": "Result/demo.md",
+      "public_http_status": 200,
+      "bytes": 1476,
+      "sha256": "ef78584037679db4d183847e75614ddbe042019a5abddb15adc9cc71e0ac0cd4",
+      "matches_commit": true
+    },
+    {
+      "path": "Result/supportflow-demo.webm",
+      "public_http_status": 200,
+      "bytes": 22490833,
+      "sha256": "21350a9685243f7fa993641ec219af0d744d733584c26e4b3b3635156eba7615",
+      "matches_commit": true
+    },
+    {
+      "path": "lib/support-engine.ts",
+      "public_http_status": 200,
+      "bytes": 30475,
+      "sha256": "d35c9c0bbfee0944aa451a7cfc5289dee5c9d9363df2d6306d16feb1aa31d294",
+      "matches_commit": true
+    },
+    {
+      "path": "scripts/evaluation-core.mjs",
+      "public_http_status": 200,
+      "bytes": 12416,
+      "sha256": "19e1b21168830dcb9f2a15ec649219dfb0e6dad13d30d2015e377a931a030269",
+      "matches_commit": true
+    },
+    {
+      "path": "Result/final-results.json",
+      "public_http_status": 200,
+      "bytes": 31079,
+      "sha256": "68d62792d70afa3db498d4fdeef2e8980dc4d9484669c982c27a61f8026c0c4d",
+      "matches_commit": true
+    },
+    {
+      "path": "Result/day-4-challenge-after.json",
+      "public_http_status": 200,
+      "bytes": 31570,
+      "sha256": "63fff523e9f5359b0fa4918a89a5c6696bcfb306c4efe80804c737eebb26eb91",
+      "matches_commit": true
+    },
+    {
+      "path": "Result/hardening-results.json",
+      "public_http_status": 200,
+      "bytes": 21570,
+      "sha256": "9481c3776d209d6f91597a77c9337ba6b6c72c23a020101662a56103ea8d6763",
+      "matches_commit": true
+    },
+    {
+      "path": "Result/remediation-results.json",
+      "public_http_status": 200,
+      "bytes": 47572,
+      "sha256": "e3af3daa169d29a06e78d4a1abc0972b3179b1e0507c8d89462bbc09e66c7fed",
+      "matches_commit": true
+    }
+  ],
+  "quest_submission": "pending: submission page URL not available",
+  "candidate_review": "pending",
+  "independent_operator_test": "pending: participant unavailable"
+}
