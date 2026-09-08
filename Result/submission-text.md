@@ -2,6 +2,8 @@
 
 Use the links and summary below in the quest portal. This document is prepared submission content; it is not a portal submission receipt.
 
+Presentation updated 8 September 2026. The links below use the main branch, including the reorganized submission guide and requirement evidence map. Earlier publication verification remains scoped to its recorded 7 September commit.
+
 ## Links
 
 - Repository: https://github.com/TMSifat/support-flow
@@ -13,6 +15,8 @@ Use the links and summary below in the quest portal. This document is prepared s
 - AI collaboration note: https://github.com/TMSifat/support-flow/blob/main/Result/ai-collaboration-note.md
 
 ## Project summary
+
+**Delivered artifacts:** runnable working system, evaluation package, case study, AI collaboration note and five-minute screen recording. Technical evaluation is complete for the recorded synthetic scope; independent human acceptance and candidate review remain pending.
 
 SupportFlow is a runnable local support-review workspace for a small e-commerce operator. It takes one English support message through classification, urgency, policy matching, provided order details, remaining checks and an editable reply. Consequential cases require acknowledgement before copying; editing the draft resets approval. It integrates local Ollama inference and a D1 audit store with versioned synthetic store policies.
 
