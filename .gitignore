@@ -38,3 +38,14 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# Private recording and presentation preparation (kept locally)
+/Result/demo-manifest.json
+/Result/demo-recording-checklist.md
+/Result/demo-script.md
+/Result/demo.md
+/Result/history/demo-recording-checklist-v1.md
+/Result/history/demo-script-v1.md
+/Result/supportflow-demo.webm
+/scripts/record-demo.mjs
+/Result/candidate-brief.md

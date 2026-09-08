@@ -67,15 +67,9 @@
     "all_passed": true,
     "independent_human_test": false
   },
-  "video": {
-    "duration_seconds": 300,
-    "width": 1440,
-    "height": 1180,
-    "sha256": "21350a9685243f7fa993641ec219af0d744d733584c26e4b3b3635156eba7615",
-    "bytes": 22490833
-  },
   "human_acceptance": "pending: independent participant unavailable",
   "candidate_review": "pending: current result/video review",
-  "source_delivery": "Published to GitHub main at 42a902d09d1cbb42d7fec68f4b03ade6171765eb; public source, evidence and demo verified. Local source ZIP is refreshed after final documentation.",
-  "publication_verification": "publication-verification.json"
+  "source_delivery": "Source and evaluation evidence published on GitHub; historical verification applies to the commit named in publication-verification.json.",
+  "publication_verification": "publication-verification.json",
+  "presentation_status": "Candidate recording pending separate delivery; video and recording-preparation materials excluded from the repository at the owner request."
 }

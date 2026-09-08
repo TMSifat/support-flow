@@ -48,20 +48,6 @@
       "matches_commit": true
     },
     {
-      "path": "Result/demo.md",
-      "public_http_status": 200,
-      "bytes": 1476,
-      "sha256": "ef78584037679db4d183847e75614ddbe042019a5abddb15adc9cc71e0ac0cd4",
-      "matches_commit": true
-    },
-    {
-      "path": "Result/supportflow-demo.webm",
-      "public_http_status": 200,
-      "bytes": 22490833,
-      "sha256": "21350a9685243f7fa993641ec219af0d744d733584c26e4b3b3635156eba7615",
-      "matches_commit": true
-    },
-    {
       "path": "lib/support-engine.ts",
       "public_http_status": 200,
       "bytes": 30475,
@@ -106,5 +92,6 @@
   ],
   "quest_submission": "pending: submission page URL not available",
   "candidate_review": "pending",
-  "independent_operator_test": "pending: participant unavailable"
+  "independent_operator_test": "pending: participant unavailable",
+  "scope_note": "Historical source/evidence verification. Video and demo entries are omitted from this public record following the owner request on 8 September 2026; the original complete record is retained locally."
 }

@@ -1,6 +1,6 @@
 # Sprint requirements — evidence map
 
-Prepared 8 September 2026 against the five supplied sprint screenshots. **Included** means an artifact or implementation is present. **Partial/unverified** identifies requirements the evidence does not fully demonstrate. Inclusion of all five deliverable artifacts is not a claim that every assessment criterion has been satisfied.
+Prepared 8 September 2026 against the five supplied sprint screenshots. **Included** means an artifact or implementation is present. **Partial/unverified** identifies requirements the evidence does not fully demonstrate. Four deliverable artifacts are included; the candidate-recorded demo is pending separate delivery. Included artifacts do not establish that every assessment criterion has been satisfied.
 
 ## Day 1 — discover, map and baseline
 
@@ -22,13 +22,13 @@ Prepared 8 September 2026 against the five supplied sprint screenshots. **Includ
 | Model, tool, storage and interface choices with rationale | Included | Architecture, [design record](day-2-design-v0.md), case study |
 | Approval, fallback, privacy and permission boundaries | Included | Architecture, [engine](../lib/support-engine.ts), [runbook](operator-runbook.md) |
 | Evaluation rubric and pass/fail criteria | Included | [Evaluator-v3 rubric](evaluation-rubric.md), [executable evaluator](../scripts/evaluation-core.mjs) |
-| One input through the complete flow | Included for synthetic input | [Historical v0 evidence](day-2-v0-evidence.json), [current results](final-results.json), demo. No production customer input is claimed. |
+| One input through the complete flow | Included for synthetic input | [Historical v0 evidence](day-2-v0-evidence.json), [current results](final-results.json). No production customer input is claimed. |
 
 ## Day 3 — working core
 
 | Requirement | Status | Evidence |
 |---|---|---|
-| Working core from trigger to final output | Included | Review API, engine, [browser verification](browser-verification.json), demo |
+| Working core from trigger to final output | Included | Review API, engine, [browser verification](browser-verification.json) |
 | At least two real data-source/tool integrations | Included | Ollama HTTP inference and D1 audit storage, plus versioned JSON policy context |
 | Validation, structured outputs, logs and useful errors | Included | API, runtime schema, audit status, retries/fallback and regression checks |
 | Configuration and secrets separated from code | Included | [Example environment](../.env.example), [launcher](../scripts/start-supportflow.ps1) |
@@ -54,14 +54,14 @@ Prepared 8 September 2026 against the five supplied sprint screenshots. **Includ
 | One-command or three-step setup | Included | [README](../README.md), Windows launcher, [agent-run clean bootstrap](clean-bootstrap-verification.json) on the existing machine |
 | User README and operator runbook | Included | README and runbook |
 | Architecture, flow, evaluation, results and limitations documentation | Included | [Submission guide](START-HERE.md) indexes current documents. |
-| Five-minute screen-recorded demo | Included | [300-second video](supportflow-demo.webm), [manifest](demo-manifest.json); silent automated local demonstration using synthetic inputs. Candidate viewing is pending. |
+| Five-minute screen-recorded demo | Pending separate delivery | The candidate will record and provide this deliverable. Video and recording-preparation materials are not included in this repository. |
 | Portfolio-ready case study | Included | Case study covers all seven requested topics, including the next iteration. |
 | First-two-week adoption/quality metrics and iteration plan | Plan included; observations pending | [Adoption plan](adoption-plan.md) defines targets, methods and next work. Two weeks of adoption have not been observed. |
 | Another person can understand, run and operate the system without the builder | Partial/unverified | Handoff materials are prepared; [independent acceptance](handoff-acceptance.md) is pending. |
 
 ## Required deliverables and evaluation categories
 
-The [submission guide](START-HERE.md) indexes all five required artifacts: working system, evaluation package, case study, AI collaboration note and demo. The [AI note](ai-collaboration-note.md) covers tools, delegation, verification, rejected/corrected outputs and candidate decisions. The [demo details](demo.md) document the input-to-output flow, interface, failure handling, measured results and limitations.
+The [submission guide](START-HERE.md) indexes the four included artifacts and tracks the candidate-recorded demo as pending separate delivery. The [AI note](ai-collaboration-note.md) covers tools, delegation, verification, rejected/corrected outputs and candidate decisions.
 
 | Weight | Evaluation category | Evidence and remaining qualification |
 |---|---|---|
@@ -70,6 +70,6 @@ The [submission guide](START-HERE.md) indexes all five required artifacts: worki
 | 20% | Working product and reliability | Saved live runs, automated checks and clean bootstrap; independent reproduction is untested. |
 | 20% | Evaluation and learning loop | Common baselines, failure analysis and before/after evidence; actual human intervention is unmeasured. |
 | 15% | Non-developer UX and adoption | UI, approval controls, README and runbook; current non-builder operation and adoption remain unverified. |
-| 10% | Ownership and communication | AI note, case study, demo and explanation brief; personal understanding and [current result/video review](current-candidate-review.json) require the candidate. |
+| 10% | Ownership and communication | AI note and case study; the demo is pending separately. Personal understanding and [current result/video review](current-candidate-review.json) require the candidate. |
 
 These are evidence assessments, not awarded scores. The actual Monday–Friday participation schedule is not verified; eight hours daily is a recommendation in the brief. Portal submission has no recorded confirmation. Historical completed labels do not replace current evidence.

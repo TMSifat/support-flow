@@ -38,16 +38,16 @@ Start with [the current submission index](Result/START-HERE.md). Current authori
 - [Case study](Result/case-study.md), [architecture](Result/architecture.md), [operator runbook](Result/operator-runbook.md)
 - [AI collaboration note](Result/ai-collaboration-note.md), [submission checklist](Result/submission-checklist.md)
 - [Two-week adoption plan](Result/adoption-plan.md)
-- [Five-minute screen-recorded demo](Result/demo.md)
+- Candidate-recorded demo: to be supplied separately. Video and recording-preparation materials are not included in this repository.
 
 Run `npm test` for model fault injection, audit regressions, field extraction and all declared prohibition negative tests. With the app and Ollama running, run `npm run evaluate:all` for all 50 final-system cases, both prompt baselines, the no-inference comparison and reports. Failed final-system cases stop that command. Prior raw runs are archived in Result/history before replacement. Review commands rescore output; they never certify human review.
 
 For engineering checks run `npm run lint`, `npx tsc --noEmit`, and `npm run build`.
 
-Optional maintainer browser QA and recording use Playwright (not required to run SupportFlow). Install Playwright in a separate tooling folder and set NODE_PATH to its node_modules, or install it locally without changing the app dependencies. Run scripts/browser-check.mjs or scripts/record-demo.mjs. PLAYWRIGHT_EXECUTABLE can select an already-installed Chromium. The recording uses real local API responses with on-screen explanations; it is silent and automated.
+Optional maintainer browser QA uses Playwright (not required to run SupportFlow). Install Playwright in a separate tooling folder and set NODE_PATH to its node_modules, or install it locally without changing the app dependencies. Run scripts/browser-check.mjs. PLAYWRIGHT_EXECUTABLE can select an already-installed Chromium.
 
 ## Limitations and handoff
 
 The original suite contains 12 synthetic cases; challenge, hardening and remediation suites bring the total to 50. These provide regression coverage, not an unseen generalization benchmark. Automated text checks remain incomplete and do not replace human review. Order-number extraction and two required identifier facts are measured on the remediation suite; this is not broad extraction accuracy. Actual manual touches, real operator time savings, independent installation and adoption are unmeasured. External model API cost is zero; hardware/electricity cost is unmeasured.
 
-The runnable local repository is the delivery format accepted by the brief. Online hosting and JSON export are not required. No independent operator is currently available. The [human test kit](Result/human-test-kit.md) and version-bound observation form are ready; run `npm run handoff:summarize` after collecting actual observations. The separate [candidate review](Result/current-candidate-review.json) must be completed by the candidate after watching the current video and reviewing its exact result hash.
+The runnable local repository is the delivery format accepted by the brief. Online hosting and JSON export are not required. No independent operator is currently available. The [human test kit](Result/human-test-kit.md) and version-bound observation form are ready; run `npm run handoff:summarize` after collecting actual observations. The separate [candidate review](Result/current-candidate-review.json) must be completed by the candidate after reviewing the exact current results and the candidate-recorded demo when available.

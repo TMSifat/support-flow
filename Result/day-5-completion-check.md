@@ -11,7 +11,7 @@ Status: package complete; screen-recorded demo and external upload/link checks r
 | User README and operator runbook         | `README.md`, `operator-runbook.md`                                    | Complete                           |
 | Architecture and data-flow documentation | `architecture.md`, `day-2-design-v0.md`                               | Complete                           |
 | Evaluation set, results, and limitations | Test data, raw JSON evidence, summaries, comparison, failure analysis | Complete                           |
-| Five-minute demo                         | Timed script and recording checklist                                  | Script complete; recording pending |
+| Five-minute demo                         | Candidate recording supplied separately                               | Recording pending |
 | Portfolio-ready case study               | `case-study.md`                                                       | Complete                           |
 | First-two-week adoption and quality plan | `adoption-plan.md`                                                    | Complete                           |
 | Submission package under 25 MB           | Clean Git archive and SHA-256 checksum                                | Complete                           |

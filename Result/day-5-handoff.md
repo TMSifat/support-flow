@@ -32,7 +32,7 @@ Source repository: https://github.com/TMSifat/support-flow
 - Working source project and local startup guide
 - Architecture, data flow, policies, contracts, and operator runbook
 - Baseline, final, and challenge raw evidence
-- Comparison, failure analysis, case study, AI collaboration note, and five-minute demo script
+- Comparison, failure analysis, case study and AI collaboration note
 - Candidate-proxy sign-off with explicit disclosure boundaries
 
 ## Honest limits
@@ -45,6 +45,6 @@ Source repository: https://github.com/TMSifat/support-flow
 
 ## Remaining candidate actions
 
-1. Record the five-minute demo using `demo-recording-checklist.md`.
+1. Record the five-minute demo separately.
 2. Upload the video and test its link while signed out.
 3. Add the repository and video links to the submission form, then complete the final review before selecting Submit Quest.
